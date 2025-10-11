@@ -1,0 +1,344 @@
+[
+    {
+        "id": "fd57f69bac6ac238",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a67990851810d4f7",
+        "type": "mqtt out",
+        "z": "fd57f69bac6ac238",
+        "name": "",
+        "topic": "teste",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "34706d719d576df0",
+        "x": 510,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "0296a20e1e2a8846",
+        "type": "mqtt in",
+        "z": "fd57f69bac6ac238",
+        "name": "MQTT Subscriber Estacao1",
+        "topic": "linha_producao/estacao/1",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "34706d719d576df0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 160,
+        "wires": [
+            [
+                "5b98358da4e0d3fe"
+            ]
+        ]
+    },
+    {
+        "id": "139532b9a9063fea",
+        "type": "inject",
+        "z": "fd57f69bac6ac238",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "teste",
+        "payload": "Hello World",
+        "payloadType": "str",
+        "x": 140,
+        "y": 580,
+        "wires": [
+            [
+                "c2148d1b02fd650d"
+            ]
+        ]
+    },
+    {
+        "id": "2c7ddb11c525b926",
+        "type": "debug",
+        "z": "fd57f69bac6ac238",
+        "name": "Estacao 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c2148d1b02fd650d",
+        "type": "function",
+        "z": "fd57f69bac6ac238",
+        "name": "function 1",
+        "func": "msg.payload = {\n  timestamp: new Date().toISOString(),\n  estacao: \"E\" + Math.floor(Math.random() * 3 + 1),\n  producao: Math.floor(Math.random() * 70 + 30),\n  paragem: Math.random() < 0.2 ? Math.floor(Math.random() * 20) : 0,\n  stock: Math.floor(Math.random() * 100),\n  defeitos: Math.floor(Math.random() * 5)\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 600,
+        "wires": [
+            [
+                "a67990851810d4f7"
+            ]
+        ]
+    },
+    {
+        "id": "5b98358da4e0d3fe",
+        "type": "function",
+        "z": "fd57f69bac6ac238",
+        "name": "Adicionar TimeStamp",
+        "func": "\n\n// Adiciona timestamp ISO\nlet timestamp = new Date().toISOString();\n\n// Monta o novo objeto de saída\nmsg.payload = {\n    estacao : \"1\",\n    timestamp: timestamp,\n    dados: msg.payload   // mantém os valores originais (producao, stock, etc.)\n};\n\n// Retorna a mensagem atualizada\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 160,
+        "wires": [
+            [
+                "2c7ddb11c525b926",
+                "3c2018d5d768a8ee"
+            ]
+        ]
+    },
+    {
+        "id": "18c6c95d6b07b9c1",
+        "type": "mqtt in",
+        "z": "fd57f69bac6ac238",
+        "name": "MQTT Subscriber Estacao2",
+        "topic": "linha_producao/estacao/2",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "34706d719d576df0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 240,
+        "wires": [
+            [
+                "fcef7c8376bc685e"
+            ]
+        ]
+    },
+    {
+        "id": "fcef7c8376bc685e",
+        "type": "function",
+        "z": "fd57f69bac6ac238",
+        "name": "Adicionar TimeStamp",
+        "func": "\n\n// Adiciona timestamp ISO\nlet timestamp = new Date().toISOString();\n\n// Monta o novo objeto de saída\nmsg.payload = {\n    estacao : \"2\",\n    timestamp: timestamp,\n    dados: msg.payload   // mantém os valores originais (producao, stock, etc.)\n};\n\n// Retorna a mensagem atualizada\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 240,
+        "wires": [
+            [
+                "3638de5e40a424c9"
+            ]
+        ]
+    },
+    {
+        "id": "3638de5e40a424c9",
+        "type": "debug",
+        "z": "fd57f69bac6ac238",
+        "name": "Estacao 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "a4aebbc7bc766ebb",
+        "type": "mqtt in",
+        "z": "fd57f69bac6ac238",
+        "name": "MQTT Subscriber Estacao3",
+        "topic": "linha_producao/estacao/3",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "34706d719d576df0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 320,
+        "wires": [
+            [
+                "6f6724986e779932"
+            ]
+        ]
+    },
+    {
+        "id": "6f6724986e779932",
+        "type": "function",
+        "z": "fd57f69bac6ac238",
+        "name": "Adicionar TimeStamp",
+        "func": "\n\n// Adiciona timestamp ISO\nlet timestamp = new Date().toISOString();\n\n// Monta o novo objeto de saída\nmsg.payload = {\n    estacao : \"3\",\n    timestamp: timestamp,\n    dados: msg.payload   // mantém os valores originais (producao, stock, etc.)\n};\n\n// Retorna a mensagem atualizada\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "e8a62a788e412cb0"
+            ]
+        ]
+    },
+    {
+        "id": "e8a62a788e412cb0",
+        "type": "debug",
+        "z": "fd57f69bac6ac238",
+        "name": "Estacao 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e410307534a24d24",
+        "type": "file",
+        "z": "fd57f69bac6ac238",
+        "name": "Write to CSV file",
+        "filename": "D:\\\\Escola_3ano\\\\ISI\\\\ProjetoISIv1\\\\estacao1.csv",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 940,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "88141c0a8e7b958d",
+        "type": "csv",
+        "z": "fd57f69bac6ac238",
+        "name": "Estacao 1 File",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "once",
+        "multi": "one",
+        "ret": "\\r\\n",
+        "temp": "estacao,timestamp,producao,paragem,stock,defeitos",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 820,
+        "y": 20,
+        "wires": [
+            [
+                "e410307534a24d24"
+            ]
+        ]
+    },
+    {
+        "id": "3c2018d5d768a8ee",
+        "type": "function",
+        "z": "fd57f69bac6ac238",
+        "name": "Flatten JSON for CSV",
+        "func": "// Flatten JSON for CSV\nvar flat = {\n    estacao: msg.payload.estacao,\n    timestamp: msg.payload.timestamp,\n    producao: msg.payload.dados.producao,\n    paragem: msg.payload.dados.paragem,\n    stock: msg.payload.dados.stock,\n    defeitos: msg.payload.dados.defeitos\n};\n\n\nmsg.payload = flat;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 100,
+        "wires": [
+            [
+                "88141c0a8e7b958d"
+            ]
+        ]
+    },
+    {
+        "id": "34706d719d576df0",
+        "type": "mqtt-broker",
+        "name": "mqtt teste",
+        "broker": "127.0.0.1",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
