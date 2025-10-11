@@ -350,7 +350,7 @@
         "type": "function",
         "z": "fd57f69bac6ac238",
         "name": "Acumular dados de producao",
-        "func": "// Get the existing accumulated value\nlet accProducao = flow.get('producao_acc') || 0;\nlet accStock = flow.get('stock_acc') || 0;\n\n\n// Add the new production value\naccProducao += msg.payload.dados.producao;\naccStock += msg.payload.dados.stock;\n\n// Save the new total back to flow context\nflow.set('producao_acc', accProducao);\nflow.set('stock_acc',accStock);\n\n// Set the message payload to the accumulated value\nmsg.payload = {\n    \"producao\": accProducao,\n \"stock\" : accStock\n}\n\nreturn msg;\n",
+        "func": "// Get the existing accumulated value\nlet accProducao = flow.get('producao_acc') || 0;\nlet accStock = flow.get('stock_acc') || 0;\nlet accParagem = flow.get('paragem_acc') || 0;\n\n\n// Add the new production value\naccProducao += msg.payload.dados.producao;\naccStock += msg.payload.dados.stock;\naccParagem += msg.payload.paragem;\n\n// Save the new total back to flow context\nflow.set('producao_acc', accProducao);\nflow.set('stock_acc',accStock);\nflow.set('paragem_acc',accParagem);\n\n// Set the message payload to the accumulated value\nmsg.payload = {\n    \"producao\": accProducao,\n    \"stock\" : accStock,\n    \"paragem\" : accParagem\n}\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -383,7 +383,7 @@
         ]
     },
     {
-        "id": "9d3264f74e169384",
+        "id": "379ff5aae9b27366",
         "type": "global-config",
         "env": [],
         "modules": {

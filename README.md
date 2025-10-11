@@ -4,6 +4,7 @@ Trabalho da Disciplina de Integração de Sistemas de Informação (ISI) pretend
 # Tecnologias Usadas
 - NodeRed -> nodered.org/docs/getting-started/windows uses node.js and npm packages
 https://nodered.org/docs/getting-started/windows
+- NodeRed UI builder with vue.js
 - Python -> Python 3.14.0
 - Mosquitto MQTT
 - Git
