@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ProjetoISIv1
+  description: Trabalho da Disciplina de Integração de Sistemas de Informação (ISI) pretende-se focar a aplicação e experimentação de ferramentas em processos de ETL (Extract, Transformation and Load), inerentes a processos de Integração de Sistemas de informação ao nível dos dados. 
+  # Example for optional annotations
+  annotations:
+   github.com/project-slug: PEQSPC/ProjetoISIv1
+spec:
+  type: service
+  owner: development
+  lifecycle: experimental
