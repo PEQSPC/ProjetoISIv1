@@ -3,10 +3,11 @@ nav:
   - Home: index.md
   - Configuration: configuration.md
   - Math-Expression: math_expression.md
-theme: readthedocs
+
 repo_url: https://github.com/PEQSPC/ProjetoISIv1/tree/main
+edit_uri: edit/main/docs
 repo_name: ProjetoISIv1
 docs_dir: mqtt-simulator-master/docs
-
+theme: readthedocs
 plugins:
   - techdocs-core
