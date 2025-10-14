@@ -2,21 +2,20 @@
 Trabalho da Disciplina de Integração de Sistemas de Informação (ISI) pretende-se focar a aplicação e experimentação de ferramentas em processos de ETL (Extract, Transformation and Load), inerentes a processos de Integração de Sistemas de informação ao nível dos dados.
 
 # Tecnologias Usadas
-- NodeRed -> nodered.org/docs/getting-started/windows uses node.js and npm packages
-https://nodered.org/docs/getting-started/windows
+- NodeRed -> [NodeRed Windows](nodered.org/docs/getting-started/windows) uses node.js and npm packages
 - NodeRed UI builder with vue.js
 - Python -> Python 3.14.0
 - Mosquitto MQTT
 - Git
 
 # Comandos Git
-https://www.geeksforgeeks.org/git/working-on-git-bash/
+[Geeks git Commands](https://www.geeksforgeeks.org/git/working-on-git-bash/)
 
 
 # PASSOS
 - Install Node-Red
 - Install Mosquitto Broker
-- Add https://github.com/DamascenoRafael/mqtt-simulator to be a publisher for mqtt
+- Add [MQTT-Simulator](https://github.com/DamascenoRafael/mqtt-simulator) to be a publisher for mqtt
 - Install node red dashboard
 - Config node-red to be a subscriber and then ETL the json objets to the node-red-dashboard 
 
