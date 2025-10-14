@@ -1,6 +1,6 @@
 # MQTT Simulator - Data type `math_expression`
 
-For general information on how to configure the MQTT Simulator see the [README.md](../README.md) file.
+For general information on how to configure the MQTT Simulator see the [README.md](https://github.com/PEQSPC/ProjetoISIv1/blob/main/mqtt-simulator-master/README.md) file.
 
 For `TYPE: "math_expression"` we need five required configuration parameters: `MATH_EXPRESSION`, `INTERVAL_START`, `INTERVAL_END`, `MIN_DELTA` and `MAX_DELTA`. Each of these have some notes:
 

@@ -7,7 +7,7 @@ Quick Navigation:
 [Topics settings](#topics-settings) •
 [Data settings](#data-settings)
 
-You can also check a full settings file example at: [settings.json](../config/settings.json).
+You can also check a full settings file example at: [settings.json](https://github.com/PEQSPC/ProjetoISIv1/blob/main/mqtt-simulator-master/config/settings.json).
 
 ## Broker settings
 
