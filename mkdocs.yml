@@ -1,13 +1,15 @@
 site_name: ProjetoISIv1
+site_description: Trabalho da Disciplina de Integração de Sistemas de Informação (ISI) pretende-se focar a aplicação e experimentação de ferramentas em processos de ETL (Extract, Transformation and Load), inerentes a processos de Integração de Sistemas de informação ao nível dos dados. 
+site_author: PEQSPC
+repo_url: https://github.com/PEQSPC/ProjetoISIv1/tree/main
+edit_uri: edit/main/mqtt-simulator-master/docs
+docs_dir: mqtt-simulator-master/docs
+theme: readthedocs
+
+plugins:
+  - techdocs-core
+
 nav:
   - Home: index.md
   - Configuration: configuration.md
   - Math-Expression: math_expression.md
-
-repo_url: https://github.com/PEQSPC/ProjetoISIv1/tree/main
-edit_uri: edit/main/docs
-repo_name: ProjetoISIv1
-docs_dir: mqtt-simulator-master/docs
-theme: readthedocs
-plugins:
-  - techdocs-core
