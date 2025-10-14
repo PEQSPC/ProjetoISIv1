@@ -7,6 +7,10 @@ metadata:
   annotations:
    github.com/project-slug: PEQSPC/ProjetoISIv1
    backstage.io/techdocs-ref: dir:.
+  links:
+    - url: https://github.com/PEQSPC/ProjetoISIv1/blob/main/TODO.md
+      title: To-Do List
+      icon: checklist
 spec:
   type: service
   owner: development
