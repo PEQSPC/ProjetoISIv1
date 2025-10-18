@@ -18,12 +18,14 @@ For `TYPE: "math_expression"` we need five required configuration parameters: `M
 }
 ```
 
-* `MATH_EXPRESSION`: 
-  * The `MATH_EXPRESSION`'s variable **must** be defined as `x`. 
+* `MATH_EXPRESSION`:
+*  
+  * The `MATH_EXPRESSION`'s variable **must** be defined as `x`.
   * Any *Pythonic* expression is valid, so, for instance, if you declare it as `x**2` or `math.pow(x,2)` the generated function will be the same.
 
-* `INTERVAL_START` and `INTERVAL_END`: 
-  * These parameters will works as the function domain, restricting the value that `x` can reach. 
+* `INTERVAL_START` and `INTERVAL_END`:
+  
+  * These parameters will works as the function domain, restricting the value that `x` can reach.
   * When the variable `x > INTERVAL_END`, the function will be evaluated, and then the variable will be reset to `x=INTERVAL_START`. So keep in mind that the real interval is `[INTERVAL_START,INTERVAL_END+MAX_DELTA)`.
 
 * `MIN_DELTA` and `MAX_DELTA`:
@@ -32,7 +34,6 @@ For `TYPE: "math_expression"` we need five required configuration parameters: `M
 ## Example 1 - Freezer Temperature
 
 In the example below the `MATH_EXPRESION` = $2x²+1$, `INTERVAL_START = 0`, `INTERVAL_END = 5`, `MIN_DELTA = 0` and `MAX_DELTA = 0.5`, so it is expected that the generated values are between 1 and 61.5, and the curves should be slightly different.
-
 
 ```json
  {
@@ -60,7 +61,6 @@ In the example below the `MATH_EXPRESION` = $2x²+1$, `INTERVAL_START = 0`, `INT
 ## Example 2 - Car Velocity
 
 In the example below the `MATH_EXPRESION` = $\sqrt{75x}$, `INTERVAL_START = 0`, `INTERVAL_END = 100`, `MIN_DELTA = 10` and `MAX_DELTA = 10`, so it is expected that the generated values are between 0 and 87. As `REATIN_PROBABILITY = 0` and the `MIN_DELTA` and `MAX_DELTA` are identicals, the curves must be identicals.
-
 
 ```json
 {

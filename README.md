@@ -1,38 +1,22 @@
-# ProjetoISIv1
+# Projeto ESI-ISI 2025/26 - Trabalho Prático I
+
+> Este README.md feito em [Mkdocs](https://www.mkdocs.org/)
+Este repositório contém todo o material relacionado com o **Trabalho Prático I** da unidade curricular **Integração de Sistemas de Informação (ISI)**.
+
+## Proposito
+
 Trabalho da Disciplina de Integração de Sistemas de Informação (ISI) pretende-se focar a aplicação e experimentação de ferramentas em processos de ETL (Extract, Transformation and Load), inerentes a processos de Integração de Sistemas de informação ao nível dos dados.
 
-# Tecnologias Usadas
-- NodeRed -> [NodeRed Windows](nodered.org/docs/getting-started/windows) uses node.js and npm packages
-- NodeRed UI builder with vue.js
-- Python -> Python 3.14.0
-- Mosquitto MQTT
-- Git
+## 📘 Documentação
 
-# Comandos Git
-[Geeks git Commands](https://www.geeksforgeeks.org/git/working-on-git-bash/)
+Toda a documentação detalhada do projeto, incluindo instruções de instalação, configuração, arquitetura e funcionamento dos processos ETL, encontra-se disponível no site gerado pelo **MkDocs**.
 
+👉 **Por favor, leia toda a documentação no MkDocs antes de prosseguir.**
 
-# PASSOS
-- Install Node-Red
-- Install Mosquitto Broker
-- Add [MQTT-Simulator](https://github.com/DamascenoRafael/mqtt-simulator) to be a publisher for mqtt
-- Install node red dashboard
-- Config node-red to be a subscriber and then ETL the json objets to the node-red-dashboard 
+### Como aceder à documentação
 
-# Exemplo de sensores simulados
-|     Sensor       |     Tipo de   dado         |     Unidade     |     Intervalo   de emissão    |     Exemplo de   payload                  |
-|------------------|----------------------------|-----------------|-------------------------------|-------------------------------------------|
-|     Produção     |     Peças por   minuto     |     pcs/min     |     5 s                       |     {   "estacao": 1, "producao": 58 }    |
-|     Paragem      |     Tempo parado           |     segundos    |     evento                    |     {   "estacao": 1, "paragem": 15 }     |
-|     Stock        |     Nível de   stock       |     %           |     10 s                      |     {   "estacao": 1, "stock": 73 }       |
-|     Qualidade    |     Peças   defeituosas    |     %           |     10 s                      |     {   "estacao": 1, "defeitos": 4 }     |
+Se o MkDocs já estiver configurado, basta executar no terminal no root diretory:
 
-
-
-# Arquitetura do Projeto
-
-Publisher: DamascenoRafael (via mqtt-simulator)
-
-Broker: Mosquitto ->(netstap -a) TCP 127.0.0.1:1883 DESKTOP-I0EE5MC:0 LISTENING
-
-Subscriber: Node-RED with node red dashboard
+```bash
+mkdocs serve
+```

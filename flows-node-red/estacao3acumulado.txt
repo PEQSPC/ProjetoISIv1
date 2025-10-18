@@ -1,0 +1,1 @@
+{"producao":"15037","stock":"5609","paragem":"4179","defeitos":"65"}
