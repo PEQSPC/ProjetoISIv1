@@ -98,9 +98,3 @@ Below is a minimal configuration file that connects to the `mqtt.eclipseprojects
   ]
 }
 ```
-
-## Main contributors
-
-[![DamascenoRafael](https://github.com/DamascenoRafael.png?size=70)](https://github.com/DamascenoRafael)
-[![Maasouza](https://github.com/Maasouza.png?size=70)](https://github.com/Maasouza)
-[![AJ Danelz](https://github.com/vordimous.png?size=70)](https://github.com/vordimous)
