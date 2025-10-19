@@ -7,7 +7,7 @@
       "PREFIX": "linha_producao/estacao",
       "RANGE_START": 1,
       "RANGE_END": 3,
-      "TIME_INTERVAL": 5,
+      "TIME_INTERVAL": 10,
       "DATA": [
         {
           "NAME": "producao",
