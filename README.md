@@ -24,6 +24,7 @@ atençao que o to-pdf biblioteca esta a usar um compiler do linux fazer estes st
 Se o MkDocs já estiver configurado, basta executar no terminal no root diretory:
 
 ```bash
+mkdocs build
 mkdocs serve
 ```
 
