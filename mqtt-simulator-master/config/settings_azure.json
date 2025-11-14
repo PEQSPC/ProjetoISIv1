@@ -1,7 +1,6 @@
 {
-  "BROKER_TYPE": "mqtt",
-  "BROKER_URL": "localhost",
-  "BROKER_PORT": 1883,
+  "BROKER_TYPE": "azure",
+  "AZURE_CONNECTION_STRING": "HostName=your-hub-name.azure-devices.net;DeviceId=your-device-id;SharedAccessKey=your-shared-access-key",
   "TOPICS": [
     {
       "TYPE": "multiple",
