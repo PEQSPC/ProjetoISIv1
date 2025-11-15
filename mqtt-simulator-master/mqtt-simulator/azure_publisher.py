@@ -50,7 +50,7 @@ class AzurePublisher(threading.Thread):
         self.event_loop: asyncio.AbstractEventLoop | None = None
 
     def create_client(self) -> IoTHubDeviceClient:
-        """Create Azure IoT Hub device client."""
+        """Create Azure IoT Hub device client with appropriate settings."""
         if self.broker_settings.azure_model_id:
             client = IoTHubDeviceClient.create_from_connection_string(
                 self.broker_settings.azure_connection_string,
@@ -60,11 +60,20 @@ class AzurePublisher(threading.Thread):
             client = IoTHubDeviceClient.create_from_connection_string(
                 self.broker_settings.azure_connection_string
             )
+
+        # The SDK handles reconnections automatically, but we add our own retry logic
         return client
 
     async def connect_async(self):
         """Async connection to Azure IoT Hub."""
         self.client = self.create_client()
+
+        # Set up connection status handler to suppress background errors
+        def on_connection_state_change():
+            pass  # Silently handle connection state changes
+
+        self.client.on_connection_state_change = on_connection_state_change
+
         await self.client.connect()
         print(f"Connected to Azure IoT Hub for topic: {self.topic_url}")
 
@@ -84,6 +93,10 @@ class AzurePublisher(threading.Thread):
 
         Args:
             payload: Telemetry data to send
+
+        Raises:
+            RuntimeError: If client is not connected
+            Exception: If message sending fails
         """
         if not self.client:
             raise RuntimeError("Client not connected")
@@ -96,18 +109,41 @@ class AzurePublisher(threading.Thread):
         # Add topic as custom property to maintain compatibility with MQTT structure
         message.custom_properties["topic"] = self.topic_url
 
-        # Send message
-        await self.client.send_message(message)
+        # Send message with timeout
+        try:
+            await asyncio.wait_for(
+                self.client.send_message(message),
+                timeout=30.0  # 30 second timeout
+            )
 
-        # Log publish event
-        on_publish_log = f"[{time.strftime('%H:%M:%S')}] Telemetry sent to Azure IoT Hub: {self.topic_url}"
-        if self.is_verbose:
-            on_publish_log += f"\n\t[payload] {json.dumps(payload)}"
-        print(on_publish_log)
+            # Log publish event
+            on_publish_log = f"[{time.strftime('%H:%M:%S')}] Telemetry sent to Azure IoT Hub: {self.topic_url}"
+            if self.is_verbose:
+                on_publish_log += f"\n\t[payload] {json.dumps(payload)}"
+            print(on_publish_log)
+
+        except asyncio.TimeoutError:
+            raise Exception(f"Timeout sending message to Azure IoT Hub for {self.topic_url}")
+        except Exception as e:
+            raise Exception(f"Failed to send message: {str(e)}")
 
     async def publish_loop_async(self):
-        """Main async publishing loop."""
-        await self.connect_async()
+        """Main async publishing loop with reconnection handling."""
+        max_retries = 3
+        retry_delay = 5
+
+        # Initial connection with retries
+        for attempt in range(max_retries):
+            try:
+                await self.connect_async()
+                break
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    print(f"Connection attempt {attempt + 1} failed: {e}. Retrying in {retry_delay}s...")
+                    await asyncio.sleep(retry_delay)
+                else:
+                    print(f"Failed to connect after {max_retries} attempts: {e}")
+                    return
 
         try:
             while self.loop:
@@ -115,7 +151,21 @@ class AzurePublisher(threading.Thread):
                 if self.payload is None:
                     break
 
-                await self.send_telemetry_async(self.payload)
+                try:
+                    await self.send_telemetry_async(self.payload)
+                except Exception as e:
+                    print(f"Error sending telemetry to {self.topic_url}: {e}")
+                    # Try to reconnect on send failure
+                    try:
+                        print(f"Attempting to reconnect for {self.topic_url}...")
+                        await self.disconnect_async()
+                        await asyncio.sleep(2)
+                        await self.connect_async()
+                        print(f"Reconnected successfully for {self.topic_url}")
+                    except Exception as reconnect_error:
+                        print(f"Reconnection failed for {self.topic_url}: {reconnect_error}")
+                        # Continue loop to retry on next iteration
+
                 await asyncio.sleep(self.client_settings.time_interval)
 
         finally:
