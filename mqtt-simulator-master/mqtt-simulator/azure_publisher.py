@@ -67,13 +67,6 @@ class AzurePublisher(threading.Thread):
     async def connect_async(self):
         """Async connection to Azure IoT Hub."""
         self.client = self.create_client()
-
-        # Set up connection status handler to suppress background errors
-        def on_connection_state_change():
-            pass  # Silently handle connection state changes
-
-        self.client.on_connection_state_change = on_connection_state_change
-
         await self.client.connect()
         print(f"Connected to Azure IoT Hub for topic: {self.topic_url}")
 
@@ -81,10 +74,10 @@ class AzurePublisher(threading.Thread):
         """Async disconnection from Azure IoT Hub."""
         if self.client:
             try:
-                await self.client.disconnect()
+                await self.client.shutdown()
                 print(f"Disconnected from Azure IoT Hub for topic: {self.topic_url}")
             except Exception as e:
-                # Ignore errors during disconnect (e.g., if already disconnected)
+                # Ignore errors during shutdown (e.g., if already disconnected)
                 pass
 
     async def send_telemetry_async(self, payload: dict[str, Any]):
@@ -158,8 +151,11 @@ class AzurePublisher(threading.Thread):
                     # Try to reconnect on send failure
                     try:
                         print(f"Attempting to reconnect for {self.topic_url}...")
-                        await self.disconnect_async()
+                        # Shutdown old client
+                        if self.client:
+                            await self.client.shutdown()
                         await asyncio.sleep(2)
+                        # Create and connect new client
                         await self.connect_async()
                         print(f"Reconnected successfully for {self.topic_url}")
                     except Exception as reconnect_error:
