@@ -28,7 +28,11 @@ def read_publishers(settings_file: Path, is_verbose: bool) -> list[Publisher]:
     PublisherClass = AzurePublisher if broker_settings.is_azure_enabled() else Publisher
 
     if broker_settings.is_azure_enabled():
-        print(f"Using Azure IoT Hub publisher (connection: {broker_settings.azure_connection_string[:50]}...)")
+        if broker_settings.azure_device_connections:
+            device_count = len(broker_settings.azure_device_connections)
+            print(f"Using Azure IoT Hub publisher with {device_count} device connections")
+        else:
+            print(f"Using Azure IoT Hub publisher (single connection)")
     else:
         print(f"Using MQTT publisher (broker: {broker_settings.url}:{broker_settings.port})")
 

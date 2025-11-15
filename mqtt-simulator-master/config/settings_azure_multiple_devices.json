@@ -1,9 +1,9 @@
 {
   "BROKER_TYPE": "azure",
   "AZURE_DEVICE_CONNECTIONS": {
-    "linha_producao/estacao/1": "HostName=your-hub-name.azure-devices.net;DeviceId=estacao1;SharedAccessKey=your-key-1",
-    "linha_producao/estacao/2": "HostName=your-hub-name.azure-devices.net;DeviceId=estacao2;SharedAccessKey=your-key-2",
-    "linha_producao/estacao/3": "HostName=your-hub-name.azure-devices.net;DeviceId=estacao3;SharedAccessKey=your-key-3"
+    "linha_producao/estacao/1": "HostName=iothub-ipca.azure-devices.net;DeviceId=estacao1;SharedAccessKey=your-key-1",
+    "linha_producao/estacao/2": "HostName=iothub-ipca.azure-devices.net;DeviceId=estacao2;SharedAccessKey=your-key-2",
+    "linha_producao/estacao/3": "HostName=iothub-ipca.azure-devices.net;DeviceId=estacao3;SharedAccessKey=your-key-3"
   },
   "TOPICS": [
     {

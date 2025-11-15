@@ -21,7 +21,10 @@ class BrokerSettings(BaseModel):
     auth_password: str | None = Field(alias="AUTH_PASSWORD", default=None)
 
     # Azure IoT Hub settings
+    # Single connection string (backwards compatibility)
     azure_connection_string: str | None = Field(alias="AZURE_CONNECTION_STRING", default=None)
+    # Multiple connection strings mapped by topic
+    azure_device_connections: dict[str, str] | None = Field(alias="AZURE_DEVICE_CONNECTIONS", default=None)
     azure_model_id: str | None = Field(alias="AZURE_MODEL_ID", default=None)
 
     def is_tls_enabled(self) -> bool:
@@ -35,7 +38,30 @@ class BrokerSettings(BaseModel):
         return self.auth_username is not None or self.auth_password is not None
 
     def is_azure_enabled(self) -> bool:
-        return self.broker_type == "azure" and self.azure_connection_string is not None
+        return self.broker_type == "azure" and (
+            self.azure_connection_string is not None or
+            self.azure_device_connections is not None
+        )
+
+    def get_azure_connection_string(self, topic_url: str) -> str | None:
+        """
+        Get the appropriate Azure connection string for a given topic.
+
+        Args:
+            topic_url: The topic URL to get connection string for
+
+        Returns:
+            Connection string for the topic, or None if not found
+        """
+        # First check if there's a specific connection for this topic
+        if self.azure_device_connections and topic_url in self.azure_device_connections:
+            return self.azure_device_connections[topic_url]
+
+        # Fall back to single connection string (backwards compatibility)
+        if self.azure_connection_string:
+            return self.azure_connection_string
+
+        return None
 
     @model_validator(mode="before")
     @classmethod
@@ -44,8 +70,9 @@ class BrokerSettings(BaseModel):
 
     @model_validator(mode="after")
     def validate_azure_settings(self):
-        if self.broker_type == "azure" and not self.azure_connection_string:
-            raise ValueError(
-                "AZURE_CONNECTION_STRING is required when BROKER_TYPE is 'azure'"
-            )
+        if self.broker_type == "azure":
+            if not self.azure_connection_string and not self.azure_device_connections:
+                raise ValueError(
+                    "Either AZURE_CONNECTION_STRING or AZURE_DEVICE_CONNECTIONS is required when BROKER_TYPE is 'azure'"
+                )
         return self

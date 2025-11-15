@@ -51,14 +51,23 @@ class AzurePublisher(threading.Thread):
 
     def create_client(self) -> IoTHubDeviceClient:
         """Create Azure IoT Hub device client with appropriate settings."""
+        # Get the connection string for this specific topic
+        connection_string = self.broker_settings.get_azure_connection_string(self.topic_url)
+
+        if not connection_string:
+            raise ValueError(
+                f"No Azure connection string found for topic: {self.topic_url}. "
+                f"Check AZURE_DEVICE_CONNECTIONS or AZURE_CONNECTION_STRING in settings."
+            )
+
         if self.broker_settings.azure_model_id:
             client = IoTHubDeviceClient.create_from_connection_string(
-                self.broker_settings.azure_connection_string,
+                connection_string,
                 product_info=self.broker_settings.azure_model_id
             )
         else:
             client = IoTHubDeviceClient.create_from_connection_string(
-                self.broker_settings.azure_connection_string
+                connection_string
             )
 
         # The SDK handles reconnections automatically, but we add our own retry logic
