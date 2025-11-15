@@ -34,6 +34,8 @@ class AzurePublisher(threading.Thread):
         is_verbose: bool,
     ):
         threading.Thread.__init__(self)
+        # Set as daemon thread to allow clean program exit
+        self.daemon = True
 
         self.broker_settings = broker_settings
         self.topic_url = topic_url  # Will be used as message property "topic"
@@ -69,8 +71,12 @@ class AzurePublisher(threading.Thread):
     async def disconnect_async(self):
         """Async disconnection from Azure IoT Hub."""
         if self.client:
-            await self.client.disconnect()
-            print(f"Disconnected from Azure IoT Hub for topic: {self.topic_url}")
+            try:
+                await self.client.disconnect()
+                print(f"Disconnected from Azure IoT Hub for topic: {self.topic_url}")
+            except Exception as e:
+                # Ignore errors during disconnect (e.g., if already disconnected)
+                pass
 
     async def send_telemetry_async(self, payload: dict[str, Any]):
         """
@@ -131,7 +137,21 @@ class AzurePublisher(threading.Thread):
         except Exception as e:
             print(f"Error in Azure publisher: {e}")
         finally:
-            self.event_loop.close()
+            # Cancel all pending tasks before closing the loop
+            try:
+                pending = asyncio.all_tasks(self.event_loop)
+                for task in pending:
+                    task.cancel()
+                # Give tasks a chance to cancel
+                if pending:
+                    self.event_loop.run_until_complete(asyncio.gather(*pending, return_exceptions=True))
+            except Exception:
+                pass
+            finally:
+                try:
+                    self.event_loop.close()
+                except Exception:
+                    pass
 
     def stop(self):
         """Stop the publisher."""
