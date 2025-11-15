@@ -1,0 +1,455 @@
+{
+  "BROKER_TYPE": "mqtt",
+  "BROKER_URL": "localhost",
+  "BROKER_PORT": 1883,
+  "TOPICS": [
+    {
+      "TYPE": "single",
+      "NAME": "factory/rawmaterial/intake",
+      "TIME_INTERVAL": 15,
+      "DATA": [
+        {
+          "NAME": "material_received_kg",
+          "TYPE": "int",
+          "MIN_VALUE": 100,
+          "MAX_VALUE": 500,
+          "MAX_STEP": 50,
+          "RETAIN_PROBABILITY": 0.6
+        },
+        {
+          "NAME": "quality_grade",
+          "TYPE": "float",
+          "MIN_VALUE": 85.0,
+          "MAX_VALUE": 100.0,
+          "MAX_STEP": 2.0,
+          "RETAIN_PROBABILITY": 0.8
+        },
+        {
+          "NAME": "storage_level_percent",
+          "TYPE": "int",
+          "MIN_VALUE": 20,
+          "MAX_VALUE": 95,
+          "MAX_STEP": 5,
+          "INCREASE_PROBABILITY": 0.4,
+          "RETAIN_PROBABILITY": 0.7
+        }
+      ]
+    },
+    {
+      "TYPE": "multiple",
+      "PREFIX": "factory/production/line",
+      "RANGE_START": 1,
+      "RANGE_END": 3,
+      "TIME_INTERVAL": 5,
+      "DATA": [
+        {
+          "NAME": "machine_temperature_celsius",
+          "TYPE": "float",
+          "MIN_VALUE": 65.0,
+          "MAX_VALUE": 85.0,
+          "MAX_STEP": 1.5,
+          "RETAIN_PROBABILITY": 0.75
+        },
+        {
+          "NAME": "pressure_bar",
+          "TYPE": "float",
+          "MIN_VALUE": 2.0,
+          "MAX_VALUE": 6.5,
+          "MAX_STEP": 0.3,
+          "RETAIN_PROBABILITY": 0.7
+        },
+        {
+          "NAME": "speed_rpm",
+          "TYPE": "int",
+          "MIN_VALUE": 800,
+          "MAX_VALUE": 1500,
+          "MAX_STEP": 50,
+          "RETAIN_PROBABILITY": 0.8
+        },
+        {
+          "NAME": "vibration_mm_s",
+          "TYPE": "float",
+          "MIN_VALUE": 0.5,
+          "MAX_VALUE": 4.5,
+          "MAX_STEP": 0.4,
+          "RETAIN_PROBABILITY": 0.85
+        },
+        {
+          "NAME": "production_count",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 10000,
+          "MAX_STEP": 15,
+          "INCREASE_PROBABILITY": 0.95,
+          "RETAIN_PROBABILITY": 0.3
+        },
+        {
+          "NAME": "defect_count",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 50,
+          "MAX_STEP": 2,
+          "INCREASE_PROBABILITY": 0.15,
+          "RETAIN_PROBABILITY": 0.9
+        },
+        {
+          "NAME": "power_consumption_kw",
+          "TYPE": "float",
+          "MIN_VALUE": 15.0,
+          "MAX_VALUE": 45.0,
+          "MAX_STEP": 2.5,
+          "RETAIN_PROBABILITY": 0.7
+        }
+      ]
+    },
+    {
+      "TYPE": "multiple",
+      "PREFIX": "factory/assembly/station",
+      "RANGE_START": 1,
+      "RANGE_END": 5,
+      "TIME_INTERVAL": 8,
+      "DATA": [
+        {
+          "NAME": "assembly_count",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 5000,
+          "MAX_STEP": 8,
+          "INCREASE_PROBABILITY": 0.9,
+          "RETAIN_PROBABILITY": 0.4
+        },
+        {
+          "NAME": "cycle_time_seconds",
+          "TYPE": "float",
+          "MIN_VALUE": 45.0,
+          "MAX_VALUE": 90.0,
+          "MAX_STEP": 3.0,
+          "RETAIN_PROBABILITY": 0.75
+        },
+        {
+          "NAME": "robot_position_x",
+          "TYPE": "float",
+          "MIN_VALUE": -500.0,
+          "MAX_VALUE": 500.0,
+          "MAX_STEP": 50.0,
+          "RETAIN_PROBABILITY": 0.5
+        },
+        {
+          "NAME": "robot_position_y",
+          "TYPE": "float",
+          "MIN_VALUE": -300.0,
+          "MAX_VALUE": 300.0,
+          "MAX_STEP": 30.0,
+          "RETAIN_PROBABILITY": 0.5
+        },
+        {
+          "NAME": "tools_usage_percent",
+          "TYPE": "int",
+          "MIN_VALUE": 40,
+          "MAX_VALUE": 100,
+          "MAX_STEP": 5,
+          "INCREASE_PROBABILITY": 0.6,
+          "RETAIN_PROBABILITY": 0.65
+        },
+        {
+          "NAME": "errors",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 10,
+          "MAX_STEP": 1,
+          "INCREASE_PROBABILITY": 0.1,
+          "RETAIN_PROBABILITY": 0.95
+        }
+      ]
+    },
+    {
+      "TYPE": "multiple",
+      "PREFIX": "factory/quality/inspection",
+      "RANGE_START": 1,
+      "RANGE_END": 2,
+      "TIME_INTERVAL": 10,
+      "DATA": [
+        {
+          "NAME": "inspected_units",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 3000,
+          "MAX_STEP": 10,
+          "INCREASE_PROBABILITY": 0.85,
+          "RETAIN_PROBABILITY": 0.5
+        },
+        {
+          "NAME": "pass_rate_percent",
+          "TYPE": "float",
+          "MIN_VALUE": 92.0,
+          "MAX_VALUE": 99.9,
+          "MAX_STEP": 0.8,
+          "RETAIN_PROBABILITY": 0.85
+        },
+        {
+          "NAME": "rejected_units",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 100,
+          "MAX_STEP": 3,
+          "INCREASE_PROBABILITY": 0.2,
+          "RETAIN_PROBABILITY": 0.85
+        },
+        {
+          "NAME": "dimension_tolerance_mm",
+          "TYPE": "float",
+          "MIN_VALUE": 0.01,
+          "MAX_VALUE": 0.15,
+          "MAX_STEP": 0.02,
+          "RETAIN_PROBABILITY": 0.8
+        },
+        {
+          "NAME": "surface_quality_score",
+          "TYPE": "int",
+          "MIN_VALUE": 70,
+          "MAX_VALUE": 100,
+          "MAX_STEP": 3,
+          "RETAIN_PROBABILITY": 0.8
+        }
+      ]
+    },
+    {
+      "TYPE": "single",
+      "NAME": "factory/packaging/line1",
+      "TIME_INTERVAL": 12,
+      "DATA": [
+        {
+          "NAME": "packages_completed",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 2000,
+          "MAX_STEP": 12,
+          "INCREASE_PROBABILITY": 0.9,
+          "RETAIN_PROBABILITY": 0.4
+        },
+        {
+          "NAME": "packaging_speed_units_min",
+          "TYPE": "int",
+          "MIN_VALUE": 20,
+          "MAX_VALUE": 60,
+          "MAX_STEP": 5,
+          "RETAIN_PROBABILITY": 0.7
+        },
+        {
+          "NAME": "label_errors",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 15,
+          "MAX_STEP": 1,
+          "INCREASE_PROBABILITY": 0.15,
+          "RETAIN_PROBABILITY": 0.9
+        },
+        {
+          "NAME": "material_waste_kg",
+          "TYPE": "float",
+          "MIN_VALUE": 0.0,
+          "MAX_VALUE": 25.0,
+          "MAX_STEP": 1.5,
+          "INCREASE_PROBABILITY": 0.4,
+          "RETAIN_PROBABILITY": 0.75
+        },
+        {
+          "NAME": "conveyor_speed_m_min",
+          "TYPE": "float",
+          "MIN_VALUE": 10.0,
+          "MAX_VALUE": 30.0,
+          "MAX_STEP": 2.0,
+          "RETAIN_PROBABILITY": 0.8
+        }
+      ]
+    },
+    {
+      "TYPE": "single",
+      "NAME": "factory/warehouse/storage",
+      "TIME_INTERVAL": 20,
+      "DATA": [
+        {
+          "NAME": "finished_goods_units",
+          "TYPE": "int",
+          "MIN_VALUE": 500,
+          "MAX_VALUE": 10000,
+          "MAX_STEP": 50,
+          "INCREASE_PROBABILITY": 0.5,
+          "RETAIN_PROBABILITY": 0.6
+        },
+        {
+          "NAME": "storage_utilization_percent",
+          "TYPE": "int",
+          "MIN_VALUE": 40,
+          "MAX_VALUE": 95,
+          "MAX_STEP": 5,
+          "INCREASE_PROBABILITY": 0.45,
+          "RETAIN_PROBABILITY": 0.7
+        },
+        {
+          "NAME": "temperature_celsius",
+          "TYPE": "float",
+          "MIN_VALUE": 18.0,
+          "MAX_VALUE": 24.0,
+          "MAX_STEP": 0.5,
+          "RETAIN_PROBABILITY": 0.85
+        },
+        {
+          "NAME": "humidity_percent",
+          "TYPE": "int",
+          "MIN_VALUE": 35,
+          "MAX_VALUE": 65,
+          "MAX_STEP": 3,
+          "RETAIN_PROBABILITY": 0.8
+        },
+        {
+          "NAME": "outbound_shipments",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 500,
+          "MAX_STEP": 10,
+          "INCREASE_PROBABILITY": 0.6,
+          "RETAIN_PROBABILITY": 0.5
+        }
+      ]
+    },
+    {
+      "TYPE": "single",
+      "NAME": "factory/energy/monitoring",
+      "TIME_INTERVAL": 10,
+      "DATA": [
+        {
+          "NAME": "total_power_kw",
+          "TYPE": "float",
+          "MIN_VALUE": 150.0,
+          "MAX_VALUE": 450.0,
+          "MAX_STEP": 20.0,
+          "RETAIN_PROBABILITY": 0.7
+        },
+        {
+          "NAME": "voltage_v",
+          "TYPE": "float",
+          "MIN_VALUE": 380.0,
+          "MAX_VALUE": 400.0,
+          "MAX_STEP": 2.0,
+          "RETAIN_PROBABILITY": 0.85
+        },
+        {
+          "NAME": "current_a",
+          "TYPE": "float",
+          "MIN_VALUE": 200.0,
+          "MAX_VALUE": 800.0,
+          "MAX_STEP": 30.0,
+          "RETAIN_PROBABILITY": 0.7
+        },
+        {
+          "NAME": "power_factor",
+          "TYPE": "float",
+          "MIN_VALUE": 0.85,
+          "MAX_VALUE": 0.98,
+          "MAX_STEP": 0.02,
+          "RETAIN_PROBABILITY": 0.85
+        },
+        {
+          "NAME": "daily_consumption_kwh",
+          "TYPE": "float",
+          "MIN_VALUE": 0.0,
+          "MAX_VALUE": 10000.0,
+          "MAX_STEP": 50.0,
+          "INCREASE_PROBABILITY": 0.95,
+          "RETAIN_PROBABILITY": 0.3
+        }
+      ]
+    },
+    {
+      "TYPE": "single",
+      "NAME": "factory/hvac/system",
+      "TIME_INTERVAL": 15,
+      "DATA": [
+        {
+          "NAME": "ambient_temperature_celsius",
+          "TYPE": "float",
+          "MIN_VALUE": 20.0,
+          "MAX_VALUE": 26.0,
+          "MAX_STEP": 0.8,
+          "RETAIN_PROBABILITY": 0.8
+        },
+        {
+          "NAME": "target_temperature_celsius",
+          "TYPE": "float",
+          "MIN_VALUE": 21.0,
+          "MAX_VALUE": 23.0,
+          "MAX_STEP": 0.2,
+          "RETAIN_PROBABILITY": 0.95
+        },
+        {
+          "NAME": "humidity_percent",
+          "TYPE": "int",
+          "MIN_VALUE": 40,
+          "MAX_VALUE": 60,
+          "MAX_STEP": 2,
+          "RETAIN_PROBABILITY": 0.8
+        },
+        {
+          "NAME": "air_quality_index",
+          "TYPE": "int",
+          "MIN_VALUE": 20,
+          "MAX_VALUE": 80,
+          "MAX_STEP": 5,
+          "RETAIN_PROBABILITY": 0.75
+        },
+        {
+          "NAME": "filter_pressure_drop_pa",
+          "TYPE": "int",
+          "MIN_VALUE": 50,
+          "MAX_VALUE": 250,
+          "MAX_STEP": 10,
+          "INCREASE_PROBABILITY": 0.7,
+          "RETAIN_PROBABILITY": 0.6
+        }
+      ]
+    },
+    {
+      "TYPE": "single",
+      "NAME": "factory/maintenance/alerts",
+      "TIME_INTERVAL": 30,
+      "DATA": [
+        {
+          "NAME": "active_alerts",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 20,
+          "MAX_STEP": 2,
+          "INCREASE_PROBABILITY": 0.2,
+          "RETAIN_PROBABILITY": 0.85
+        },
+        {
+          "NAME": "preventive_maintenance_due",
+          "TYPE": "int",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 10,
+          "MAX_STEP": 1,
+          "INCREASE_PROBABILITY": 0.3,
+          "RETAIN_PROBABILITY": 0.9
+        },
+        {
+          "NAME": "machine_uptime_percent",
+          "TYPE": "float",
+          "MIN_VALUE": 85.0,
+          "MAX_VALUE": 99.5,
+          "MAX_STEP": 1.0,
+          "RETAIN_PROBABILITY": 0.8
+        },
+        {
+          "NAME": "mtbf_hours",
+          "TYPE": "int",
+          "MIN_VALUE": 200,
+          "MAX_VALUE": 2000,
+          "MAX_STEP": 50,
+          "INCREASE_PROBABILITY": 0.6,
+          "RETAIN_PROBABILITY": 0.7
+        }
+      ]
+    }
+  ]
+}
