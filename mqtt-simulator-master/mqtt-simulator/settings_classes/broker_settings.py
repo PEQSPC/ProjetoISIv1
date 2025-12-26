@@ -1,10 +1,14 @@
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field, model_validator
 from utils.validate_list_field import validate_list_field
 
 
 class BrokerSettings(BaseModel):
+    # Broker type: "mqtt" for traditional MQTT broker, "azure" for Azure IoT Hub
+    broker_type: Literal["mqtt", "azure"] = Field(alias="BROKER_TYPE", default="mqtt")
+
+    # Traditional MQTT broker settings
     url: str = Field(alias="BROKER_URL", default="localhost")
     port: int = Field(alias="BROKER_PORT", default=1883)
     protocol: int = Field(alias="PROTOCOL_VERSION", default=4)
@@ -16,6 +20,13 @@ class BrokerSettings(BaseModel):
     auth_username: str | None = Field(alias="AUTH_USERNAME", default=None)
     auth_password: str | None = Field(alias="AUTH_PASSWORD", default=None)
 
+    # Azure IoT Hub settings
+    # Single connection string (backwards compatibility)
+    azure_connection_string: str | None = Field(alias="AZURE_CONNECTION_STRING", default=None)
+    # Multiple connection strings mapped by topic
+    azure_device_connections: dict[str, str] | None = Field(alias="AZURE_DEVICE_CONNECTIONS", default=None)
+    azure_model_id: str | None = Field(alias="AZURE_MODEL_ID", default=None)
+
     def is_tls_enabled(self) -> bool:
         return (
             self.tls_ca_path is not None or
@@ -26,7 +37,42 @@ class BrokerSettings(BaseModel):
     def is_auth_enabled(self) -> bool:
         return self.auth_username is not None or self.auth_password is not None
 
+    def is_azure_enabled(self) -> bool:
+        return self.broker_type == "azure" and (
+            self.azure_connection_string is not None or
+            self.azure_device_connections is not None
+        )
+
+    def get_azure_connection_string(self, topic_url: str) -> str | None:
+        """
+        Get the appropriate Azure connection string for a given topic.
+
+        Args:
+            topic_url: The topic URL to get connection string for
+
+        Returns:
+            Connection string for the topic, or None if not found
+        """
+        # First check if there's a specific connection for this topic
+        if self.azure_device_connections and topic_url in self.azure_device_connections:
+            return self.azure_device_connections[topic_url]
+
+        # Fall back to single connection string (backwards compatibility)
+        if self.azure_connection_string:
+            return self.azure_connection_string
+
+        return None
+
     @model_validator(mode="before")
     @classmethod
     def validate_topics(cls, data: Any) -> Any:
         return validate_list_field(caller="BrokerSettings", field_name="TOPICS", data=data, allow_empty=False)
+
+    @model_validator(mode="after")
+    def validate_azure_settings(self):
+        if self.broker_type == "azure":
+            if not self.azure_connection_string and not self.azure_device_connections:
+                raise ValueError(
+                    "Either AZURE_CONNECTION_STRING or AZURE_DEVICE_CONNECTIONS is required when BROKER_TYPE is 'azure'"
+                )
+        return self

@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any
 
 from publisher import Publisher
+from azure_publisher import AzurePublisher
 from settings_classes import BrokerSettings, ClientSettings, DataSettings, DataSettingsFactory, TopicSettingsFactory
 
 
@@ -23,6 +24,18 @@ def read_publishers(settings_file: Path, is_verbose: bool) -> list[Publisher]:
         default=default_client_settings
     )
 
+    # Determine which publisher class to use based on broker type
+    PublisherClass = AzurePublisher if broker_settings.is_azure_enabled() else Publisher
+
+    if broker_settings.is_azure_enabled():
+        if broker_settings.azure_device_connections:
+            device_count = len(broker_settings.azure_device_connections)
+            print(f"Using Azure IoT Hub publisher with {device_count} device connections")
+        else:
+            print(f"Using Azure IoT Hub publisher (single connection)")
+    else:
+        print(f"Using MQTT publisher (broker: {broker_settings.url}:{broker_settings.port})")
+
     # read each configured topic
     for topic_object in json_object.get("TOPICS"):
         client_settings = ClientSettings.model_validate(topic_object).resolve_with_default(
@@ -34,7 +47,7 @@ def read_publishers(settings_file: Path, is_verbose: bool) -> list[Publisher]:
             # each topic_url should have different data_settings instances
             topic_data = load_topic_data(topic_data_object)
             publishers.append(
-                Publisher(
+                PublisherClass(
                     broker_settings,
                     topic_url,
                     topic_data,

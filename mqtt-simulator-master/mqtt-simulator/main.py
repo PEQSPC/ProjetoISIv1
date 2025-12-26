@@ -1,5 +1,7 @@
 import argparse
+import signal
 import sys
+import time
 from json import JSONDecodeError
 from pathlib import Path
 
@@ -50,4 +52,25 @@ except (JSONDecodeError, PydanticValidationError, SimulatorValidationError) as e
     sys.exit(1)
 
 simulator = Simulator(publishers)
+
+# Set up signal handler for graceful shutdown
+def signal_handler(sig, frame):
+    print("\n\nShutting down gracefully...")
+    simulator.stop()
+    # Give threads time to clean up
+    time.sleep(2)
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+
+# Start the simulator
 simulator.run()
+
+# Keep the main thread alive while publishers are running
+try:
+    while any(p.is_alive() for p in simulator.publishers):
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("\n\nShutting down gracefully...")
+    simulator.stop()
+    time.sleep(2)
