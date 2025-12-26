@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 from database import get_db, Simulation, SessionLocal
 from contextlib import asynccontextmanager
 import asyncio
+from sqlalchemy import text
 
 # Background task para verificar expirados
 async def periodic_cleanup():
@@ -385,10 +386,11 @@ async def health():
     try:
         
         db = SessionLocal()
-        db.execute("SELECT 1")
+        db.execute(text("SELECT 1"))
         db.close()
         db_status = "connected"
-    except:
+    except Exception as e:
+        print(f"Error connecting to database: {e}")
         db_status = "disconnected"
     
     healthy = docker_status == "connected" and db_status == "connected"
