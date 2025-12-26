@@ -22,7 +22,7 @@ O **ProjetoISIv1** demonstra a aplicação prática de ferramentas de **ETL (Ext
 
 ## Estrutura do Projeto
 
-``` folder
+```
 ProjetoISIv1/
 ├── api/                    # API REST para gestão de simulações
 ├── docs/                   # Documentação completa (MkDocs)
