@@ -1,4 +1,5 @@
 site_name: Projeto para a Disciplina de Integração de Sistemas de Informação (ISI)
+site_url: https://peqspc.github.io/ProjetoISIv1/
 site_description: Trabalho da Disciplina de Integração de Sistemas de Informação (ISI) pretende-se focar a aplicação e experimentação de ferramentas em processos de ETL (Extract, Transformation and Load), inerentes a processos de Integração de Sistemas de informação ao nível dos dados. 
 site_author: PEQSPC
 repo_url: https://github.com/PEQSPC/ProjetoISIv1/tree/main
@@ -31,4 +32,4 @@ nav:
   - Instalação: instalacao.md
   - Troubleshooting: troubleshooting.md
   - Conclusão: conclusao.md
-  - Fase-2: fase2/roadmap-Iot-Simulator-Platform.md
+  - Fase-2: fase-2\roadmap-Iot-Simulator-Platform.md
