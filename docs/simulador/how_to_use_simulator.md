@@ -99,8 +99,11 @@ Below is a minimal configuration file that connects to the `mqtt.eclipseprojects
 }
 ```
 
-## Main contributors
+## Sensores Simulados
 
-[![DamascenoRafael](https://github.com/DamascenoRafael.png?size=70)](https://github.com/DamascenoRafael)
-[![Maasouza](https://github.com/Maasouza.png?size=70)](https://github.com/Maasouza)
-[![AJ Danelz](https://github.com/vordimous.png?size=70)](https://github.com/vordimous)
+|     Sensor       |     Tipo de   dado         |     Unidade     |     Intervalo   de emissão    |     Exemplo de   payload                  |
+|------------------|----------------------------|-----------------|-------------------------------|-------------------------------------------|
+|     Produção     |     Peças por   minuto     |     pcs/min     |     5 s                       |     {   "estacao": 1, "producao": 58 }    |
+|     Paragem      |     Tempo parado           |     segundos    |     evento                    |     {   "estacao": 1, "paragem": 15 }     |
+|     Stock        |     Nível de   stock       |     %           |     10 s                      |     {   "estacao": 1, "stock": 73 }       |
+|     Qualidade    |     Peças   defeituosas    |     %           |     10 s                      |     {   "estacao": 1, "defeitos": 4 }     |

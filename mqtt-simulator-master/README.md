@@ -1,3 +1,4 @@
+
 # MQTT Simulator
 
 A lightweight, easy-to-configure MQTT simulator written in [Python 3](https://www.python.org/) for publishing JSON objects to a broker, simulating sensors and devices.
@@ -98,9 +99,3 @@ Below is a minimal configuration file that connects to the `mqtt.eclipseprojects
   ]
 }
 ```
-
-## Main contributors
-
-[![DamascenoRafael](https://github.com/DamascenoRafael.png?size=70)](https://github.com/DamascenoRafael)
-[![Maasouza](https://github.com/Maasouza.png?size=70)](https://github.com/Maasouza)
-[![AJ Danelz](https://github.com/vordimous.png?size=70)](https://github.com/vordimous)

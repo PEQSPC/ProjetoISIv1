@@ -4,14 +4,14 @@ Para entender todos os detalhes técnicos e de configuração do projeto, lê to
 
 ---
 
-## 📘 Introdução
+## Introdução
 
 O **ProjetoISIv1** é um trabalho prático da Unidade Curricular **Integração de Sistemas de Informação (ISI)** — Licenciatura em Engenharia de Sistemas Informáticos (2025/26).  
 O objetivo principal é aplicar e experimentar **ferramentas de ETL (Extract, Transform, Load)** em processos de integração de dados no contexto de **monitorização industrial com sensores IoT**.
 
 ---
 
-## 🎯 Problema
+## Problema
 
 A recolha de dados das estações de produção era feita manualmente e de forma isolada, o que impedia:
 
@@ -21,7 +21,7 @@ A recolha de dados das estações de produção era feita manualmente e de forma
 
 ---
 
-## 🧠 Objetivos
+## Objetivos
 
 - Centralizar dados de produção, stock e paragens num repositório único;  
 - Automatizar a recolha de dados via **sensores MQTT**;  
@@ -32,7 +32,7 @@ A recolha de dados das estações de produção era feita manualmente e de forma
 
 ---
 
-## 📂 Estrutura da Documentação
+## Estrutura da Documentação
 
 - [Arquitetura Técnica](arquitetura.md)
 - [Processos ETL](etl-processos.md)
@@ -46,7 +46,7 @@ A recolha de dados das estações de produção era feita manualmente e de forma
 
 ## Sobre o Projeto
 
-- **Nome dos Autores:**PEQSPC
-- **Curso e unidade curricular**LESI-IPCA ISI(Integracao de Sistemas de Informaçao)
+- **Nome dos Autores:** PEQSPC
+- **Curso e unidade curricular** LESI-IPCA ISI(Integracao de Sistemas de Informaçao)
 - **Ano letivo (2025/26)**
-- **Link para o repositório Git**[Github](https://github.com/PEQSPC/ProjetoISIv1)
+- **Link para o repositório Git** [Github](https://github.com/PEQSPC/ProjetoISIv1)

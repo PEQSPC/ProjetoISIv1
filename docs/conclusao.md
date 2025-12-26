@@ -4,7 +4,7 @@ O **ProjetoISIv1** demonstrou a aplicação prática de conceitos de **Integraç
 
 ---
 
-## 📈 Resultados
+## Resultados
 
 - Automação da recolha de dados via sensores simulados;  
 - Processamento em tempo real com Node-RED;  
@@ -14,10 +14,10 @@ O **ProjetoISIv1** demonstrou a aplicação prática de conceitos de **Integraç
 
 ---
 
-## 🔮 Trabalhos Futuros
+## Trabalhos Futuros
 
 - Migrar a base de dados para **SQL Server**;  
-- Dockerizar todo o sistema (Mosquitto, Node-RED, UI, DB);  
+- Usar docker para todo o sistema (Mosquitto, Node-RED, UI, DB);  
 - Adicionar predições com **IA/ML**;  
 - Criar alertas em tempo real (SMS/Telegram).
 

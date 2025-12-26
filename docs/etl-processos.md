@@ -1,5 +1,5 @@
 
-# 🧩 ETL PROCESSOS
+# ETL PROCESSOS
 
 ```markdown
 # Processos ETL e Transformações
@@ -8,7 +8,7 @@ O **Node-RED** atua como o motor central de **ETL** (Extract, Transform, Load).
 
 ---
 
-## 🧠 Estratégia
+## Estratégia
 
 1. **Extração (Extract)**  
    - Dados recolhidos de sensores MQTT.
@@ -25,7 +25,7 @@ O **Node-RED** atua como o motor central de **ETL** (Extract, Transform, Load).
 
 ---
 
-## 🔧 Exemplos de Transformações
+## Exemplos de Transformações
 
 | Tipo | Operação | Descrição |
 |------|-----------|-----------|
@@ -37,7 +37,7 @@ O **Node-RED** atua como o motor central de **ETL** (Extract, Transform, Load).
 
 ---
 
-## 🧩 Jobs Node-RED
+## Jobs Node-RED
 
 Os fluxos Node-RED incluem:
 

@@ -4,7 +4,7 @@ A arquitetura técnica do **ProjetoISIv1** suporta todo o ciclo de recolha, tran
 
 ---
 
-## 🏗️ Componentes Principais
+## Componentes Principais
 
 ### 1. Publisher (Simulador MQTT em Python)
 
@@ -45,7 +45,7 @@ A arquitetura técnica do **ProjetoISIv1** suporta todo o ciclo de recolha, tran
 
 ---
 
-## 🔄 Fluxo Global de Dados
+## Fluxo Global de Dados
 
 ```mermaid
 graph TD

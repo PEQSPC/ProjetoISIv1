@@ -9,7 +9,12 @@ theme:
   favicon: assets/favicon.ico
 
 plugins:
-  - techdocs-core
+  - to-pdf:
+      author: PEQSPC
+      cover_title: Projeto ISI - Documentação Completa
+      cover_subtitle: Trabalho da Disciplina de Integração de Sistemas de Informação (ISI)
+      copywrite: © 2025 PEQSPC
+      
 
 nav:
   - Introdução: index.md

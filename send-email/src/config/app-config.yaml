@@ -1,0 +1,10 @@
+email:
+  host: smtp.gmail.com
+  port: 587
+  secure: false
+  service: gmail
+  email_to: ${EMAIL_TO}
+  nome_remetente: ${NOME_REMETENTE}
+  auth:
+    user: ${EMAIL_USER}
+    pass: ${EMAIL_PASS}
