@@ -99,3 +99,4 @@ Below is a minimal configuration file that connects to the `mqtt.eclipseprojects
   ]
 }
 ```
+has azure iot device integration
