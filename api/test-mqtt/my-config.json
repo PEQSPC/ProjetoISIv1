@@ -1,7 +1,7 @@
 {
   "BROKER_URL": "test.mosquitto.org",
   "BROKER_PORT": 1883,
-  "TIME_INTERVAL": 5,
+  "TIME_INTERVAL": 2,
   "TOPICS": [{
     "TYPE": "multiple",
     "PREFIX": "fabrica/sensor",
@@ -16,5 +16,5 @@
       "INCREASE_PROBABILITY": 0.6
     }]
   }],
-  "duration_minutes": 10
+  "duration_minutes": 1
 }

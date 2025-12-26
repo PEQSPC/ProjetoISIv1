@@ -43,6 +43,7 @@ A recolha de dados das estações de produção era feita manualmente e de forma
 - [Relatórios e Emails](relatorios-emails.md)
 - [Instalação](instalacao.md)
 - [Conclusão](conclusao.md)
+- [Fase-2](fase-2/roadmap-Iot-Simulator-Platform.md)
 
 ## Sobre o Projeto
 

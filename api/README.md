@@ -1,25 +1,25 @@
-PHASE 2 
+# PHASE 2 Project (API REST + Docker Local + SQLite)
 
-USING WSL to create the api
+## Instalar
 
-
-# Instalar
 pip install -r requirements.txt
 
-# Rodar (cria simulations.db automaticamente)
+## Rodar (cria simulations.db automaticamente)
+
 uvicorn main:app --reload --port 8000
 
-# Testar
-http://localhost:8000/docs
+## Testar
 
+[URL TO TEST](http://localhost:8000/docs)
 
-## testar o mqtt simulator
+## Ver containers ativos
 
-### Ver containers ativos
 docker ps
 
-### Ver logs do simulador
+## Ver logs do simulador
+
 docker logs sim-abc123
 
 ### Subscrever ao broker público para ver dados
+
 mosquitto_sub -h test.mosquitto.org -t "fabrica/sensor/1"
