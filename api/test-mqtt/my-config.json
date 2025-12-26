@@ -1,0 +1,16 @@
+{
+  "BROKER_URL": "test.mosquitto.org",
+  "BROKER_PORT": 1883,
+  "TIME_INTERVAL": 5,
+  "TOPICS": [{
+    "TYPE": "single",
+    "PREFIX": "teste/sensor",
+    "DATA": [{
+      "NAME": "temperatura",
+      "TYPE": "float",
+      "MIN_VALUE": 20,
+      "MAX_VALUE": 30,
+      "MAX_STEP": 1
+    }]
+  }]
+}
