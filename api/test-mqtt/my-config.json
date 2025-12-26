@@ -3,14 +3,18 @@
   "BROKER_PORT": 1883,
   "TIME_INTERVAL": 5,
   "TOPICS": [{
-    "TYPE": "single",
-    "PREFIX": "teste/sensor",
+    "TYPE": "multiple",
+    "PREFIX": "fabrica/sensor",
+    "RANGE_START": 1,
+    "RANGE_END": 3,
     "DATA": [{
       "NAME": "temperatura",
       "TYPE": "float",
       "MIN_VALUE": 20,
-      "MAX_VALUE": 30,
-      "MAX_STEP": 1
+      "MAX_VALUE": 35,
+      "MAX_STEP": 1.5,
+      "INCREASE_PROBABILITY": 0.6
     }]
-  }]
+  }],
+  "duration_minutes": 10
 }
