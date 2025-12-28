@@ -1,0 +1,498 @@
+# Dashboard de Visualização
+
+O **Dashboard** do ProjetoISIv1 oferece uma interface web moderna e responsiva para monitorização em tempo real dos dados de produção industrial.
+
+---
+
+## Visão Geral
+
+### Tecnologias Utilizadas
+
+| Tecnologia | Versão | Propósito |
+|------------|--------|-----------|
+| **React** | 18+ | Framework frontend |
+| **Material-UI (MUI)** | 5+ | Biblioteca de componentes UI |
+| **Axios** | 1.6+ | Cliente HTTP para APIs |
+| **Chart.js** / **Recharts** | - | Visualizações gráficas |
+| **React Router** | 6+ | Navegação entre páginas |
+
+### Funcionalidades Principais
+
+- Monitorização em tempo real de estações de produção
+- Visualização de KPIs (Key Performance Indicators)
+- Gráficos interativos de produção, paragens e defeitos
+- Histórico de dados com filtros por período
+- Interface responsiva (desktop, tablet, mobile)
+- Atualizações automáticas via polling/WebSocket
+
+---
+
+## Arquitetura do Dashboard
+
+### Estrutura de Componentes
+
+```
+dashboard/
+  src/
+    components/
+      ProductionChart.jsx       # Gráfico de produção
+      StationStatus.jsx         # Status das estações
+      DowntimeAnalysis.jsx      # Análise de paragens
+      DefectsOverview.jsx       # Visão geral de defeitos
+      KPICard.jsx               # Card de KPI
+      Header.jsx                # Cabeçalho da aplicação
+    pages/
+      Dashboard.jsx             # Página principal
+      StationDetails.jsx        # Detalhes de estação
+      Reports.jsx               # Página de relatórios
+    services/
+      api.js                    # Configuração Axios
+      dataService.js            # Serviços de dados
+    utils/
+      formatters.js             # Formatação de dados
+      calculations.js           # Cálculos de KPIs
+    App.jsx                     # Componente raiz
+    index.jsx                   # Ponto de entrada
+  public/
+    index.html
+    favicon.ico
+  package.json
+```
+
+---
+
+## Componentes Principais
+
+### 1. ProductionChart - Gráfico de Produção
+
+Exibe a produção ao longo do tempo para cada estação.
+
+Funcionalidades:
+- Gráfico de linhas/barras interativo
+- Comparação entre múltiplas estações
+- Filtros por período (hoje, semana, mês)
+- Zoom e tooltips detalhados
+
+Exemplo de implementação (Chart.js v3+ / react-chartjs-2):
+
+```javascript
+// Exemplo funcional e compatível com Chart.js v3+
+// Requer: npm install chart.js react-chartjs-2
+
+import React from 'react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const ProductionChart = ({ data }) => {
+  const chartData = {
+    labels: data.timestamps,
+    datasets: [
+      {
+        label: 'Produção (peças)',
+        data: data.production,
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        tension: 0.3,
+      }
+    ]
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top' },
+      title: { display: false }
+    },
+    interaction: { mode: 'index', intersect: false },
+    scales: {
+      x: { display: true },
+      y: { display: true, beginAtZero: true }
+    }
+  };
+
+  return <Line data={chartData} options={options} />;
+};
+
+export default ProductionChart;
+```
+
+---
+
+### 2. StationStatus - Status das Estaçõess
+
+Mostra o status operacional de cada estação em tempo real.
+
+Estados possíveis:
+- Ativa (verde): Produzindo normalmente
+- Parada (vermelho): Em paragem
+- Manutenção (amarelo): Em manutenção
+- Offline (cinza): Sem comunicação
+
+Exemplo de layout:
+- Estaçã o A1 — [●] Ativa — Produção: 458 peças | Eficiência: 94%
+- Estaçã o B2 — [●] Parada — Tempo paragem: 5m 32s
+
+---
+
+### 3. DowntimeAnalysis - Análise de Paragens
+
+Analisa os tempos de paragem e identifica padrões.
+
+Métricas exibidas:
+- Tempo total de paragem
+- Número de paragens
+- Duração média de paragem
+- Paragens por estação (gráfico pizza)
+- Timeline de paragens
+
+---
+
+### 4. DefectsOverview - Visão Geral de Defeitos
+
+Monitoriza a qualidade da produção através de métricas de defeitos.
+
+Visualizações:
+- Taxa de defeitos (%)
+- Total de peças defeituosas
+- Comparação entre estações
+- Tendência ao longo do tempo
+- Top 5 estações com mais defeitos
+
+---
+
+### 5. KPICard - Cartões de KPI
+
+Exibe indicadores-chave de performance de forma visual.
+
+KPIs Principais:
+
+| KPI | Descrição | Cálculo |
+|-----|-----------|---------|
+| OEE | Overall Equipment Effectiveness | (Disponibilidade × Performance × Qualidade) × 100% |
+| Taxa de Produção | Peças produzidas/hora | Total Produção / Horas Operação |
+| Taxa de Defeitos | Percentagem de defeitos | (Defeitos / Total Produção) × 100% |
+| Tempo Médio de Paragem | MTTR (Mean Time To Repair) | Total Paragem / Número de Paragens |
+| Disponibilidade | Tempo disponível vs. paragem | ((Tempo Total - Paragem) / Tempo Total) × 100% |
+
+Exemplo visual:
+OEE — 94.5% ± 2.3%
+
+---
+
+## Páginas do Dashboard
+
+### Página Principal (Dashboard)
+
+Layout:
+- Cabeçalho: [Logo] Monitorização Industrial | [User] [Settings]
+- Cards de KPIs (OEE, Produção, Defeitos, Paragens)
+- Gráfico de Produção (linha)
+- Status das Estações
+- Análise de Paragens (barra)
+- Taxa de Defeitos (pizza)
+
+### Página de Detalhes de Estação
+
+Exibe informação detalhada sobre uma estação específica.
+
+Secções:
+1. Informação Geral (nome, localização, capacidade)
+2. Métricas em Tempo Real
+3. Histórico de Produção (últimas 24h)
+4. Log de Eventos (paragens, manutenções)
+5. Configurações da Estação
+
+### Página de Relatórios
+
+Lista relatórios gerados e permite download.
+
+Funcionalidades:
+- Filtrar por tipo (diário, semanal, mensal)
+- Filtrar por período
+- Download em PDF/HTML
+- Reenviar por email
+- Gerar novo relatório ad-hoc
+
+---
+
+## Integração com Backend
+
+### Configuração da API
+
+Ficheiro: `src/services/api.js`
+
+```javascript
+import axios from 'axios';
+
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default api;
+```
+
+### Serviço de Dados
+
+Ficheiro: `src/services/dataService.js`
+
+```javascript
+import api from './api';
+
+export const dataService = {
+  // Obter dados de todas as estações
+  getStations: async () => {
+    const response = await api.get('/stations');
+    return response.data;
+  },
+
+  // Obter dados acumulados
+  getAccumulatedData: async (stationId, startDate, endDate) => {
+    const response = await api.get('/accumulated-data', {
+      params: { stationId, startDate, endDate }
+    });
+    return response.data;
+  },
+
+  // Obter KPIs
+  getKPIs: async (stationId) => {
+    const response = await api.get(`/kpis/${stationId}`);
+    return response.data;
+  },
+};
+```
+
+### Atualização em Tempo Real
+
+Opção 1: Polling
+
+```javascript
+useEffect(() => {
+  const interval = setInterval(async () => {
+    const data = await dataService.getStations();
+    setStationsData(data);
+  }, Number(process.env.REACT_APP_REFRESH_INTERVAL) || 5000);
+
+  return () => clearInterval(interval);
+}, []);
+```
+
+Opção 2: WebSocket (futuro)
+
+```javascript
+useEffect(() => {
+  const ws = new WebSocket(process.env.REACT_APP_MQTT_BROKER || 'ws://localhost:9001');
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    updateDashboard(data);
+  };
+
+  return () => ws.close();
+}, []);
+```
+
+---
+
+## Instalação e Configuração
+
+1. Instalar dependências
+
+```bash
+cd dashboard
+npm install
+# instalar chart.js e react-chartjs-2 se não estiverem:
+npm install chart.js react-chartjs-2
+```
+
+2. Configurar variáveis de ambiente
+
+Crie `.env`:
+
+```env
+REACT_APP_API_URL=http://localhost:8000
+REACT_APP_REFRESH_INTERVAL=5000
+REACT_APP_MQTT_BROKER=ws://localhost:9001
+```
+
+3. Executar em desenvolvimento
+
+```bash
+npm start
+```
+
+Acesse em: http://localhost:3000
+
+4. Build para produção
+
+```bash
+npm run build
+```
+
+Ficheiros gerados em `build/`.
+
+5. Deploy
+
+Com servidor estático:
+
+```bash
+npm install -g serve
+serve -s build -p 3000
+```
+
+Com Nginx (exemplo):
+
+```nginx
+server {
+    listen 80;
+    server_name dashboard.exemplo.com;
+
+    root /var/www/dashboard/build;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+
+    location /api {
+        proxy_pass http://localhost:8000;
+    }
+}
+```
+
+---
+
+## Personalização
+
+### Tema Material-UI
+
+Ficheiro: `src/theme.js`
+
+```javascript
+import { createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: { main: '#1976d2' },
+    secondary: { main: '#dc004e' },
+    success: { main: '#4caf50' },
+    warning: { main: '#ff9800' },
+    error: { main: '#f44336' },
+  },
+  typography: { fontFamily: 'Roboto, Arial, sans-serif' },
+});
+
+export default theme;
+```
+
+### Configurar Cores por Status
+
+```javascript
+const statusColors = {
+  ativa: '#4caf50',       // Verde
+  parada: '#f44336',     // Vermelho
+  manutencao: '#ff9800', // Amarelo
+  offline: '#9e9e9e',    // Cinza
+};
+```
+
+---
+
+## Grafana (Alternativa)
+
+Como alternativa ao dashboard React, pode-se utilizar **Grafana** para visualizações avançadas.
+
+Vantagens do Grafana:
+- Dashboards configuráveis sem código
+- Alertas personalizados
+- Múltiplas fontes de dados
+- Painéis pré-construídos
+- Partilha e exportação de dashboards
+
+Configuração básica:
+1. Instalar Grafana
+2. Adicionar SQLite (ou outra fonte) como data source
+3. Criar dashboard com painéis
+4. Configurar refresh automático
+5. Configurar alertas
+
+Exemplo Docker:
+
+```yaml
+grafana:
+  image: grafana/grafana:latest
+  ports:
+    - "3000:3000"
+  volumes:
+    - grafana-storage:/var/lib/grafana
+  environment:
+    - GF_SECURITY_ADMIN_PASSWORD=admin
+```
+
+---
+
+## Troubleshooting
+
+Dashboard não carrega dados:
+- Verificar se a API está a correr (`http://localhost:8000`)
+- Verificar configuração de CORS no backend
+- Inspecionar console do browser para erros
+
+Gráficos não aparecem:
+- Verificar se os dados têm o formato correto
+- Instalar dependências de chart: `npm install chart.js react-chartjs-2`
+- Verificar imports e inicialização do Chart.js (ChartJS.register)
+
+Performance lenta:
+- Reduzir intervalo de atualização
+- Implementar paginação de dados
+- Utilizar React.memo para componentes pesados
+- Otimizar queries de backend
+
+---
+
+## Próximos Passos
+
+Ver [Fase 2](fase-2/roadmap-Iot-Simulator-Platform.md) para melhorias planeadas:
+- WebSocket para atualizações em tempo real
+- Autenticação de utilizadores
+- Dashboards personalizáveis por utilizador
+- Exportação de dados
+- Notificações push
+- Modo escuro (dark mode)
+
+---
+
+## Referências
+
+- React Documentation: https://react.dev/
+- Material-UI: https://mui.com/
+- Chart.js: https://www.chartjs.org/
+- Recharts: https://recharts.org/
+- Grafana: https://grafana.com/docs/

@@ -1,0 +1,17 @@
+name: Restrict main branch merges
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure PR is from develop
+        run: |
+          if [ "${{ github.head_ref }}" != "develop" ]; then
+            echo "❌ Pull requests to main must come from develop"
+            exit 1
+          fi

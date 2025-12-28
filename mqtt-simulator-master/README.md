@@ -1,83 +1,75 @@
+# 📡 MQTT Simulator
 
-# MQTT Simulator
+Simulador IoT leve e configurável para publicar dados JSON em brokers MQTT, simulando sensores e dispositivos.
 
-A lightweight, easy-to-configure MQTT simulator written in [Python 3](https://www.python.org/) for publishing JSON objects to a broker, simulating sensors and devices.
-
-[Features](#features) •
-[Getting Started](#getting-started) •
-[Configuration](#configuration) •
-[Main contributors](#main-contributors)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
+[![MQTT](https://img.shields.io/badge/MQTT-Paho-green.svg)](https://www.eclipse.org/paho/)
+[![Azure IoT](https://img.shields.io/badge/Azure-IoT%20Hub-0078D4.svg)](https://azure.microsoft.com/services/iot-hub/)
 
 ![Simulator Running](docs/images/simulator-running.gif)
 
-## Features
+---
 
-* Lightweight and easy-to-configure simulator for publishing data to an MQTT broker
-* Simple setup with a single JSON configuration file
-* Publish data on predefined fixed topics
-* Publish data on multiple topics that have a variable id or items at the end
-* Simulated random variation of data based on configurable parameters
-* Real-time event logging during simulation
+## ✨ Funcionalidades
 
-## Getting Started
+- Configuração simples via ficheiro JSON único
+- Suporte para **MQTT tradicional** (Mosquitto, localhost)
+- Suporte para **Azure IoT Hub** (cloud telemetry)
+- Publicação em tópicos fixos ou dinâmicos (com IDs variáveis)
+- Variação aleatória de dados baseada em parâmetros configuráveis
+- Logging em tempo real durante simulação
 
-### Running using Python
+---
 
-Run the simulator with the default settings file (`config/settings.json`):
+## 🚀 Quick Start
 
-```shell
-python3 mqtt-simulator/main.py 
+### Executar com Python
+
+```bash
+# Usar configuração padrão (config/settings.json)
+python3 mqtt-simulator/main.py
+
+# Especificar ficheiro custom
+python3 mqtt-simulator/main.py -f config/settings_azure.json
 ```
 
-Or specify a custom settings file:
+### Instalar Dependências
 
-```shell
-python3 mqtt-simulator/main.py -f <path/settings.json>
-```
-
-To install all dependencies with a virtual environment before using:
-
-```shell
+```bash
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip3 install -r requirements.txt
 ```
 
-### Running using uv
+### Executar com uv (recomendado)
 
-Run the simulator with [uv](https://github.com/astral-sh/uv), a fast Python package and project manager - no need to manually setup a virtual environment:
+Sem necessidade de criar virtual environment manualmente:
 
-```shell
-uv run mqtt-simulator/main.py -f <path/settings.json>
+```bash
+uv run mqtt-simulator/main.py -f config/settings.json
 ```
 
-### Running using Docker
+### Executar com Docker
 
-Additionally, you can run the simulator via [Docker](https://docs.docker.com/get-docker/) using the provided `Dockerfile`.
-
-Build the image:
-
-```shell
+```bash
+# Build
 docker build -t mqtt-simulator .
+
+# Run
+docker run mqtt-simulator -f config/settings.json
 ```
 
-Run the container:
+---
 
-```shell
-docker run mqtt-simulator -f <path/settings.json>
-```
+## ⚙️ Configuração
 
-## Configuration
-
-See the [configuration documentation](./docs/configuration.md) for detailed usage instructions.
-
-You can also check a full settings file example at: [settings.json](../config/settings.json).
-
-Below is a minimal configuration file that connects to the `mqtt.eclipseprojects.io` broker and publishes data to the `/place/roof` and `/place/basement` topics. The simulator generates `temperature` variations based on the provided parameters:
+### Modo MQTT (Broker Local)
 
 ```json
 {
-  "BROKER_URL": "mqtt.eclipseprojects.io",
+  "BROKER_TYPE": "mqtt",
+  "BROKER_URL": "localhost",
+  "BROKER_PORT": 1883,
   "TOPICS": [
     {
       "TYPE": "list",
@@ -90,13 +82,185 @@ Below is a minimal configuration file that connects to the `mqtt.eclipseprojects
           "TYPE": "float",
           "MIN_VALUE": 20,
           "MAX_VALUE": 55,
-          "MAX_STEP": 3,
-          "RETAIN_PROBABILITY": 0.5,
-          "INCREASE_PROBABILITY": 0.6
+          "MAX_STEP": 3
         }
       ]
     }
   ]
 }
 ```
-has azure iot device integration
+
+### Modo Azure IoT Hub
+
+```json
+{
+  "BROKER_TYPE": "azure",
+  "AZURE_CONNECTION_STRING": "HostName=your-hub.azure-devices.net;DeviceId=device1;SharedAccessKey=...",
+  "TOPICS": [
+    {
+      "TYPE": "multiple",
+      "PREFIX": "linha_producao/estacao",
+      "RANGE_START": 1,
+      "RANGE_END": 3,
+      "TIME_INTERVAL": 60,
+      "DATA": [
+        {
+          "NAME": "producao",
+          "TYPE": "int",
+          "MIN_VALUE": 50,
+          "MAX_VALUE": 120
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Documentação completa**: [Configuration Guide](./docs/configuration.md)
+
+---
+
+## 🔧 Modos de Operação
+
+### MQTT Tradicional
+
+Conecta a qualquer broker MQTT:
+- Mosquitto local
+- HiveMQ Cloud
+- Eclipse broker público
+
+**Exemplo**:
+```bash
+python3 main.py -f config/settings_mqtt_localhost.json
+```
+
+### Azure IoT Hub
+
+Envia telemetria diretamente para Azure:
+- Device-to-cloud messaging
+- Propriedades customizadas (topic name)
+- Encoding automático UTF-8
+
+**Exemplo**:
+```bash
+python3 main.py -f config/settings_azure.json
+```
+
+**Setup Azure**: Ver [Azure Integration Guide](README_AZURE_INTEGRATION.md)
+
+---
+
+## 📊 Tipos de Dados Suportados
+
+| Tipo | Descrição | Exemplo |
+|------|-----------|---------|
+| `int` | Inteiro com variação | Contador de produção |
+| `float` | Decimal com variação | Temperatura, pressão |
+| `bool` | Booleano | Status on/off |
+| `string` | Texto fixo ou variável | IDs, estados |
+
+**Parâmetros de variação**:
+- `MIN_VALUE` / `MAX_VALUE`: Limites
+- `MAX_STEP`: Variação máxima entre leituras
+- `RETAIN_PROBABILITY`: Probabilidade de manter valor
+- `INCREASE_PROBABILITY`: Tendência de aumentar
+
+---
+
+## 🎯 Casos de Uso
+
+### Desenvolvimento IoT
+Testar aplicações IoT sem hardware físico.
+
+### Testes de Carga
+Simular centenas de sensores simultaneamente.
+
+### Demonstrações
+Criar demos com dados realistas.
+
+### Integração Azure
+Validar pipelines cloud antes do deploy.
+
+---
+
+## 📦 Dependências
+
+**Modo MQTT**:
+- `paho-mqtt==1.6.1`
+- `pydantic==2.12.0`
+
+**Modo Azure** (adicional):
+- `azure-iot-device==2.14.0`
+
+**Importante**: `paho-mqtt` deve ser **1.6.1** (não 2.x) por compatibilidade com Azure SDK.
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🔍 Monitorização
+
+### MQTT Local
+
+```bash
+# Subscrever a todos os tópicos
+mosquitto_sub -h localhost -t '#' -v
+```
+
+### Azure IoT Hub
+
+```bash
+# Azure CLI - monitorizar telemetria
+az iot hub monitor-events --hub-name YOUR-HUB-NAME
+
+# Device específico
+az iot hub monitor-events --hub-name YOUR-HUB-NAME --device-id DEVICE-ID
+```
+
+---
+
+## 📚 Documentação Adicional
+
+- **Configuração Detalhada**: [Configuration Guide](docs/configuration.md)
+- **Azure Integration**: [Azure Setup](README_AZURE_INTEGRATION.md)
+- **Exemplos**: [config/](config/) (vários settings.json)
+
+---
+
+## 🤝 Contribuidores Principais
+
+Ver [contributors](../../graphs/contributors) para lista completa.
+
+---
+
+## 📄 Licença
+
+Este projeto está sob licença open-source. Ver ficheiro LICENSE para detalhes.
+
+---
+
+## 🆘 Troubleshooting
+
+**MQTT não conecta**:
+```bash
+# Verificar se broker está a correr
+mosquitto -v
+```
+
+**Azure não conecta**:
+```bash
+# Verificar connection string
+# Formato: HostName=...;DeviceId=...;SharedAccessKey=...
+```
+
+**Erro de dependências**:
+```bash
+# Reinstalar com versões corretas
+pip install -r requirements.txt --force-reinstall
+```
+
+---
+
+**Desenvolvido com ❤️ para simplificar testes IoT**
