@@ -37,3 +37,4 @@ env/
 *.swp
 *.swo
 *~
+api/src/simulations.db

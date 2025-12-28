@@ -1,20 +1,25 @@
-# Azure IoT Hub Integration for MQTT Simulator
+# ☁️ Azure IoT Hub Integration
 
-This document explains how to use the MQTT Simulator with Azure IoT Hub integration.
+Guia de integração do MQTT Simulator com Azure IoT Hub para telemetria em cloud.
 
-## Overview
+---
 
-The MQTT Simulator now supports two broker types:
-- **MQTT** - Traditional MQTT broker (e.g., Mosquitto, localhost)
-- **Azure** - Azure IoT Hub using the Azure IoT Device SDK
+## 🎯 Visão Geral
 
-## Configuration
+O simulador suporta dois modos:
 
-The broker type is controlled by the `BROKER_TYPE` field in `settings.json`.
+| Modo | Destino | Biblioteca |
+|------|---------|-----------|
+| **MQTT** | Broker tradicional (Mosquitto, HiveMQ) | `paho-mqtt` |
+| **Azure** | Azure IoT Hub | `azure-iot-device` |
 
-### Option 1: MQTT Broker (localhost)
+Seleciona o modo através do campo `BROKER_TYPE` em `settings.json`.
 
-Use `settings.json` or `settings_mqtt_localhost.json`:
+---
+
+## ⚙️ Configuração
+
+### Modo MQTT (Broker Local)
 
 ```json
 {
@@ -25,152 +30,163 @@ Use `settings.json` or `settings_mqtt_localhost.json`:
 }
 ```
 
-**Required fields for MQTT:**
+**Campos obrigatórios**:
 - `BROKER_TYPE`: "mqtt"
-- `BROKER_URL`: MQTT broker hostname
-- `BROKER_PORT`: MQTT broker port (default: 1883)
+- `BROKER_URL`: Hostname do broker
+- `BROKER_PORT`: Porta (default: 1883)
 
-### Option 2: Azure IoT Hub
-
-Use `settings_azure.json` and update with your Azure connection string:
+### Modo Azure IoT Hub
 
 ```json
 {
   "BROKER_TYPE": "azure",
-  "AZURE_CONNECTION_STRING": "HostName=your-hub.azure-devices.net;DeviceId=your-device;SharedAccessKey=your-key",
+  "AZURE_CONNECTION_STRING": "HostName=your-hub.azure-devices.net;DeviceId=device1;SharedAccessKey=...",
   "TOPICS": [...]
 }
 ```
 
-**Required fields for Azure:**
+**Campos obrigatórios**:
 - `BROKER_TYPE`: "azure"
-- `AZURE_CONNECTION_STRING`: Your Azure IoT Hub device connection string
+- `AZURE_CONNECTION_STRING`: Connection string do device
 
-**Optional fields:**
-- `AZURE_MODEL_ID`: IoT Plug and Play model ID (optional)
+**Campos opcionais**:
+- `AZURE_MODEL_ID`: IoT Plug and Play model ID
 
-## Getting Your Azure Connection String
+---
 
-1. Go to [Azure Portal](https://portal.azure.com)
-2. Navigate to your IoT Hub
-3. Go to "Devices" under "Device management"
-4. Select your device or create a new one
-5. Copy the "Primary Connection String"
+## 🔑 Obter Connection String no Azure
 
-Example format:
+1. Aceder ao [Azure Portal](https://portal.azure.com)
+2. Navegar para o IoT Hub
+3. **Devices** (em "Device management")
+4. Selecionar device ou criar novo
+5. Copiar **Primary Connection String**
+
+**Formato**:
 ```
-HostName=my-iot-hub.azure-devices.net;DeviceId=my-device;SharedAccessKey=abc123...
+HostName=my-hub.azure-devices.net;DeviceId=sensor-01;SharedAccessKey=abc123...
 ```
 
-## Usage
+---
 
-### Running with MQTT (localhost)
+## 🚀 Utilização
+
+### Executar com MQTT Local
 
 ```bash
-cd mqtt-simulator-master/mqtt-simulator
 python main.py -f ../config/settings.json
 ```
 
-or explicitly:
+ou explicitamente:
 
 ```bash
 python main.py -f ../config/settings_mqtt_localhost.json
 ```
 
-### Running with Azure IoT Hub
+### Executar com Azure IoT Hub
 
-1. **First, update the connection string** in `config/settings_azure.json`:
-   ```json
-   {
-     "BROKER_TYPE": "azure",
-     "AZURE_CONNECTION_STRING": "HostName=YOUR-HUB.azure-devices.net;DeviceId=YOUR-DEVICE;SharedAccessKey=YOUR-KEY",
-     ...
-   }
-   ```
+**1. Atualizar connection string** em `config/settings_azure.json`:
 
-2. **Run the simulator:**
-   ```bash
-   python main.py -f ../config/settings_azure.json
-   ```
+```json
+{
+  "BROKER_TYPE": "azure",
+  "AZURE_CONNECTION_STRING": "HostName=YOUR-HUB.azure-devices.net;DeviceId=YOUR-DEVICE;SharedAccessKey=YOUR-KEY",
+  "TOPICS": [...]
+}
+```
 
-### Verbose Mode
+**2. Executar simulador**:
 
-Enable verbose output to see detailed telemetry payloads:
+```bash
+python main.py -f ../config/settings_azure.json
+```
+
+**3. Modo verbose** (ver payloads detalhados):
 
 ```bash
 python main.py -f ../config/settings_azure.json -v
 ```
 
-## How It Works
+---
 
-### MQTT Mode
-- Uses `paho-mqtt` library (version 1.6.1)
-- Creates `Publisher` instances
-- Publishes to traditional MQTT topics
-- Supports TLS and authentication
+## 🔄 Como Funciona
 
-### Azure Mode
-- Uses `azure-iot-device` library (version 2.14.0)
-- Creates `AzurePublisher` instances
-- Sends telemetry to Azure IoT Hub
-- Topic names are included as message properties
-- Automatic JSON encoding with UTF-8
+### Modo MQTT
+- Usa `paho-mqtt` (v1.6.1)
+- Cria instâncias `Publisher`
+- Publica em tópicos MQTT tradicionais
+- Suporta TLS e autenticação
 
-## Topic Mapping
+### Modo Azure
+- Usa `azure-iot-device` (v2.14.0)
+- Cria instâncias `AzurePublisher`
+- Envia telemetria para IoT Hub
+- Tópicos incluídos como propriedades de mensagem
+- Encoding automático JSON + UTF-8
 
-When using Azure IoT Hub, the MQTT topic structure is preserved:
+---
 
-**MQTT topic:**
+## 📋 Mapeamento de Tópicos
+
+O simulador preserva a estrutura de tópicos MQTT no Azure:
+
+**Tópico MQTT**:
 ```
 linha_producao/estacao1
 ```
 
-**Azure IoT Hub:**
-- Sent as telemetry with custom property `topic=linha_producao/estacao1`
-- Payload remains the same JSON structure
+**Azure IoT Hub**:
+- Enviado como telemetria
+- Propriedade customizada: `topic=linha_producao/estacao1`
+- Payload mantém estrutura JSON original
 
-## Example Output
+---
 
-### MQTT Mode
+## 📊 Output de Exemplo
+
+### Modo MQTT
+
 ```
 Using MQTT publisher (broker: localhost:1883)
 Starting: linha_producao/estacao1 ...
 Starting: linha_producao/estacao2 ...
-Starting: linha_producao/estacao3 ...
 [12:30:45] Data published on: linha_producao/estacao1
 ```
 
-### Azure Mode
+### Modo Azure
+
 ```
-Using Azure IoT Hub publisher (connection: HostName=my-hub.azure-devices.net;DeviceId=...)
-Starting: linha_producao/estacao1 ...
-Starting: linha_producao/estacao2 ...
-Starting: linha_producao/estacao3 ...
+Using Azure IoT Hub publisher
 Connected to Azure IoT Hub for topic: linha_producao/estacao1
 [12:30:45] Telemetry sent to Azure IoT Hub: linha_producao/estacao1
 ```
 
-## Monitoring Telemetry in Azure
+---
 
-### Using Azure Portal
-1. Go to your IoT Hub in Azure Portal
-2. Navigate to "Overview"
-3. View "Device to cloud messages" metric
+## 🔍 Monitorizar Telemetria no Azure
 
-### Using Azure CLI
+### Azure Portal
 
-Monitor all telemetry:
+1. Ir para IoT Hub no portal
+2. **Overview** → Ver métrica "Device to cloud messages"
+
+### Azure CLI
+
+**Monitorizar tudo**:
 ```bash
 az iot hub monitor-events --hub-name YOUR-HUB-NAME
 ```
 
-Monitor specific device:
+**Device específico**:
 ```bash
-az iot hub monitor-events --hub-name YOUR-HUB-NAME --device-id YOUR-DEVICE-ID
+az iot hub monitor-events \
+  --hub-name YOUR-HUB-NAME \
+  --device-id YOUR-DEVICE-ID
 ```
 
-### Example Telemetry Message
+### Exemplo de Mensagem Recebida
 
+**Payload**:
 ```json
 {
   "producao": 65,
@@ -180,40 +196,119 @@ az iot hub monitor-events --hub-name YOUR-HUB-NAME --device-id YOUR-DEVICE-ID
 }
 ```
 
-With message properties:
+**Propriedades**:
 ```
 topic: linha_producao/estacao1
 contentType: application/json
 contentEncoding: utf-8
 ```
 
-## Dependencies
+---
 
-### For MQTT Mode
-- `paho-mqtt==1.6.1`
+## 📦 Dependências
 
-### For Azure Mode
-- `azure-iot-device==2.14.0`
-- `paho-mqtt==1.6.1` (required by azure-iot-device)
-
-### Common Dependencies
-- `pydantic==2.12.0` (configuration validation)
-
-**Important:** `paho-mqtt` must be version 1.6.1 (not 2.x) due to Azure IoT SDK compatibility requirements.
-
-Install all dependencies:
-```bash
-pip install -r ../../requirements.txt
+### Modo MQTT
+```
+paho-mqtt==1.6.1
+pydantic==2.12.0
 ```
 
-## Configuration Reference
+### Modo Azure (adicional)
+```
+azure-iot-device==2.14.0
+paho-mqtt==1.6.1  # requerido pelo Azure SDK
+```
 
-### Complete Azure Configuration Example
+**Importante**: `paho-mqtt` **deve ser 1.6.1** (não 2.x) por compatibilidade com Azure IoT SDK.
+
+**Instalar**:
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🔀 Alternar Entre Modos
+
+Basta mudar `BROKER_TYPE` no settings:
+
+**Para MQTT**:
+```json
+{
+  "BROKER_TYPE": "mqtt",
+  "BROKER_URL": "localhost",
+  "BROKER_PORT": 1883
+}
+```
+
+**Para Azure**:
+```json
+{
+  "BROKER_TYPE": "azure",
+  "AZURE_CONNECTION_STRING": "HostName=..."
+}
+```
+
+---
+
+## 🏗️ Arquitetura
+
+```
+settings.json → BrokerSettings.is_azure_enabled()
+                       |
+        ┌──────────────┴──────────────┐
+        |                             |
+   MQTT Mode                    Azure Mode
+        |                             |
+   Publisher                   AzurePublisher
+        |                             |
+  paho-mqtt.client            azure-iot-device
+```
+
+Ambos implementam a mesma interface → intercambiáveis.
+
+---
+
+## 🛠️ Troubleshooting
+
+### Erro: "AZURE_CONNECTION_STRING is required"
+
+**Solução**: Adicionar connection string válido no settings.json
+
+### Erro: "Invalid connection string format"
+
+**Solução**: Verificar formato (deve conter `HostName`, `DeviceId`, `SharedAccessKey`)
+
+### Erro: Conflito de versões paho-mqtt
+
+**Solução**: 
+```bash
+pip uninstall paho-mqtt
+pip install paho-mqtt==1.6.1
+```
+
+### Azure não conecta
+
+**Testar conectividade**:
+```bash
+ping your-hub-name.azure-devices.net
+```
+
+### MQTT broker offline
+
+**Verificar Mosquitto**:
+```bash
+mosquitto -v
+```
+
+---
+
+## 📚 Configuração Completa Azure
 
 ```json
 {
   "BROKER_TYPE": "azure",
-  "AZURE_CONNECTION_STRING": "HostName=production-hub.azure-devices.net;DeviceId=factory-sensor-01;SharedAccessKey=abc123...",
+  "AZURE_CONNECTION_STRING": "HostName=production-hub.azure-devices.net;DeviceId=factory-01;SharedAccessKey=...",
   "AZURE_MODEL_ID": "dtmi:com:example:ProductionLine;1",
   "TOPICS": [
     {
@@ -243,82 +338,14 @@ pip install -r ../../requirements.txt
 }
 ```
 
-## Switching Between MQTT and Azure
+---
 
-Simply change the `BROKER_TYPE` in your settings file:
+## 🆘 Suporte
 
-**To switch to MQTT:**
-```json
-{
-  "BROKER_TYPE": "mqtt",
-  "BROKER_URL": "localhost",
-  "BROKER_PORT": 1883,
-  ...
-}
-```
+**MQTT Simulator**: Ver README principal  
+**Azure IoT Hub**: [Documentação Oficial](https://docs.microsoft.com/azure/iot-hub/)  
+**Azure SDK Issues**: [GitHub](https://github.com/Azure/azure-iot-sdk-python/issues)
 
-**To switch to Azure:**
-```json
-{
-  "BROKER_TYPE": "azure",
-  "AZURE_CONNECTION_STRING": "HostName=...",
-  ...
-}
-```
+---
 
-## Troubleshooting
-
-### Azure Connection Errors
-
-**Error:** "AZURE_CONNECTION_STRING is required when BROKER_TYPE is 'azure'"
-- **Solution:** Add a valid `AZURE_CONNECTION_STRING` to your settings file
-
-**Error:** "Invalid connection string format"
-- **Solution:** Ensure your connection string contains `HostName`, `DeviceId`, and `SharedAccessKey`
-
-### Dependency Conflicts
-
-**Error:** Package version conflicts with paho-mqtt
-- **Solution:** Ensure `paho-mqtt==1.6.1` is installed (not 2.x)
-  ```bash
-  pip uninstall paho-mqtt
-  pip install paho-mqtt==1.6.1
-  ```
-
-### Connection Issues
-
-**Azure:** Check network connectivity to Azure
-```bash
-ping your-hub-name.azure-devices.net
-```
-
-**MQTT:** Ensure your MQTT broker is running
-```bash
-# For localhost Mosquitto
-mosquitto -v
-```
-
-## Architecture
-
-The integration uses a factory pattern to select the appropriate publisher:
-
-```
-settings.json → BrokerSettings.is_azure_enabled()
-                       ↓
-              ┌────────┴────────┐
-              │                 │
-       MQTT Mode          Azure Mode
-              │                 │
-        Publisher        AzurePublisher
-              │                 │
-      paho-mqtt.client   azure-iot-device
-```
-
-Both publisher types implement the same interface, making them interchangeable.
-
-## Support
-
-For issues or questions:
-- MQTT Simulator: Check the main project README
-- Azure IoT Hub: [Azure IoT Documentation](https://docs.microsoft.com/azure/iot-hub/)
-- Azure SDK: [GitHub Issues](https://github.com/Azure/azure-iot-sdk-python/issues)
+**Integração Azure simplificada para testes IoT em cloud** ☁️

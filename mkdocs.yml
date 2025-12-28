@@ -1,34 +1,98 @@
-site_name: Projeto para a Disciplina de Integração de Sistemas de Informação (ISI)
-site_description: Trabalho da Disciplina de Integração de Sistemas de Informação (ISI) pretende-se focar a aplicação e experimentação de ferramentas em processos de ETL (Extract, Transformation and Load), inerentes a processos de Integração de Sistemas de informação ao nível dos dados. 
+site_name: ProjetoISIv1 - Monitorização Industrial & IoT Simulator Platform
+site_url: https://peqspc.github.io/ProjetoISIv1/
+site_description: Sistema de monitorização industrial com ETL que evoluiu para uma plataforma de simulação IoT. Projeto desenvolvido para ISI (Integração de Sistemas de Informação) - LESI-IPCA
 site_author: PEQSPC
 repo_url: https://github.com/PEQSPC/ProjetoISIv1/tree/main
 edit_uri: edit/main/docs
 docs_dir: ./docs
+
 theme:
   name: material
   favicon: assets/favicon.ico
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
 
 plugins:
+  - search
   - to-pdf:
       author: PEQSPC
-      cover_title: Projeto ISI - Documentação Completa
-      cover_subtitle: Trabalho da Disciplina de Integração de Sistemas de Informação (ISI)
-      copywrite: © 2025 PEQSPC
-      
+      cover_title: ProjetoISIv1 - Documentação Completa
+      cover_subtitle: Monitorização Industrial com ETL & IoT Simulator Platform
+      copyright: © 2024-2025 PEQSPC
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - tables
+  - attr_list
+  - md_in_html
 
 nav:
-  - Introdução: index.md
-  - Arquitetura Técnica: arquitetura.md
-  - Processos ETL: etl-processos.md
-  - Integração com API: api-integracao.md
-  - Base de Dados: base-de-dados.md
-  - Simulador de Sensores:
-      - Como usar o Simulador: simulador/how_to_use_simulator.md
+  - Home:
+      - Introdução: index.md
+      - Contexto do Projeto: projeto-contexto.md
+  
+  - Arquitetura:
+      - Arquitetura Técnica: arquitetura.md
+      - Processos ETL: etl-processos.md
+      - Base de Dados: base-de-dados.md
+  
+  - Integrações:
+      - API de Preços: api-integracao.md
+      - Azure IoT Hub: azure-iot-integracao.md
+      - Relatórios e Email: relatorios-emails.md
+  
+  - Simulador IoT:
+      - Como Usar: simulador/how_to_use_simulator.md
       - Configuração: simulador/configuration.md
       - Expressões Matemáticas: simulador/math_expression.md
-  - Dashboard: dashboard.md
-  - Relatórios e Email: relatorios-emails.md
-  - Instalação: instalacao.md
-  - Troubleshooting: troubleshooting.md
-  - Conclusão: conclusao.md
-  - Fase-2: fase2/roadmap-Iot-Simulator-Platform.md
+  
+  - Interface:
+      - Dashboard Web: dashboard.md
+  
+  - Deployment:
+      - Instalação: instalacao.md
+      - Troubleshooting: troubleshooting.md
+  
+  - Projeto:
+      - Conclusão Fase 1: conclusao.md
+      - Fase 2 - IoT Simulator Platform: fase-2/roadmap-Iot-Simulator-Platform.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/PEQSPC/ProjetoISIv1
+  version:
+    provider: mike
+    default: latest
+
+copyright: Copyright &copy; 2024-2025 PEQSPC - LESI-IPCA

@@ -7,7 +7,7 @@
 
 ---
 
-## 📊 Visão Geral
+## Visão Geral
 
 ```
 Fase 1 (MVP)          Fase 2 (Kubernetes)     Fase 3 (Produção)
@@ -23,7 +23,7 @@ Semanas 1-4           Semanas 5-10            Semanas 11-16
 
 ---
 
-## 🎯 FASE 1 - MVP Funcional (4 semanas)
+## FASE 1 - MVP Funcional (4 semanas)
 
 **Objetivo:** Sistema local funcional para demonstração universitária  
 **Entregáveis:** API REST + Docker + SQLite + Documentação + Demo
@@ -725,7 +725,7 @@ simuladores sob demanda. Obrigado."
 
 ---
 
-## 🚀 FASE 2 - Kubernetes Multi-User (6 semanas)
+## FASE 2 - Kubernetes Multi-User (6 semanas)
 
 **Objetivo:** Migrar para Kubernetes, suportar múltiplos utilizadores  
 **Pré-requisitos:** Fase 1 100% funcional, conhecimento básico K8s
@@ -890,7 +890,7 @@ class Simulation(Base):
 
 ---
 
-## 🏭 FASE 3 - Production Ready (6 semanas)
+## FASE 3 - Production Ready (6 semanas)
 
 **Objetivo:** Sistema pronto para deploy real  
 **Pré-requisitos:** Fase 2 funcional, cluster K8s real
@@ -976,7 +976,7 @@ jobs:
 
 ---
 
-## 📊 Milestones e Entregáveis
+## Milestones e Entregáveis
 
 ### Milestone 1: MVP Demo (Semana 4)
 **Entregáveis:**
@@ -1024,7 +1024,7 @@ jobs:
 
 ---
 
-## ✅ Checklists de Validação
+## Checklists de Validação
 
 ### Checklist Fase 1 (antes de apresentar)
 ```
@@ -1124,7 +1124,7 @@ Segurança:
 
 ---
 
-## 🎯 Próximos Passos Imediatos (Esta Semana)
+## Próximos Passos Imediatos (Esta Semana)
 
 ### Segunda-feira
 - [ ] Corrigir health check database
@@ -1154,7 +1154,7 @@ Segurança:
 
 ---
 
-## 📚 Recursos Úteis
+## Recursos Úteis
 
 ### Documentação Oficial
 - FastAPI: https://fastapi.tiangolo.com
@@ -1175,7 +1175,7 @@ Segurança:
 
 ---
 
-## 🎬 Conclusão
+## Conclusão
 
 Este roadmap cobre **12-16 semanas** de desenvolvimento estruturado em 3 fases:
 
