@@ -1,0 +1,3978 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Sistema de monitorização industrial com ETL que evoluiu para uma plataforma de simulação IoT. Projeto desenvolvido para ISI (Integração de Sistemas de Informação) - LESI-IPCA">
+      
+      
+        <meta name="author" content="PEQSPC">
+      
+      
+        <link rel="canonical" href="https://peqspc.github.io/ProjetoISIv1/latest/fase-2/roadmap-Iot-Simulator-Platform/">
+      
+      
+        <link rel="prev" href="../../conclusao/">
+      
+      
+      
+      <link rel="icon" href="../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>Fase 2 - IoT Simulator Platform - ProjetoISIv1 - Monitorização Industrial & IoT Simulator Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#roadmap-completo-plataforma-de-simulacao-iot" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="ProjetoISIv1 - Monitorização Industrial &amp; IoT Simulator Platform" class="md-header__button md-logo" aria-label="ProjetoISIv1 - Monitorização Industrial & IoT Simulator Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ProjetoISIv1 - Monitorização Industrial & IoT Simulator Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Fase 2 - IoT Simulator Platform
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/PEQSPC/ProjetoISIv1/tree/main" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../arquitetura/" class="md-tabs__link">
+          
+  
+  Arquitetura
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-integracao/" class="md-tabs__link">
+          
+  
+  Integrações
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../simulador/how_to_use_simulator/" class="md-tabs__link">
+          
+  
+  Simulador IoT
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dashboard/" class="md-tabs__link">
+          
+  
+  Interface
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../instalacao/" class="md-tabs__link">
+          
+  
+  Deployment
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../conclusao/" class="md-tabs__link">
+          
+  
+  Projeto
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ProjetoISIv1 - Monitorização Industrial &amp; IoT Simulator Platform" class="md-nav__button md-logo" aria-label="ProjetoISIv1 - Monitorização Industrial & IoT Simulator Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ProjetoISIv1 - Monitorização Industrial & IoT Simulator Platform
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/PEQSPC/ProjetoISIv1/tree/main" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introdução
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projeto-contexto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contexto do Projeto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Arquitetura
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Arquitetura
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Arquitetura Técnica
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../etl-processos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Processos ETL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../base-de-dados/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Base de Dados
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Integrações
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Integrações
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-integracao/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API de Preços
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure-iot-integracao/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Azure IoT Hub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../relatorios-emails/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Relatórios e Email
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Simulador IoT
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Simulador IoT
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../simulador/how_to_use_simulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Como Usar
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../simulador/configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuração
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../simulador/math_expression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Expressões Matemáticas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Interface
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Interface
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dashboard Web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../instalacao/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Instalação
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Projeto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Projeto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conclusao/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conclusão Fase 1
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Fase 2 - IoT Simulator Platform
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Fase 2 - IoT Simulator Platform
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visão Geral
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fase-1-mvp-funcional-4-semanas" class="md-nav__link">
+    <span class="md-ellipsis">
+      FASE 1 - MVP Funcional (4 semanas)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FASE 1 - MVP Funcional (4 semanas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semana-1-core-implementation-atual" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 1: Core Implementation (ATUAL)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 1: Core Implementation (ATUAL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-1-2-finalizar-integracao-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 1-2: Finalizar Integração Docker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dia-3-4-persistencia-sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 3-4: Persistência SQLite
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dia-5-7-auto-stop-e-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 5-7: Auto-Stop e Cleanup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-2-robustez-e-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 2: Robustez e Error Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 2: Robustez e Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-8-9-tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 8-9: Tratamento de Erros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dia-10-11-features-adicionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 10-11: Features Adicionais
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dia-12-14-testes-manuais-completos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 12-14: Testes Manuais Completos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-3-documentacao-e-cliente-de-teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 3: Documentação e Cliente de Teste
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 3: Documentação e Cliente de Teste">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-15-16-readmemd-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 15-16: README.md Completo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Executar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criar-simulacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar Simulação
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-simulacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Listar Simulações
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ver Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arquitetura
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplos-de-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemplos de Config
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-19-21-configs-de-exemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 19-21: Configs de Exemplo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-4-apresentacao-e-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 4: Apresentação e Demo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 4: Apresentação e Demo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-22-23-slides-de-apresentacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 22-23: Slides de Apresentação
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitetura_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arquitetura
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stack-tecnologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack Tecnológica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-ao-vivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demo ao Vivo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-implementadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features Implementadas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap-futuro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roadmap Futuro
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusão
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perguntas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perguntas?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#marco-apresentacao-fase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎓 MARCO: Apresentação Fase 1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fase-2-kubernetes-multi-user-6-semanas" class="md-nav__link">
+    <span class="md-ellipsis">
+      FASE 2 - Kubernetes Multi-User (6 semanas)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FASE 2 - Kubernetes Multi-User (6 semanas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semana-5-6-setup-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 5-6: Setup Kubernetes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 5-6: Setup Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aprender-kubernetes-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aprender Kubernetes Básico
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-cluster-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup Cluster Local
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-python-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubernetes Python Client
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-7-8-migrar-docker-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 7-8: Migrar Docker → Kubernetes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 7-8: Migrar Docker → Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criar-pods-dinamicamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar Pods Dinamicamente
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expor-pods-via-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expor Pods via Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup-em-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cleanup em Kubernetes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-9-10-postgresql-e-multi-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 9-10: PostgreSQL e Multi-User
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 9-10: PostgreSQL e Multi-User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migrar-sqlite-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migrar SQLite → PostgreSQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adicionar-utilizadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adicionar Utilizadores
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rate Limiting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fase-3-production-ready-6-semanas" class="md-nav__link">
+    <span class="md-ellipsis">
+      FASE 3 - Production Ready (6 semanas)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FASE 3 - Production Ready (6 semanas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semana-11-12-autenticacao-e-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 11-12: Autenticação e Segurança
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 11-12: Autenticação e Segurança">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jwt-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      JWT Completo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rbac-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      RBAC Kubernetes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secrets Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-13-14-monitoring-e-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 13-14: Monitoring e Observability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 13-14: Monitoring e Observability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prometheus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prometheus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-15-16-cicd-e-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 15-16: CI/CD e Deploy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 15-16: CI/CD e Deploy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Actions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Cloud
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestones-e-entregaveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Milestones e Entregáveis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestones e Entregáveis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#milestone-1-mvp-demo-semana-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Milestone 1: MVP Demo (Semana 4)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#milestone-2-kubernetes-working-semana-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Milestone 2: Kubernetes Working (Semana 10)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#milestone-3-production-deploy-semana-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Milestone 3: Production Deploy (Semana 16)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklists-de-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checklists de Validação
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checklists de Validação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checklist-fase-1-antes-de-apresentar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checklist Fase 1 (antes de apresentar)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-fase-2-antes-de-migrar-para-fase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checklist Fase 2 (antes de migrar para Fase 3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-fase-3-antes-de-considerar-pronto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checklist Fase 3 (antes de considerar "pronto")
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricas-de-sucesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Métricas de Sucesso
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 Métricas de Sucesso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fase-1-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fase 1 (MVP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fase-2-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fase 2 (Kubernetes)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fase-3-producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fase 3 (Produção)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proximos-passos-imediatos-esta-semana" class="md-nav__link">
+    <span class="md-ellipsis">
+      Próximos Passos Imediatos (Esta Semana)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Próximos Passos Imediatos (Esta Semana)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#segunda-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segunda-feira
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terca-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terça-feira
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quarta-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quarta-feira
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quinta-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quinta-feira
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sexta-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sexta-feira
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos-uteis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recursos Úteis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recursos Úteis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentacao-oficial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentação Oficial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tutoriais" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutoriais
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tools
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusao_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusão
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visão Geral
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fase-1-mvp-funcional-4-semanas" class="md-nav__link">
+    <span class="md-ellipsis">
+      FASE 1 - MVP Funcional (4 semanas)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FASE 1 - MVP Funcional (4 semanas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semana-1-core-implementation-atual" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 1: Core Implementation (ATUAL)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 1: Core Implementation (ATUAL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-1-2-finalizar-integracao-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 1-2: Finalizar Integração Docker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dia-3-4-persistencia-sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 3-4: Persistência SQLite
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dia-5-7-auto-stop-e-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 5-7: Auto-Stop e Cleanup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-2-robustez-e-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 2: Robustez e Error Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 2: Robustez e Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-8-9-tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 8-9: Tratamento de Erros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dia-10-11-features-adicionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 10-11: Features Adicionais
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dia-12-14-testes-manuais-completos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 12-14: Testes Manuais Completos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-3-documentacao-e-cliente-de-teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 3: Documentação e Cliente de Teste
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 3: Documentação e Cliente de Teste">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-15-16-readmemd-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 15-16: README.md Completo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Executar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criar-simulacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar Simulação
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-simulacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Listar Simulações
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ver Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arquitetura
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplos-de-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemplos de Config
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-19-21-configs-de-exemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 19-21: Configs de Exemplo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-4-apresentacao-e-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 4: Apresentação e Demo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 4: Apresentação e Demo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dia-22-23-slides-de-apresentacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dia 22-23: Slides de Apresentação
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitetura_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arquitetura
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stack-tecnologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack Tecnológica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-ao-vivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demo ao Vivo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-implementadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features Implementadas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap-futuro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roadmap Futuro
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusão
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perguntas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perguntas?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#marco-apresentacao-fase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎓 MARCO: Apresentação Fase 1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fase-2-kubernetes-multi-user-6-semanas" class="md-nav__link">
+    <span class="md-ellipsis">
+      FASE 2 - Kubernetes Multi-User (6 semanas)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FASE 2 - Kubernetes Multi-User (6 semanas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semana-5-6-setup-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 5-6: Setup Kubernetes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 5-6: Setup Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aprender-kubernetes-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aprender Kubernetes Básico
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-cluster-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup Cluster Local
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-python-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubernetes Python Client
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-7-8-migrar-docker-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 7-8: Migrar Docker → Kubernetes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 7-8: Migrar Docker → Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criar-pods-dinamicamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar Pods Dinamicamente
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expor-pods-via-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expor Pods via Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup-em-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cleanup em Kubernetes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-9-10-postgresql-e-multi-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 9-10: PostgreSQL e Multi-User
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 9-10: PostgreSQL e Multi-User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migrar-sqlite-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migrar SQLite → PostgreSQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adicionar-utilizadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adicionar Utilizadores
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rate Limiting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fase-3-production-ready-6-semanas" class="md-nav__link">
+    <span class="md-ellipsis">
+      FASE 3 - Production Ready (6 semanas)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FASE 3 - Production Ready (6 semanas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semana-11-12-autenticacao-e-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 11-12: Autenticação e Segurança
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 11-12: Autenticação e Segurança">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jwt-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      JWT Completo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rbac-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      RBAC Kubernetes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secrets Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-13-14-monitoring-e-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 13-14: Monitoring e Observability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 13-14: Monitoring e Observability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prometheus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prometheus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semana-15-16-cicd-e-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semana 15-16: CI/CD e Deploy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semana 15-16: CI/CD e Deploy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Actions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Cloud
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestones-e-entregaveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Milestones e Entregáveis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestones e Entregáveis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#milestone-1-mvp-demo-semana-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Milestone 1: MVP Demo (Semana 4)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#milestone-2-kubernetes-working-semana-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Milestone 2: Kubernetes Working (Semana 10)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#milestone-3-production-deploy-semana-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Milestone 3: Production Deploy (Semana 16)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklists-de-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checklists de Validação
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checklists de Validação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checklist-fase-1-antes-de-apresentar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checklist Fase 1 (antes de apresentar)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-fase-2-antes-de-migrar-para-fase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checklist Fase 2 (antes de migrar para Fase 3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checklist-fase-3-antes-de-considerar-pronto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checklist Fase 3 (antes de considerar "pronto")
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricas-de-sucesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Métricas de Sucesso
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 Métricas de Sucesso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fase-1-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fase 1 (MVP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fase-2-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fase 2 (Kubernetes)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fase-3-producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fase 3 (Produção)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proximos-passos-imediatos-esta-semana" class="md-nav__link">
+    <span class="md-ellipsis">
+      Próximos Passos Imediatos (Esta Semana)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Próximos Passos Imediatos (Esta Semana)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#segunda-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segunda-feira
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terca-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terça-feira
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quarta-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quarta-feira
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quinta-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quinta-feira
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sexta-feira" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sexta-feira
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos-uteis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recursos Úteis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recursos Úteis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentacao-oficial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentação Oficial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tutoriais" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutoriais
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tools
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusao_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusão
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="roadmap-completo-plataforma-de-simulacao-iot">Roadmap Completo - Plataforma de Simulação IoT</h1>
+<p><strong>Projeto:</strong> Sistema de Simulação IoT sob Demanda<br />
+<strong>Objetivo:</strong> API REST que provisiona simuladores MQTT dinamicamente<br />
+<strong>Stack Base:</strong> Python + FastAPI + Docker + MQTT<br />
+<strong>Duração Total:</strong> 12-16 semanas (3 fases)</p>
+<hr />
+<h2 id="visao-geral">Visão Geral</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Fase 1 (MVP)          Fase 2 (Kubernetes)     Fase 3 (Produção)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Semanas 1-4           Semanas 5-10            Semanas 11-16
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    │                      │                        │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ├─ API REST           ├─ K8s Client            ├─ CI/CD
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    ├─ Docker Local       ├─ Pods Dinâmicos        ├─ Monitoring
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ├─ SQLite             ├─ PostgreSQL            ├─ Auth/Billing
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    └─ Demo Funcional     └─ Multi-User            └─ Deploy Cloud
+</code></pre></div>
+<p><strong>Estado Atual:</strong> Fase 1 - 70% completo (API + Docker + SQLite funcionais)</p>
+<hr />
+<h2 id="fase-1-mvp-funcional-4-semanas">FASE 1 - MVP Funcional (4 semanas)</h2>
+<p><strong>Objetivo:</strong> Sistema local funcional para demonstração universitária<br />
+<strong>Entregáveis:</strong> API REST + Docker + SQLite + Documentação + Demo</p>
+<h3 id="semana-1-core-implementation-atual">Semana 1: Core Implementation (ATUAL)</h3>
+<p><strong>Status:</strong> 🟡 Em Progresso</p>
+<h4 id="dia-1-2-finalizar-integracao-docker">Dia 1-2: Finalizar Integração Docker</h4>
+<ul>
+<li>[x] Pull da imagem <code>ghcr.io/damascenorafael/mqtt-simulator:sha-a73a2e8</code></li>
+<li>[x] API cria containers com config JSON</li>
+<li>[x] Adicionar flag <code>-f</code> no comando Docker</li>
+<li>[ ] <strong>Testar:</strong> Container lê config corretamente</li>
+<li>[ ] <strong>Validar:</strong> <code>docker logs</code> mostra tópicos configurados</li>
+</ul>
+<p><strong>Código-chave:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">container</span> <span class="o">=</span> <span class="n">docker_client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="s2">&quot;ghcr.io/damascenorafael/mqtt-simulator:sha-a73a2e8&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">command</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;/config/settings.json&quot;</span><span class="p">],</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">volumes</span><span class="o">=</span><span class="p">{</span><span class="n">config_path</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;bind&#39;</span><span class="p">:</span> <span class="s1">&#39;/config/settings.json&#39;</span><span class="p">,</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;ro&#39;</span><span class="p">}},</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">detach</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">remove</span><span class="o">=</span><span class="kc">True</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">)</span>
+</code></pre></div></p>
+<h4 id="dia-3-4-persistencia-sqlite">Dia 3-4: Persistência SQLite</h4>
+<ul>
+<li>[x] Modelo <code>Simulation</code> com SQLAlchemy</li>
+<li>[x] Endpoints CRUD completos</li>
+<li>[ ] <strong>Corrigir:</strong> Health check database "disconnected"</li>
+<li>[ ] <strong>Adicionar:</strong> Campo <code>expires_at</code> na tabela</li>
+<li>[ ] <strong>Implementar:</strong> Cleanup de expirados ao startup</li>
+</ul>
+<p><strong>Tasks específicas:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Recriar BD com novo campo</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>rm<span class="w"> </span>simulations.db
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from database import Base, engine; Base.metadata.create_all(bind=engine)&quot;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Adicionar ao database.py</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nv">expires_at</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Column<span class="o">(</span>DateTime,<span class="w"> </span><span class="nv">nullable</span><span class="o">=</span>False<span class="o">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># Adicionar ao main.py startup</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>@app.on_event<span class="o">(</span><span class="s2">&quot;startup&quot;</span><span class="o">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>async<span class="w"> </span>def<span class="w"> </span>startup_event<span class="o">()</span>:
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span>cleanup_expired_simulations<span class="o">()</span>
+</code></pre></div></p>
+<h4 id="dia-5-7-auto-stop-e-cleanup">Dia 5-7: Auto-Stop e Cleanup</h4>
+<ul>
+<li>[x] Thread para auto-stop após duração</li>
+<li>[ ] <strong>Implementar:</strong> Função <code>cleanup_expired_simulations()</code></li>
+<li>[ ] <strong>Testar:</strong> Criar simulação 2 min → para automaticamente</li>
+<li>[ ] <strong>Testar:</strong> Reiniciar API → containers órfãos limpos</li>
+<li>[ ] <strong>Validar:</strong> BD atualiza status para "expired"</li>
+</ul>
+<p><strong>Checklist de Validação:</strong>
+- [ ] Container para após <code>duration_minutes</code>
+- [ ] BD atualiza <code>stopped_at</code> e <code>status='expired'</code>
+- [ ] Ficheiro config temporário é removido
+- [ ] Containers órfãos limpos ao reiniciar API</p>
+<hr />
+<h3 id="semana-2-robustez-e-error-handling">Semana 2: Robustez e Error Handling</h3>
+<h4 id="dia-8-9-tratamento-de-erros">Dia 8-9: Tratamento de Erros</h4>
+<ul>
+<li>[ ] Try/catch robusto em todos endpoints</li>
+<li>[ ] Validação Pydantic completa (todos campos obrigatórios)</li>
+<li>[ ] Mensagens de erro descritivas</li>
+<li>[ ] HTTP status codes corretos (404, 422, 500)</li>
+</ul>
+<p><strong>Endpoints a revisar:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># POST /simulations</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">-</span> <span class="mi">422</span><span class="p">:</span> <span class="n">Config</span> <span class="n">JSON</span> <span class="n">inválido</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="o">-</span> <span class="mi">404</span><span class="p">:</span> <span class="n">Docker</span> <span class="n">image</span> <span class="n">não</span> <span class="n">encontrada</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="o">-</span> <span class="mi">500</span><span class="p">:</span> <span class="n">Erro</span> <span class="n">ao</span> <span class="n">criar</span> <span class="n">container</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># GET /simulations/{id}</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="o">-</span> <span class="mi">404</span><span class="p">:</span> <span class="n">Simulação</span> <span class="n">não</span> <span class="n">existe</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="o">-</span> <span class="mi">200</span><span class="p">:</span> <span class="n">Retorna</span> <span class="n">logs</span> <span class="n">mesmo</span> <span class="n">se</span> <span class="n">container</span> <span class="n">parou</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># DELETE /simulations/{id}</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="o">-</span> <span class="mi">404</span><span class="p">:</span> <span class="n">Simulação</span> <span class="n">não</span> <span class="n">existe</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="o">-</span> <span class="mi">400</span><span class="p">:</span> <span class="n">Simulação</span> <span class="n">já</span> <span class="n">parada</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="o">-</span> <span class="mi">204</span><span class="p">:</span> <span class="n">Sucesso</span>
+</code></pre></div></p>
+<h4 id="dia-10-11-features-adicionais">Dia 10-11: Features Adicionais</h4>
+<ul>
+<li>[ ] Endpoint <code>GET /simulations?status=running&amp;limit=20</code></li>
+<li>[ ] Endpoint <code>GET /stats</code> (total, running, stopped, expired)</li>
+<li>[ ] Endpoint <code>GET /simulations/{id}/logs</code> (últimas 100 linhas)</li>
+<li>[ ] Response models Pydantic para todos endpoints</li>
+</ul>
+<p><strong>Código exemplo:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/simulations&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">List</span><span class="p">[</span><span class="n">SimulationListItem</span><span class="p">])</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_simulations</span><span class="p">(</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">status</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">):</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">query</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Simulation</span><span class="p">)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Simulation</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">status</span><span class="p">)</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="n">total</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="n">sims</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">Simulation</span><span class="o">.</span><span class="n">created_at</span><span class="o">.</span><span class="n">desc</span><span class="p">())</span><span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>        <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="n">total</span><span class="p">,</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>        <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">,</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>        <span class="s2">&quot;simulations&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    <span class="p">}</span>
+</code></pre></div></p>
+<h4 id="dia-12-14-testes-manuais-completos">Dia 12-14: Testes Manuais Completos</h4>
+<ul>
+<li>[ ] Criar 5 configs JSON diferentes (single, multiple, list topics)</li>
+<li>[ ] Testar cada endpoint com Postman/curl</li>
+<li>[ ] Stress test: criar 10 simulações simultâneas</li>
+<li>[ ] Load test: criar → parar → criar 50x</li>
+<li>[ ] Verificar memory leaks (containers não limpos)</li>
+</ul>
+<p><strong>Checklist de Testes:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Test 1: Happy path</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8000/simulations<span class="w"> </span>-d<span class="w"> </span>@config.json
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># Verificar: container ativo, BD tem entrada, logs funcionam</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Test 2: Config inválido</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8000/simulations<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;invalid&quot;: true}&#39;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># Verificar: retorna 422 com mensagem clara</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># Test 3: Listar e filtrar</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>curl<span class="w"> </span>http://localhost:8000/simulations?status<span class="o">=</span>running
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1"># Verificar: só mostra simulações ativas</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1"># Test 4: Auto-stop</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="c1"># Criar simulação 1 min, esperar → container deve parar</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1"># Test 5: Cleanup após restart</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="c1"># Criar 3 simulações, matar API (Ctrl+C), reiniciar</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="c1"># Verificar: simulações expiradas têm status correto</span>
+</code></pre></div></p>
+<hr />
+<h3 id="semana-3-documentacao-e-cliente-de-teste">Semana 3: Documentação e Cliente de Teste</h3>
+<h4 id="dia-15-16-readmemd-completo">Dia 15-16: README.md Completo</h4>
+<ul>
+<li>[ ] Secção "Instalação" passo-a-passo</li>
+<li>[ ] Secção "Configuração" (Docker, SQLite)</li>
+<li>[ ] Secção "Uso" com exemplos de curl/Postman</li>
+<li>[ ] Secção "Arquitetura" com diagrama</li>
+<li>[ ] Secção "API Reference" (ou link para Swagger)</li>
+<li>[ ] Screenshots do Swagger UI</li>
+</ul>
+<p><strong>Template README.md:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gh"># IoT Simulator Platform</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>API REST para criar simuladores IoT sob demanda usando Docker.
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="gu">## Features</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">-</span><span class="w"> </span>✅ Criação dinâmica de simuladores MQTT
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="k">-</span><span class="w"> </span>✅ Configuração JSON flexível
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="k">-</span><span class="w"> </span>✅ Auto-stop após duração especificada
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="k">-</span><span class="w"> </span>✅ Persistência SQLite
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="k">-</span><span class="w"> </span>✅ Cleanup automático de containers órfãos
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="gu">## Instalação</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="gu">### Requisitos</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="k">-</span><span class="w"> </span>Python 3.11+
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="k">-</span><span class="w"> </span>Docker
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="k">-</span><span class="w"> </span>pip
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="gu">### Setup</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>```bash
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>git clone &lt;repo&gt;
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>cd iot-simulator-api
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>python3 -m venv venv
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>source venv/bin/activate
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>pip install -r requirements.txt
+</code></pre></div></p>
+<h3 id="executar">Executar</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uvicorn<span class="w"> </span>main:app<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+</code></pre></div>
+<p>Aceder: http://localhost:8000/docs</p>
+<h2 id="uso">Uso</h2>
+<h3 id="criar-simulacao">Criar Simulação</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8000/simulations<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="s1">    &quot;BROKER_URL&quot;: &quot;test.mosquitto.org&quot;,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="s1">    &quot;BROKER_PORT&quot;: 1883,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="s1">    &quot;TIME_INTERVAL&quot;: 10,</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="s1">    &quot;duration_minutes&quot;: 30,</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="s1">    &quot;TOPICS&quot;: [...]</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="s1">  }&#39;</span>
+</code></pre></div>
+<h3 id="listar-simulacoes">Listar Simulações</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>curl<span class="w"> </span>http://localhost:8000/simulations
+</code></pre></div>
+<h3 id="ver-logs">Ver Logs</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>curl<span class="w"> </span>http://localhost:8000/simulations/<span class="o">{</span>id<span class="o">}</span>/logs
+</code></pre></div>
+<h2 id="arquitetura">Arquitetura</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>┌─────────────┐
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>│   Cliente   │
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>└──────┬──────┘
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>       │ POST /simulations
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>       ▼
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>┌──────────────────┐
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>│  FastAPI REST    │
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>│  :8000           │
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>└────┬─────────────┘
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>     │
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>     ├──► Docker Engine (cria container)
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>     │
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>     └──► SQLite (guarda metadata)
+</code></pre></div>
+<h2 id="exemplos-de-config">Exemplos de Config</h2>
+<p>Ver pasta <code>examples/</code> para configs prontos:
+- <code>factory.json</code> - Simulação industrial
+- <code>agriculture.json</code> - Sensores agrícolas
+- <code>smart-home.json</code> - Casa inteligente</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Erro: Database disconnected</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>rm<span class="w"> </span>simulations.db
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from database import Base, engine; Base.metadata.create_all(bind=engine)&quot;</span>
+</code></pre></div></p>
+<p><strong>Container não para</strong>
+- Verificar <code>duration_minutes</code> foi especificado
+- Ver logs da API para mensagens "[AUTO-STOP]"
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>#### Dia 17-18: Cliente HTML de Teste
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>- [ ] HTML básico para conectar a broker MQTT
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>- [ ] Usar MQTT.js para subscrever tópicos
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>- [ ] Mostrar mensagens em tempo real
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>- [ ] Adicionar gráfico Chart.js (opcional)
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>**Ficheiro `test-client/index.html`:**
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>```html
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>&lt;!DOCTYPE html&gt;
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>&lt;html&gt;
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>&lt;head&gt;
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    &lt;title&gt;IoT Simulator - Test Client&lt;/title&gt;
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    &lt;script src=&quot;https://unpkg.com/mqtt@5.3.5/dist/mqtt.min.js&quot;&gt;&lt;/script&gt;
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>    &lt;style&gt;
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>        body { font-family: Arial; max-width: 800px; margin: 50px auto; }
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>        input { padding: 10px; width: 300px; }
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>        button { padding: 10px 20px; }
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>        #messages { 
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>            border: 1px solid #ccc; 
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>            height: 400px; 
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>            overflow-y: scroll; 
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>            padding: 10px; 
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>            margin-top: 20px;
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>            font-family: monospace;
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>        }
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>        .message { padding: 5px; border-bottom: 1px solid #eee; }
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>    &lt;/style&gt;
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>&lt;/head&gt;
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>&lt;body&gt;
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>    &lt;h1&gt;🔌 IoT Simulator Test Client&lt;/h1&gt;
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>    &lt;div&gt;
+<a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>        &lt;input id=&quot;broker&quot; placeholder=&quot;Broker (ex: test.mosquitto.org)&quot; value=&quot;test.mosquitto.org&quot;&gt;
+<a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>        &lt;input id=&quot;topic&quot; placeholder=&quot;Topic pattern (ex: fabrica/#)&quot; value=&quot;demo/#&quot;&gt;
+<a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>        &lt;button onclick=&quot;connect()&quot;&gt;Connect&lt;/button&gt;
+<a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>        &lt;button onclick=&quot;disconnect()&quot;&gt;Disconnect&lt;/button&gt;
+<a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a>        &lt;button onclick=&quot;clearMessages()&quot;&gt;Clear&lt;/button&gt;
+<a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>    &lt;/div&gt;
+<a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>
+<a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>    &lt;div id=&quot;status&quot;&gt;Disconnected&lt;/div&gt;
+<a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>    &lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;
+<a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a>
+<a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>    &lt;script&gt;
+<a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>        let client = null;
+<a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>
+<a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a>        function connect() {
+<a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>            const broker = document.getElementById(&#39;broker&#39;).value;
+<a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a>            const topic = document.getElementById(&#39;topic&#39;).value;
+<a id="__codelineno-13-49" name="__codelineno-13-49" href="#__codelineno-13-49"></a>
+<a id="__codelineno-13-50" name="__codelineno-13-50" href="#__codelineno-13-50"></a>            if (client) client.end();
+<a id="__codelineno-13-51" name="__codelineno-13-51" href="#__codelineno-13-51"></a>
+<a id="__codelineno-13-52" name="__codelineno-13-52" href="#__codelineno-13-52"></a>            document.getElementById(&#39;status&#39;).textContent = &#39;Connecting...&#39;;
+<a id="__codelineno-13-53" name="__codelineno-13-53" href="#__codelineno-13-53"></a>
+<a id="__codelineno-13-54" name="__codelineno-13-54" href="#__codelineno-13-54"></a>            client = mqtt.connect(`ws://${broker}:8080`);
+<a id="__codelineno-13-55" name="__codelineno-13-55" href="#__codelineno-13-55"></a>
+<a id="__codelineno-13-56" name="__codelineno-13-56" href="#__codelineno-13-56"></a>            client.on(&#39;connect&#39;, () =&gt; {
+<a id="__codelineno-13-57" name="__codelineno-13-57" href="#__codelineno-13-57"></a>                document.getElementById(&#39;status&#39;).textContent = &#39;✅ Connected&#39;;
+<a id="__codelineno-13-58" name="__codelineno-13-58" href="#__codelineno-13-58"></a>                client.subscribe(topic);
+<a id="__codelineno-13-59" name="__codelineno-13-59" href="#__codelineno-13-59"></a>                addMessage(`Subscribed to: ${topic}`, &#39;info&#39;);
+<a id="__codelineno-13-60" name="__codelineno-13-60" href="#__codelineno-13-60"></a>            });
+<a id="__codelineno-13-61" name="__codelineno-13-61" href="#__codelineno-13-61"></a>
+<a id="__codelineno-13-62" name="__codelineno-13-62" href="#__codelineno-13-62"></a>            client.on(&#39;message&#39;, (t, payload) =&gt; {
+<a id="__codelineno-13-63" name="__codelineno-13-63" href="#__codelineno-13-63"></a>                try {
+<a id="__codelineno-13-64" name="__codelineno-13-64" href="#__codelineno-13-64"></a>                    const data = JSON.parse(payload.toString());
+<a id="__codelineno-13-65" name="__codelineno-13-65" href="#__codelineno-13-65"></a>                    addMessage(`${t}: ${JSON.stringify(data, null, 2)}`, &#39;data&#39;);
+<a id="__codelineno-13-66" name="__codelineno-13-66" href="#__codelineno-13-66"></a>                } catch {
+<a id="__codelineno-13-67" name="__codelineno-13-67" href="#__codelineno-13-67"></a>                    addMessage(`${t}: ${payload.toString()}`, &#39;data&#39;);
+<a id="__codelineno-13-68" name="__codelineno-13-68" href="#__codelineno-13-68"></a>                }
+<a id="__codelineno-13-69" name="__codelineno-13-69" href="#__codelineno-13-69"></a>            });
+<a id="__codelineno-13-70" name="__codelineno-13-70" href="#__codelineno-13-70"></a>
+<a id="__codelineno-13-71" name="__codelineno-13-71" href="#__codelineno-13-71"></a>            client.on(&#39;error&#39;, (err) =&gt; {
+<a id="__codelineno-13-72" name="__codelineno-13-72" href="#__codelineno-13-72"></a>                document.getElementById(&#39;status&#39;).textContent = &#39;❌ Error&#39;;
+<a id="__codelineno-13-73" name="__codelineno-13-73" href="#__codelineno-13-73"></a>                addMessage(`Error: ${err.message}`, &#39;error&#39;);
+<a id="__codelineno-13-74" name="__codelineno-13-74" href="#__codelineno-13-74"></a>            });
+<a id="__codelineno-13-75" name="__codelineno-13-75" href="#__codelineno-13-75"></a>        }
+<a id="__codelineno-13-76" name="__codelineno-13-76" href="#__codelineno-13-76"></a>
+<a id="__codelineno-13-77" name="__codelineno-13-77" href="#__codelineno-13-77"></a>        function disconnect() {
+<a id="__codelineno-13-78" name="__codelineno-13-78" href="#__codelineno-13-78"></a>            if (client) {
+<a id="__codelineno-13-79" name="__codelineno-13-79" href="#__codelineno-13-79"></a>                client.end();
+<a id="__codelineno-13-80" name="__codelineno-13-80" href="#__codelineno-13-80"></a>                document.getElementById(&#39;status&#39;).textContent = &#39;Disconnected&#39;;
+<a id="__codelineno-13-81" name="__codelineno-13-81" href="#__codelineno-13-81"></a>                addMessage(&#39;Disconnected&#39;, &#39;info&#39;);
+<a id="__codelineno-13-82" name="__codelineno-13-82" href="#__codelineno-13-82"></a>            }
+<a id="__codelineno-13-83" name="__codelineno-13-83" href="#__codelineno-13-83"></a>        }
+<a id="__codelineno-13-84" name="__codelineno-13-84" href="#__codelineno-13-84"></a>
+<a id="__codelineno-13-85" name="__codelineno-13-85" href="#__codelineno-13-85"></a>        function clearMessages() {
+<a id="__codelineno-13-86" name="__codelineno-13-86" href="#__codelineno-13-86"></a>            document.getElementById(&#39;messages&#39;).innerHTML = &#39;&#39;;
+<a id="__codelineno-13-87" name="__codelineno-13-87" href="#__codelineno-13-87"></a>        }
+<a id="__codelineno-13-88" name="__codelineno-13-88" href="#__codelineno-13-88"></a>
+<a id="__codelineno-13-89" name="__codelineno-13-89" href="#__codelineno-13-89"></a>        function addMessage(msg, type) {
+<a id="__codelineno-13-90" name="__codelineno-13-90" href="#__codelineno-13-90"></a>            const div = document.createElement(&#39;div&#39;);
+<a id="__codelineno-13-91" name="__codelineno-13-91" href="#__codelineno-13-91"></a>            div.className = `message ${type}`;
+<a id="__codelineno-13-92" name="__codelineno-13-92" href="#__codelineno-13-92"></a>            div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+<a id="__codelineno-13-93" name="__codelineno-13-93" href="#__codelineno-13-93"></a>            document.getElementById(&#39;messages&#39;).appendChild(div);
+<a id="__codelineno-13-94" name="__codelineno-13-94" href="#__codelineno-13-94"></a>            div.scrollIntoView();
+<a id="__codelineno-13-95" name="__codelineno-13-95" href="#__codelineno-13-95"></a>        }
+<a id="__codelineno-13-96" name="__codelineno-13-96" href="#__codelineno-13-96"></a>    &lt;/script&gt;
+<a id="__codelineno-13-97" name="__codelineno-13-97" href="#__codelineno-13-97"></a>&lt;/body&gt;
+<a id="__codelineno-13-98" name="__codelineno-13-98" href="#__codelineno-13-98"></a>&lt;/html&gt;
+</code></pre></div></p>
+<h4 id="dia-19-21-configs-de-exemplo">Dia 19-21: Configs de Exemplo</h4>
+<ul>
+<li>[ ] <code>examples/factory.json</code> - Linha de produção</li>
+<li>[ ] <code>examples/agriculture.json</code> - Sensores agrícolas</li>
+<li>[ ] <code>examples/smart-home.json</code> - Casa inteligente</li>
+<li>[ ] <code>examples/fleet.json</code> - Gestão de frota (GPS)</li>
+</ul>
+<p><strong>Exemplo <code>examples/factory.json</code>:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">&quot;BROKER_URL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test.mosquitto.org&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">&quot;BROKER_PORT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1883</span><span class="p">,</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="nt">&quot;TIME_INTERVAL&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">  </span><span class="nt">&quot;duration_minutes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span><span class="nt">&quot;TOPICS&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">      </span><span class="nt">&quot;TYPE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;multiple&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">      </span><span class="nt">&quot;PREFIX&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fabrica/maquina&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">      </span><span class="nt">&quot;RANGE_START&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">      </span><span class="nt">&quot;RANGE_END&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">      </span><span class="nt">&quot;DATA&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">          </span><span class="nt">&quot;NAME&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;producao_unidades&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">          </span><span class="nt">&quot;TYPE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="w">          </span><span class="nt">&quot;MIN_VALUE&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="w">          </span><span class="nt">&quot;MAX_VALUE&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="w">          </span><span class="nt">&quot;MAX_STEP&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="w">          </span><span class="nt">&quot;INCREASE_PROBABILITY&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="w">          </span><span class="nt">&quot;RETAIN_PROBABILITY&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="w">          </span><span class="nt">&quot;NAME&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;temperatura_motor&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="w">          </span><span class="nt">&quot;TYPE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="w">          </span><span class="nt">&quot;MIN_VALUE&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">40.0</span><span class="p">,</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="w">          </span><span class="nt">&quot;MAX_VALUE&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">85.0</span><span class="p">,</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="w">          </span><span class="nt">&quot;MAX_STEP&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.5</span><span class="p">,</span>
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="w">          </span><span class="nt">&quot;INCREASE_PROBABILITY&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="w">          </span><span class="nt">&quot;RETAIN_PROBABILITY&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span>
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="w">          </span><span class="nt">&quot;NAME&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;defeitos&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a><span class="w">          </span><span class="nt">&quot;TYPE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a><span class="w">          </span><span class="nt">&quot;MIN_VALUE&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a><span class="w">          </span><span class="nt">&quot;MAX_VALUE&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a><span class="w">          </span><span class="nt">&quot;MAX_STEP&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a><span class="w">          </span><span class="nt">&quot;INCREASE_PROBABILITY&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span>
+<a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a><span class="w">          </span><span class="nt">&quot;RETAIN_PROBABILITY&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span>
+<a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="w">      </span><span class="p">]</span>
+<a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a><span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h3 id="semana-4-apresentacao-e-demo">Semana 4: Apresentação e Demo</h3>
+<h4 id="dia-22-23-slides-de-apresentacao">Dia 22-23: Slides de Apresentação</h4>
+<ul>
+<li>[ ] Slide 1: Título + Nome + Data</li>
+<li>[ ] Slide 2-3: Problema e Contexto</li>
+<li>[ ] Slide 4: Solução Proposta</li>
+<li>[ ] Slide 5: Arquitetura Técnica</li>
+<li>[ ] Slide 6: Stack Tecnológica</li>
+<li>[ ] Slide 7-8: Demo ao Vivo</li>
+<li>[ ] Slide 9: Features Implementadas</li>
+<li>[ ] Slide 10: Roadmap Futuro (Fase 2-3)</li>
+<li>[ ] Slide 11: Conclusão</li>
+<li>[ ] Slide 12: Q&amp;A</li>
+</ul>
+<p><strong>Template Slides (Markdown → reveal.js):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>---
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>title: Plataforma de Simulação IoT
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>author: [Teu Nome]
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="gu">date: 2025</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="gu">---</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="gh"># Plataforma de Simulação IoT</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="gu">## API REST para Simulação sob Demanda</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>[Teu Nome]  
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>Projeto ISI - 2024/2025
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>---
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="gu">## O Problema</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="k">-</span><span class="w"> </span>Desenvolvimento IoT <span class="gs">**custa 45.000-500.000 USD**</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="k">-</span><span class="w"> </span>Setup de hardware <span class="gs">**demora semanas**</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="k">-</span><span class="w"> </span>Impossível testar cenários extremos
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="k">-</span><span class="w"> </span>Riscos: danificar equipamento caro
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="gs">**Solução:**</span> Virtualizar sensores
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a>---
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="gu">## Solução Proposta</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="gs">**API REST**</span> que cria <span class="gs">**simuladores MQTT**</span> dinamicamente
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>```bash
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>POST /simulations + JSON config
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a>↓
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a>Container Docker inicia
+<a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a>↓
+<a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a>Dados MQTT em tempo real
+</code></pre></div></p>
+<p><strong>Benefícios:</strong>
+- Setup em &lt; 1 minuto
+- Custo: 0 EUR (usa broker público)
+- Cenários impossíveis no mundo real</p>
+<hr />
+<h2 id="arquitetura_1">Arquitetura</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>┌──────────┐
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>│ Cliente  │
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>└────┬─────┘
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>     │ POST /simulations
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>     ▼
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>┌─────────────┐
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>│ FastAPI     │──► SQLite (metadata)
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>│ REST API    │
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>└──────┬──────┘
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>       │
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>       └──► Docker Engine
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>            │
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>            └──► mqtt-simulator container
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>                 (publica MQTT)
+</code></pre></div>
+<hr />
+<h2 id="stack-tecnologica">Stack Tecnológica</h2>
+<p><strong>Backend:</strong>
+- Python 3.11
+- FastAPI (API REST)
+- SQLAlchemy + SQLite
+- Docker SDK</p>
+<p><strong>Simulador:</strong>
+- mqtt-simulator (imagem existente)
+- MQTT protocol
+- Random walk data generation</p>
+<p><strong>Tools:</strong>
+- Swagger UI (documentação automática)
+- Postman (testes)</p>
+<hr />
+<h2 id="demo-ao-vivo">Demo ao Vivo</h2>
+<ol>
+<li>Abrir Swagger UI</li>
+<li>POST criar simulação (factory.json)</li>
+<li>Ver container ativo: <code>docker ps</code></li>
+<li>Ver logs: <code>docker logs &lt;id&gt;</code></li>
+<li>Abrir cliente HTML</li>
+<li>Ver dados MQTT em tempo real</li>
+<li>Simulação para automaticamente</li>
+</ol>
+<hr />
+<h2 id="features-implementadas">Features Implementadas</h2>
+<p>✅ API REST completa (CRUD)<br />
+✅ Persistência SQLite<br />
+✅ Auto-stop após duração<br />
+✅ Cleanup automático<br />
+✅ Swagger UI<br />
+✅ Tratamento de erros robusto<br />
+✅ Cliente de teste HTML<br />
+✅ Configs de exemplo prontos  </p>
+<hr />
+<h2 id="roadmap-futuro">Roadmap Futuro</h2>
+<p><strong>Fase 2 (4-6 semanas):</strong>
+- Kubernetes para multi-user
+- PostgreSQL
+- Isolamento por utilizador</p>
+<p><strong>Fase 3 (8+ semanas):</strong>
+- Autenticação JWT
+- Billing e quotas
+- Monitoring (Prometheus/Grafana)
+- Deploy cloud (AWS/GCP)</p>
+<hr />
+<h2 id="conclusao">Conclusão</h2>
+<p><strong>Objetivo Alcançado:</strong>
+- ✅ MVP funcional
+- ✅ Demonstra conceito
+- ✅ Código limpo e documentado
+- ✅ Extensível (roadmap claro)</p>
+<p><strong>Aprendizagens:</strong>
+- FastAPI + Docker integration
+- SQLAlchemy ORM
+- MQTT protocol
+- Container lifecycle management</p>
+<hr />
+<h2 id="perguntas">Perguntas?</h2>
+<p>📧 [teu-email]@example.com<br />
+🔗 GitHub: [link-repo]<br />
+📄 Documentação: http://localhost:8000/docs
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>#### Dia 24-25: Script e Ensaio de Demo
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>- [ ] Escrever script palavra-a-palavra (7-10 minutos)
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>- [ ] Ensaiar 3x sozinho
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>- [ ] Gravar vídeo backup (se demo falhar)
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>- [ ] Preparar dados de teste (não improvisar)
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>**Script de Demo (7 minutos):**
+</code></pre></div>
+[00:00-01:00] Introdução
+"Bom dia. Hoje vou apresentar uma plataforma de simulação IoT que 
+permite testar aplicações sem hardware físico.</p>
+<p>O problema: desenvolver IoT custa entre 45 mil e 500 mil dólares,
+e demora semanas só para configurar sensores.</p>
+<p>A minha solução: API REST que cria simuladores virtuais em segundos."</p>
+<p>[01:00-02:00] Mostrar Arquitetura
+"A arquitetura é simples: FastAPI recebe config JSON, cria container
+Docker com o simulador, e publica dados via MQTT.</p>
+<p>Stack: Python, FastAPI, Docker, SQLite para persistência."</p>
+<p>[02:00-05:00] Demo ao Vivo
+"Vou demonstrar. Aqui está o Swagger UI da API.</p>
+<ol>
+<li>
+<p>POST /simulations - vou criar uma simulação de fábrica
+   [Colar factory.json pré-preparado]</p>
+</li>
+<li>
+<p>Executar... sucesso! Retornou simulation_id e container_id.</p>
+</li>
+<li>
+<p>Ver container ativo [terminal: docker ps]
+   Aqui está, nome sim-abc123, a correr.</p>
+</li>
+<li>
+<p>Ver logs [terminal: docker logs sim-abc123]
+   Dados sendo publicados: fabrica/maquina1, maquina2...</p>
+</li>
+<li>
+<p>Abrir cliente HTML [browser]
+   Conectar ao broker... subscribed!
+   Dados chegam em tempo real, aqui temperatura, produção, defeitos.</p>
+</li>
+<li>
+<p>Listar simulações [Swagger GET /simulations]
+   Aparece na base de dados, status running.</p>
+</li>
+<li>
+<p>Esta simulação está configurada para 2 minutos...
+   [esperar ou cortar] ...e para automaticamente.</p>
+</li>
+<li>
+<p>Se reiniciar a API [Ctrl+C, uvicorn main:app]
+   Containers órfãos são limpos ao startup."</p>
+</li>
+</ol>
+<p>[05:00-06:00] Código
+"Rapidamente o código: main.py tem ~300 linhas.
+POST /simulations valida JSON com Pydantic, cria container Docker,
+guarda na BD, agenda auto-stop.</p>
+<p>Database.py - modelo SQLAlchemy simples, SQLite para persistência."</p>
+<p>[06:00-07:00] Conclusão
+"Resumindo: sistema funcional que demonstra o conceito.
+MVP completo com persistência, auto-stop, cleanup.</p>
+<p>Próximos passos seriam adicionar Kubernetes para multi-user,
+autenticação, billing.</p>
+<p>Mas para esta fase, objetivo alcançado: API REST que cria
+simuladores sob demanda. Obrigado."
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>#### Dia 26-28: Buffer e Polimento Final
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>- [ ] Corrigir bugs encontrados durante ensaios
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>- [ ] Melhorar mensagens de erro
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>- [ ] Adicionar logs mais descritivos
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>- [ ] Verificar todos requirements.txt
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>- [ ] Limpar código commented out
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>- [ ] Formatar código (black, autopep8)
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>**Checklist Pré-Apresentação:**
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>```bash
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a># Código
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>- [ ] Sem erros ao iniciar: uvicorn main:app
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>- [ ] Swagger abre: http://localhost:8000/docs
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>- [ ] Health check OK: curl http://localhost:8000/health
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>- [ ] Criar simulação funciona com factory.json
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>- [ ] Cliente HTML conecta e mostra dados
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a># Documentação
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>- [ ] README.md completo e sem typos
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>- [ ] Comentários em funções críticas
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>- [ ] requirements.txt atualizado
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>
+<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a># Demo
+<a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a>- [ ] factory.json testado e funciona
+<a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>- [ ] Cliente HTML funciona em browser fresh
+<a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a>- [ ] Script impresso ou em tablet
+<a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a>- [ ] Vídeo backup gravado e testado
+<a id="__codelineno-18-28" name="__codelineno-18-28" href="#__codelineno-18-28"></a>- [ ] Slides exportados em PDF
+<a id="__codelineno-18-29" name="__codelineno-18-29" href="#__codelineno-18-29"></a>
+<a id="__codelineno-18-30" name="__codelineno-18-30" href="#__codelineno-18-30"></a># Contingência
+<a id="__codelineno-18-31" name="__codelineno-18-31" href="#__codelineno-18-31"></a>- [ ] Laptop carregado
+<a id="__codelineno-18-32" name="__codelineno-18-32" href="#__codelineno-18-32"></a>- [ ] Segundo laptop disponível
+<a id="__codelineno-18-33" name="__codelineno-18-33" href="#__codelineno-18-33"></a>- [ ] Internet backup (hotspot telemóvel)
+<a id="__codelineno-18-34" name="__codelineno-18-34" href="#__codelineno-18-34"></a>- [ ] Docker images pré-downloaded
+</code></pre></div></p>
+<hr />
+<h2 id="marco-apresentacao-fase-1">🎓 MARCO: Apresentação Fase 1</h2>
+<p><strong>Entregáveis Mínimos:</strong>
+- ✅ Código fonte funcionando
+- ✅ README.md
+- ✅ Slides apresentação
+- ✅ Demo ao vivo (ou vídeo backup)</p>
+<p><strong>Critérios de Sucesso:</strong>
+- API cria simulações com config JSON
+- Containers Docker iniciam e publicam MQTT
+- Auto-stop funciona
+- Persistência SQLite funciona
+- Cleanup de órfãos funciona ao reiniciar</p>
+<hr />
+<h2 id="fase-2-kubernetes-multi-user-6-semanas">FASE 2 - Kubernetes Multi-User (6 semanas)</h2>
+<p><strong>Objetivo:</strong> Migrar para Kubernetes, suportar múltiplos utilizadores<br />
+<strong>Pré-requisitos:</strong> Fase 1 100% funcional, conhecimento básico K8s</p>
+<h3 id="semana-5-6-setup-kubernetes">Semana 5-6: Setup Kubernetes</h3>
+<h4 id="aprender-kubernetes-basico">Aprender Kubernetes Básico</h4>
+<ul>
+<li>[ ] Curso online (2-3 dias): Kubernetes for Beginners</li>
+<li>[ ] Conceitos: Pods, Deployments, Services, Namespaces</li>
+<li>[ ] kubectl comandos básicos</li>
+<li>[ ] Instalar minikube ou kind para testes locais</li>
+</ul>
+<p><strong>Recursos:</strong>
+- Kubernetes.io tutorials
+- "Kubernetes Up &amp; Running" (livro)
+- KodeKloud free tier</p>
+<h4 id="setup-cluster-local">Setup Cluster Local</h4>
+<ul>
+<li>[ ] Instalar minikube: <code>brew install minikube</code></li>
+<li>[ ] Iniciar cluster: <code>minikube start</code></li>
+<li>[ ] Testar: <code>kubectl get nodes</code></li>
+<li>[ ] Criar namespace: <code>kubectl create namespace simulations</code></li>
+</ul>
+<h4 id="kubernetes-python-client">Kubernetes Python Client</h4>
+<ul>
+<li>[ ] Instalar: <code>pip install kubernetes</code></li>
+<li>[ ] Testar conexão:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">kubernetes</span><span class="w"> </span><span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">config</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">config</span><span class="o">.</span><span class="n">load_kube_config</span><span class="p">()</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="n">v1</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">CoreV1Api</span><span class="p">()</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">list_pod_for_all_namespaces</span><span class="p">())</span>
+</code></pre></div></li>
+</ul>
+<h3 id="semana-7-8-migrar-docker-kubernetes">Semana 7-8: Migrar Docker → Kubernetes</h3>
+<h4 id="criar-pods-dinamicamente">Criar Pods Dinamicamente</h4>
+<ul>
+<li>[ ] Refactor <code>create_simulation()</code> para usar K8s API</li>
+<li>[ ] Criar Pod spec para simulador</li>
+<li>[ ] Montar ConfigMap com JSON config</li>
+<li>[ ] Testar criação de Pod</li>
+</ul>
+<p><strong>Código-chave:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">kubernetes</span><span class="w"> </span><span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">config</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">config</span><span class="o">.</span><span class="n">load_kube_config</span><span class="p">()</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">k8s</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">CoreV1Api</span><span class="p">()</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">create_simulator_pod</span><span class="p">(</span><span class="n">sim_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>    <span class="c1"># Criar ConfigMap</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>    <span class="n">configmap</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">V1ConfigMap</span><span class="p">(</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>        <span class="n">metadata</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">V1ObjectMeta</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;config-</span><span class="si">{</span><span class="n">sim_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;settings.json&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">config_json</span><span class="p">)}</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>    <span class="p">)</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>    <span class="n">k8s</span><span class="o">.</span><span class="n">create_namespaced_config_map</span><span class="p">(</span><span class="s2">&quot;simulations&quot;</span><span class="p">,</span> <span class="n">configmap</span><span class="p">)</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>    <span class="c1"># Criar Pod</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>    <span class="n">pod</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">V1Pod</span><span class="p">(</span>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>        <span class="n">metadata</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">V1ObjectMeta</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;sim-</span><span class="si">{</span><span class="n">sim_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>        <span class="n">spec</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">V1PodSpec</span><span class="p">(</span>
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>            <span class="n">containers</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>                <span class="n">client</span><span class="o">.</span><span class="n">V1Container</span><span class="p">(</span>
+<a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a>                    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;simulator&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a>                    <span class="n">image</span><span class="o">=</span><span class="s2">&quot;ghcr.io/damascenorafael/mqtt-simulator:sha-a73a2e8&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a>                    <span class="n">command</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;/config/settings.json&quot;</span><span class="p">],</span>
+<a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a>                    <span class="n">volume_mounts</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a>                        <span class="n">client</span><span class="o">.</span><span class="n">V1VolumeMount</span><span class="p">(</span>
+<a id="__codelineno-20-25" name="__codelineno-20-25" href="#__codelineno-20-25"></a>                            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;config&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-26" name="__codelineno-20-26" href="#__codelineno-20-26"></a>                            <span class="n">mount_path</span><span class="o">=</span><span class="s2">&quot;/config&quot;</span>
+<a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a>                        <span class="p">)</span>
+<a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a>                    <span class="p">]</span>
+<a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a>                <span class="p">)</span>
+<a id="__codelineno-20-30" name="__codelineno-20-30" href="#__codelineno-20-30"></a>            <span class="p">],</span>
+<a id="__codelineno-20-31" name="__codelineno-20-31" href="#__codelineno-20-31"></a>            <span class="n">volumes</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-20-32" name="__codelineno-20-32" href="#__codelineno-20-32"></a>                <span class="n">client</span><span class="o">.</span><span class="n">V1Volume</span><span class="p">(</span>
+<a id="__codelineno-20-33" name="__codelineno-20-33" href="#__codelineno-20-33"></a>                    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;config&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-34" name="__codelineno-20-34" href="#__codelineno-20-34"></a>                    <span class="n">config_map</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">V1ConfigMapVolumeSource</span><span class="p">(</span>
+<a id="__codelineno-20-35" name="__codelineno-20-35" href="#__codelineno-20-35"></a>                        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;config-</span><span class="si">{</span><span class="n">sim_id</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-20-36" name="__codelineno-20-36" href="#__codelineno-20-36"></a>                    <span class="p">)</span>
+<a id="__codelineno-20-37" name="__codelineno-20-37" href="#__codelineno-20-37"></a>                <span class="p">)</span>
+<a id="__codelineno-20-38" name="__codelineno-20-38" href="#__codelineno-20-38"></a>            <span class="p">],</span>
+<a id="__codelineno-20-39" name="__codelineno-20-39" href="#__codelineno-20-39"></a>            <span class="n">restart_policy</span><span class="o">=</span><span class="s2">&quot;Never&quot;</span>
+<a id="__codelineno-20-40" name="__codelineno-20-40" href="#__codelineno-20-40"></a>        <span class="p">)</span>
+<a id="__codelineno-20-41" name="__codelineno-20-41" href="#__codelineno-20-41"></a>    <span class="p">)</span>
+<a id="__codelineno-20-42" name="__codelineno-20-42" href="#__codelineno-20-42"></a>
+<a id="__codelineno-20-43" name="__codelineno-20-43" href="#__codelineno-20-43"></a>    <span class="n">k8s</span><span class="o">.</span><span class="n">create_namespaced_pod</span><span class="p">(</span><span class="s2">&quot;simulations&quot;</span><span class="p">,</span> <span class="n">pod</span><span class="p">)</span>
+<a id="__codelineno-20-44" name="__codelineno-20-44" href="#__codelineno-20-44"></a>    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;sim-</span><span class="si">{</span><span class="n">sim_id</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<h4 id="expor-pods-via-service">Expor Pods via Service</h4>
+<ul>
+<li>[ ] Criar Service para acesso externo</li>
+<li>[ ] Testar acesso MQTT via NodePort</li>
+<li>[ ] Documentar endpoint para utilizadores</li>
+</ul>
+<h4 id="cleanup-em-kubernetes">Cleanup em Kubernetes</h4>
+<ul>
+<li>[ ] Implementar <code>delete_pod()</code> com K8s API</li>
+<li>[ ] Adicionar <code>activeDeadlineSeconds</code> aos Pods</li>
+<li>[ ] CronJob para limpar Pods expirados</li>
+</ul>
+<h3 id="semana-9-10-postgresql-e-multi-user">Semana 9-10: PostgreSQL e Multi-User</h3>
+<h4 id="migrar-sqlite-postgresql">Migrar SQLite → PostgreSQL</h4>
+<ul>
+<li>[ ] Instalar PostgreSQL (Docker ou managed)</li>
+<li>[ ] Migração schema (manual ou Alembic)</li>
+<li>[ ] Atualizar connection string</li>
+<li>[ ] Testar CRUD operations</li>
+</ul>
+<p><strong>Migration script:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># migrate_to_postgres.py</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="c1"># Ler de SQLite</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="n">sqlite_conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;simulations.db&#39;</span><span class="p">)</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="n">sqlite_cursor</span> <span class="o">=</span> <span class="n">sqlite_conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="n">rows</span> <span class="o">=</span> <span class="n">sqlite_cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM simulations&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="c1"># Escrever em PostgreSQL</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="n">pg_conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;postgresql://user:pass@localhost/iotsim&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="n">pg_cursor</span> <span class="o">=</span> <span class="n">pg_conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>    <span class="n">pg_cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>        <span class="s2">&quot;INSERT INTO simulations (...) VALUES (...)&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>        <span class="n">row</span>
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>    <span class="p">)</span>
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>
+<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a><span class="n">pg_conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div></p>
+<h4 id="adicionar-utilizadores">Adicionar Utilizadores</h4>
+<ul>
+<li>[ ] Tabela <code>users</code> (id, email, password_hash)</li>
+<li>[ ] Endpoint POST /auth/register</li>
+<li>[ ] Endpoint POST /auth/login (retorna JWT)</li>
+<li>[ ] Middleware para verificar JWT</li>
+<li>[ ] Filtrar simulações por user_id</li>
+</ul>
+<p><strong>Modelo User:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;users&quot;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    <span class="n">email</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    <span class="n">password_hash</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>    <span class="n">created_at</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">)</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>    <span class="n">simulations</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;Simulation&quot;</span><span class="p">,</span> <span class="n">back_populates</span><span class="o">=</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">Simulation</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>    <span class="c1"># ... campos existentes ...</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>    <span class="n">user_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;users.id&quot;</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>    <span class="n">user</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;User&quot;</span><span class="p">,</span> <span class="n">back_populates</span><span class="o">=</span><span class="s2">&quot;simulations&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h4 id="rate-limiting">Rate Limiting</h4>
+<ul>
+<li>[ ] Instalar Redis</li>
+<li>[ ] Implementar rate limiter (5 simulações/hora/user)</li>
+<li>[ ] Middleware para verificar limites</li>
+<li>[ ] Retornar 429 Too Many Requests</li>
+</ul>
+<hr />
+<h2 id="fase-3-production-ready-6-semanas">FASE 3 - Production Ready (6 semanas)</h2>
+<p><strong>Objetivo:</strong> Sistema pronto para deploy real<br />
+<strong>Pré-requisitos:</strong> Fase 2 funcional, cluster K8s real</p>
+<h3 id="semana-11-12-autenticacao-e-seguranca">Semana 11-12: Autenticação e Segurança</h3>
+<h4 id="jwt-completo">JWT Completo</h4>
+<ul>
+<li>[ ] Refresh tokens</li>
+<li>[ ] Logout (blacklist tokens)</li>
+<li>[ ] Password reset flow</li>
+<li>[ ] Email verification (opcional)</li>
+</ul>
+<h4 id="rbac-kubernetes">RBAC Kubernetes</h4>
+<ul>
+<li>[ ] ServiceAccount para API</li>
+<li>[ ] Role com permissões mínimas</li>
+<li>[ ] RoleBinding</li>
+<li>[ ] Testar permissões</li>
+</ul>
+<h4 id="secrets-management">Secrets Management</h4>
+<ul>
+<li>[ ] Kubernetes Secrets para DB password</li>
+<li>[ ] Secrets para JWT secret key</li>
+<li>[ ] Não commitar secrets no Git</li>
+</ul>
+<h3 id="semana-13-14-monitoring-e-observability">Semana 13-14: Monitoring e Observability</h3>
+<h4 id="prometheus">Prometheus</h4>
+<ul>
+<li>[ ] Instalar Prometheus no cluster</li>
+<li>[ ] Adicionar metrics na API (prometheus_client)</li>
+<li>[ ] Dashboards Grafana básicos</li>
+</ul>
+<p><strong>Métricas importantes:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">prometheus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Histogram</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="n">simulations_created</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;simulations_created_total&#39;</span><span class="p">,</span> <span class="s1">&#39;Total sims&#39;</span><span class="p">)</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="n">simulation_duration</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span><span class="s1">&#39;simulation_duration_seconds&#39;</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">)</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="n">pods_active</span> <span class="o">=</span> <span class="n">Gauge</span><span class="p">(</span><span class="s1">&#39;pods_active&#39;</span><span class="p">,</span> <span class="s1">&#39;Active pods&#39;</span><span class="p">)</span>
+</code></pre></div></p>
+<h4 id="logging">Logging</h4>
+<ul>
+<li>[ ] Structured logging (JSON)</li>
+<li>[ ] Loki para agregação logs</li>
+<li>[ ] Queries úteis em Grafana</li>
+</ul>
+<h3 id="semana-15-16-cicd-e-deploy">Semana 15-16: CI/CD e Deploy</h3>
+<h4 id="github-actions">GitHub Actions</h4>
+<ul>
+<li>[ ] Pipeline: test → build → push image</li>
+<li>[ ] Deploy automático ao push main</li>
+<li>[ ] Rollback automático se falhar</li>
+</ul>
+<p><strong>Exemplo <code>.github/workflows/deploy.yml</code>:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="nt">on</span><span class="p">:</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="nt">jobs</span><span class="p">:</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v3</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build Docker image</span>
+<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker build -t iotsim-api:${{ github.sha }} .</span>
+<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>
+<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Push to registry</span>
+<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker push iotsim-api:${{ github.sha }}</span>
+<a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>
+<a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to K8s</span>
+<a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a><span class="w">        </span><span class="no">kubectl set image deployment/iotsim-api \</span>
+<a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a><span class="w">          </span><span class="no">api=iotsim-api:${{ github.sha }}</span>
+</code></pre></div></p>
+<h4 id="deploy-cloud">Deploy Cloud</h4>
+<ul>
+<li>[ ] Escolher provider (DigitalOcean, Linode, AWS)</li>
+<li>[ ] Criar cluster managed Kubernetes</li>
+<li>[ ] Configurar DNS</li>
+<li>[ ] SSL/TLS (Let's Encrypt)</li>
+</ul>
+<hr />
+<h2 id="milestones-e-entregaveis">Milestones e Entregáveis</h2>
+<h3 id="milestone-1-mvp-demo-semana-4">Milestone 1: MVP Demo (Semana 4)</h3>
+<p><strong>Entregáveis:</strong>
+- Código fonte completo
+- README.md
+- API funcionando localmente
+- Demo gravada (backup)
+- Slides apresentação</p>
+<p><strong>Critérios de Sucesso:</strong>
+- [ ] API cria simulações
+- [ ] Auto-stop funciona
+- [ ] Persistência funciona
+- [ ] Demo de 7 min ensaiada</p>
+<hr />
+<h3 id="milestone-2-kubernetes-working-semana-10">Milestone 2: Kubernetes Working (Semana 10)</h3>
+<p><strong>Entregáveis:</strong>
+- Código migrado para K8s
+- Manifests YAML
+- PostgreSQL funcional
+- Multi-user básico</p>
+<p><strong>Critérios de Sucesso:</strong>
+- [ ] Pods criados dinamicamente
+- [ ] Múltiplos users isolados
+- [ ] Rate limiting funciona
+- [ ] Documentação atualizada</p>
+<hr />
+<h3 id="milestone-3-production-deploy-semana-16">Milestone 3: Production Deploy (Semana 16)</h3>
+<p><strong>Entregáveis:</strong>
+- Sistema deployed em cloud
+- CI/CD funcional
+- Monitoring setup
+- Documentação completa</p>
+<p><strong>Critérios de Sucesso:</strong>
+- [ ] API acessível publicamente
+- [ ] SSL/TLS configurado
+- [ ] Logs e métricas visíveis
+- [ ] Zero-downtime deploys</p>
+<hr />
+<h2 id="checklists-de-validacao">Checklists de Validação</h2>
+<h3 id="checklist-fase-1-antes-de-apresentar">Checklist Fase 1 (antes de apresentar)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Funcionalidade:
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>- [ ] POST /simulations cria container Docker
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>- [ ] GET /simulations lista todas
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>- [ ] GET /simulations/{id} mostra detalhes + logs
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>- [ ] DELETE /simulations/{id} para container
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>- [ ] Container para após duration_minutes
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>- [ ] Containers órfãos limpos ao reiniciar API
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>Base de Dados:
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>- [ ] Simulações persistem após restart
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>- [ ] Status atualiza corretamente (running→expired→stopped)
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>- [ ] expires_at calculado e usado
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>- [ ] Ficheiros config temporários limpos
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>
+<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>Qualidade:
+<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>- [ ] Erros retornam HTTP status corretos
+<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>- [ ] Swagger UI funciona e está completo
+<a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>- [ ] Código sem warnings/erros
+<a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>- [ ] README.md completo
+<a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>
+<a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>Demo:
+<a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>- [ ] factory.json funciona
+<a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a>- [ ] Cliente HTML conecta e mostra dados
+<a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a>- [ ] Script de 7 min ensaiado 3x
+<a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>- [ ] Vídeo backup gravado
+</code></pre></div>
+<h3 id="checklist-fase-2-antes-de-migrar-para-fase-3">Checklist Fase 2 (antes de migrar para Fase 3)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Kubernetes:
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>- [ ] Pods criados dinamicamente via K8s API
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>- [ ] ConfigMaps montados corretamente
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>- [ ] Pods param após activeDeadlineSeconds
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>- [ ] CronJob limpa Pods expirados
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>Multi-User:
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>- [ ] PostgreSQL substituiu SQLite
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>- [ ] Tabela users existe e funciona
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>- [ ] JWT authentication funciona
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>- [ ] Users só vêem suas simulações
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>- [ ] Rate limiting por user funciona
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>
+<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>Robustez:
+<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>- [ ] RBAC K8s configurado
+<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>- [ ] Secrets geridos corretamente
+<a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>- [ ] Error handling robusto
+<a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>- [ ] Documentação atualizada
+</code></pre></div>
+<h3 id="checklist-fase-3-antes-de-considerar-pronto">Checklist Fase 3 (antes de considerar "pronto")</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>Produção:
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>- [ ] Deploy em cloud pública
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>- [ ] DNS configurado
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>- [ ] SSL/TLS ativo
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>- [ ] Logs agregados (Loki/ELK)
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>- [ ] Métricas visíveis (Grafana)
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>- [ ] Alertas configurados
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>DevOps:
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>- [ ] CI/CD funcional
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>- [ ] Testes automatizados
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>- [ ] Rollback funciona
+<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>- [ ] Backups database automáticos
+<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>
+<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>Segurança:
+<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>- [ ] Secrets não no Git
+<a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>- [ ] RBAC mínimo necessário
+<a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>- [ ] Network policies configuradas
+<a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>- [ ] Security scan passou
+</code></pre></div>
+<hr />
+<h2 id="metricas-de-sucesso">📈 Métricas de Sucesso</h2>
+<h3 id="fase-1-mvp">Fase 1 (MVP)</h3>
+<ul>
+<li><strong>Funcionalidade:</strong> 100% dos endpoints funcionam</li>
+<li><strong>Performance:</strong> API responde &lt; 200ms (P95)</li>
+<li><strong>Confiabilidade:</strong> 0 crashes durante demo</li>
+<li><strong>Documentação:</strong> README completo + comentários</li>
+</ul>
+<h3 id="fase-2-kubernetes">Fase 2 (Kubernetes)</h3>
+<ul>
+<li><strong>Escalabilidade:</strong> Suporta 10+ utilizadores simultâneos</li>
+<li><strong>Isolamento:</strong> Users não vêem simulações de outros</li>
+<li><strong>Performance:</strong> 50+ pods criados sem degradação</li>
+<li><strong>Confiabilidade:</strong> Cleanup 100% eficaz</li>
+</ul>
+<h3 id="fase-3-producao">Fase 3 (Produção)</h3>
+<ul>
+<li><strong>Uptime:</strong> 99%+ SLA</li>
+<li><strong>Deploy:</strong> &lt; 5 min do commit ao prod</li>
+<li><strong>Observability:</strong> Logs e métricas 100% cobertura</li>
+<li><strong>Segurança:</strong> 0 vulnerabilidades críticas</li>
+</ul>
+<hr />
+<h2 id="proximos-passos-imediatos-esta-semana">Próximos Passos Imediatos (Esta Semana)</h2>
+<h3 id="segunda-feira">Segunda-feira</h3>
+<ul>
+<li>[ ] Corrigir health check database</li>
+<li>[ ] Adicionar campo expires_at</li>
+<li>[ ] Implementar cleanup_expired_simulations()</li>
+<li>[ ] Testar: criar simulação 2 min → para sozinha</li>
+</ul>
+<h3 id="terca-feira">Terça-feira</h3>
+<ul>
+<li>[ ] Testar: reiniciar API → órfãos limpos</li>
+<li>[ ] Adicionar filtros GET /simulations?status=running</li>
+<li>[ ] Adicionar GET /stats</li>
+</ul>
+<h3 id="quarta-feira">Quarta-feira</h3>
+<ul>
+<li>[ ] Começar README.md</li>
+<li>[ ] Criar factory.json de exemplo</li>
+<li>[ ] Testar todos endpoints com Postman</li>
+</ul>
+<h3 id="quinta-feira">Quinta-feira</h3>
+<ul>
+<li>[ ] Cliente HTML básico</li>
+<li>[ ] Testar cliente com simulação real</li>
+<li>[ ] Começar slides apresentação</li>
+</ul>
+<h3 id="sexta-feira">Sexta-feira</h3>
+<ul>
+<li>[ ] Finalizar slides</li>
+<li>[ ] Ensaiar demo 1x</li>
+<li>[ ] Identificar gaps/bugs</li>
+</ul>
+<hr />
+<h2 id="recursos-uteis">Recursos Úteis</h2>
+<h3 id="documentacao-oficial">Documentação Oficial</h3>
+<ul>
+<li>FastAPI: https://fastapi.tiangolo.com</li>
+<li>Docker SDK: https://docker-py.readthedocs.io</li>
+<li>SQLAlchemy: https://docs.sqlalchemy.org</li>
+<li>Kubernetes Python: https://github.com/kubernetes-client/python</li>
+</ul>
+<h3 id="tutoriais">Tutoriais</h3>
+<ul>
+<li>FastAPI + Docker: https://testdriven.io/blog/fastapi-docker/</li>
+<li>Kubernetes Basics: https://kubernetes.io/docs/tutorials/</li>
+<li>MQTT.js: https://github.com/mqttjs/MQTT.js</li>
+</ul>
+<h3 id="tools">Tools</h3>
+<ul>
+<li>Postman: Testar API</li>
+<li>Swagger UI: Documentação automática</li>
+<li>Docker Desktop: Gerir containers</li>
+<li>minikube: Kubernetes local</li>
+</ul>
+<hr />
+<h2 id="conclusao_1">Conclusão</h2>
+<p>Este roadmap cobre <strong>12-16 semanas</strong> de desenvolvimento estruturado em 3 fases:</p>
+<ol>
+<li><strong>Fase 1 (4 semanas):</strong> MVP funcional para apresentação universitária ← <strong>FOCO ATUAL</strong></li>
+<li><strong>Fase 2 (6 semanas):</strong> Kubernetes + multi-user</li>
+<li><strong>Fase 3 (6 semanas):</strong> Produção com CI/CD, monitoring</li>
+</ol>
+<p><strong>Recomendação:</strong> Completar Fase 1 perfeitamente antes de pensar em Fase 2. Um MVP bem executado vale mais que features incompletas.</p>
+<p><strong>Próxima Ação:</strong> Seguir checklist "Próximos Passos Imediatos" acima.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2025 PEQSPC - LESI-IPCA
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/PEQSPC/ProjetoISIv1" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
