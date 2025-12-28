@@ -1,4 +1,4 @@
-name: Deploy MkDocs (Material) to GitHub Pages
+name: Deploy MkDocs with Mike
 
 on:
   push:
@@ -13,32 +13,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # REQUIRED for mike versioning
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install MkDocs and dependencies
+      - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install \
             mkdocs \
             mkdocs-material \
-            mkdocs-to-pdf \
             mike \
+            mkdocs-to-pdf \
             pymdown-extensions
 
-      - name: Configure Git user (for mike)
+      - name: Configure Git
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      - name: Deploy documentation with mike
+      - name: Deploy docs
         run: |
           mike deploy --push --update-aliases latest
           mike set-default --push latest
