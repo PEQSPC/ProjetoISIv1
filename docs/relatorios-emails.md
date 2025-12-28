@@ -1,28 +1,16 @@
-# Relatórios e Envio Automático de Emails
+# Relatórios e Emails Automáticos
 
-O sistema de **Relatórios Automáticos** gera análises periódicas sobre o desempenho da produção industrial e envia-as por email para os responsáveis.
+Sistema de geração e envio automático de relatórios de produção por email.
 
 ---
 
 ## Visão Geral
 
-### Funcionalidades
+**Objetivo**: Enviar relatórios diários/semanais com KPIs de produção sem intervenção manual.
 
-- Geração automática de relatórios diários, semanais e mensais
-- Cálculo de KPIs (OEE, produtividade, defeitos, paragens)
-- Envio por email com formatação HTML
-- Alertas em tempo real para anomalias
-- Histórico de relatórios na base de dados
+**Tecnologia**: Python scripts + SQLite + SMTP
 
-### Tecnologias
-
-| Componente | Tecnologia |
-|------------|-----------|
-| **Linguagem** | Python 3.10+ |
-| **Biblioteca de Email** | `smtplib` (standard library) |
-| **Templates** | `jinja2` (opcional) |
-| **Conexão BD** | `sqlite3` |
-| **Agendamento** | Node-RED ou `cron` |
+**Trigger**: Agendado via cron ou executado por Node-RED
 
 ---
 
@@ -30,630 +18,393 @@ O sistema de **Relatórios Automáticos** gera análises periódicas sobre o des
 
 ### 1. Relatório Diário
 
-**Frequência**: Todos os dias às 08:00
+Resumo das últimas 24h de produção.
 
 **Conteúdo**:
-- Resumo de produção do dia anterior
-- Total de peças produzidas por estação
+- Total produzido por estação
+- Tempo de paragens
 - Taxa de defeitos
-- Tempo total de paragens
-- OEE (Overall Equipment Effectiveness) de cada estação
-- Alertas de anomalias
+- Eficiência (OEE)
 
 **Destinatários**: Supervisores de produção
 
----
+**Frequência**: Todos os dias às 7h00
 
 ### 2. Relatório Semanal
 
-**Frequência**: Segunda-feira às 09:00
+Análise agregada da semana anterior.
 
 **Conteúdo**:
-- Análise semanal de performance
-- Comparação com semana anterior
-- Top 3 estações com melhor/pior desempenho
-- Análise de tendências
-- Gráficos de produção
-- Recomendações de melhoria
+- Tendências de produção
+- Comparação entre estações
+- Top 5 problemas
+- Recomendações
 
-**Destinatários**: Gestores de produção
+**Destinatários**: Gestão
 
----
+**Frequência**: Segundas-feiras às 9h00
 
-### 3. Relatório Mensal
+### 3. Alertas em Tempo Real
 
-**Frequência**: 1º dia do mês às 10:00
-
-**Conteúdo**:
-- Resumo completo do mês
-- Análise de custos vs. produção
-- Evolução de KPIs
-- Manutenções realizadas
-- Plano de ação para o próximo mês
-
-**Destinatários**: Direção e gestores
-
----
-
-### 4. Alertas em Tempo Real
+Notificações imediatas de anomalias.
 
 **Triggers**:
-- Taxa de defeitos > 5%
-- Paragem > 15 minutos
-- Produção < 50% da capacidade
-- OEE < 80%
+- Paragem > 10 minutos
+- Defeitos > 5% da produção
+- Eficiência < 80%
+- Stock crítico (< 20 unidades)
 
-**Ação**: Envio imediato de email de alerta
-
-**Destinatários**: Supervisores e técnicos de manutenção
+**Método**: Email ou SMS (futuro)
 
 ---
 
-## Gráficos
-
-Os relatórios podem incluir gráficos incorporados (imagens PNG em base64) que mostram, por exemplo:
-- Produção por estação
-- Defeitos por estação
-- Evolução horária da produção
-
-Estes gráficos são gerados automaticamente (matplotlib) e embutidos no HTML do email como data URIs, garantindo compatibilidade com clientes que suportam imagens embutidas.
-
----
-
-## Estrutura do Sistema
-
-### Arquitetura
-
-```
-Agendador (Node-RED / Cron)
-      ↓
-Script Python (Geração Relatório)
-      ↓
-Consulta SQLite → Calcula KPIs → Gera HTML (Jinja2) → Gera Gráficos (matplotlib)
-      ↓
-SMTP Server (Envio Email)
-```
-
----
-
-## Implementação
-
-### Estrutura de Ficheiros
-
-```
-send-email/
-  main.py                    # Script principal
-  templates/
-    daily_report.html        # Template relatório diário (Jinja2)
-    weekly_report.html       # Template relatório semanal
-    alert.html               # Template alerta
-  config.py                  # Configurações SMTP
-  database.py                # Conexão base de dados
-  kpi_calculator.py          # Cálculo de KPIs
-  email_sender.py            # Envio de emails
-  report_generator.py        # Renderiza templates e prepara dados
-  chart_generator.py         # Gera gráficos (matplotlib -> base64)
-  requirements.txt
-  README.md
-```
-
----
-
-### Script Principal
-
-**Ficheiro: `send-email/main.py`**
-
-```python
-import sqlite3
-from datetime import datetime, timedelta
-from email_sender import send_email
-from kpi_calculator import calculate_daily_kpis
-from database import get_production_data
-from chart_generator import create_production_chart
-from report_generator import generate_html_report
-
-def generate_daily_report():
-    """
-    Gera e envia relatório diário de produção
-    """
-    # Obter dados de ontem
-    yesterday = datetime.now() - timedelta(days=1)
-    start_date = yesterday.replace(hour=0, minute=0, second=0)
-    end_date = yesterday.replace(hour=23, minute=59, second=59)
-
-    # Consultar base de dados
-    data = get_production_data(start_date, end_date)
-
-    # Calcular KPIs
-    kpis = calculate_daily_kpis(data)
-
-    # Gerar gráfico (data URI)
-    production_chart = create_production_chart(kpis.get('stations_data', {}))
-
-    # Gerar HTML
-    html_content = generate_html_report(kpis, start_date, datetime.now(), production_chart=production_chart)
-
-    # Enviar email
-    subject = f"Relatório Diário de Produção - {start_date.strftime('%d/%m/%Y')}"
-    recipients = ["supervisor@empresa.com", "producao@empresa.com"]
-
-    send_email(
-        subject=subject,
-        html_content=html_content,
-        recipients=recipients
-    )
-
-    print(f"Relatório diário enviado para {len(recipients)} destinatários")
-
-if __name__ == "__main__":
-    generate_daily_report()
-```
-
----
-
-### Configura��o SMTP
-
-**Ficheiro: `send-email/config.py`**
-
-```python
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-# Configura��es SMTP
-SMTP_SERVER = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
-SMTP_PORT = int(os.getenv('SMTP_PORT', 587))
-SMTP_USER = os.getenv('SMTP_USER')
-SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
-SENDER_EMAIL = os.getenv('SENDER_EMAIL', SMTP_USER)
-SENDER_NAME = "Sistema de Monitoriza��o Industrial"
-
-# Destinat�rios padr�o
-DEFAULT_RECIPIENTS = {
-    'daily': ['supervisor@empresa.com'],
-    'weekly': ['gestor@empresa.com'],
-    'monthly': ['direcao@empresa.com'],
-    'alert': ['supervisor@empresa.com', 'manutencao@empresa.com']
-}
-```
-
-**Ficheiro: `.env`**
-
-```env
-SMTP_SERVER=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=seu_email@gmail.com
-SMTP_PASSWORD=sua_app_password
-SENDER_EMAIL=noreply@empresa.com
-```
-
----
-
-### Envio de Emails
-
-**Ficheiro: `send-email/email_sender.py`**
-
-```python
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from config import *
-
-def send_email(subject, html_content, recipients, attachments=None):
-    """
-    Envia email HTML com anexos opcionais
-
-    Args:
-        subject (str): Assunto do email
-        html_content (str): Conte�do HTML
-        recipients (list): Lista de emails destinat�rios
-        attachments (list): Lista de ficheiros a anexar
-    """
-    try:
-        # Criar mensagem
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = subject
-        msg['From'] = f"{SENDER_NAME} <{SENDER_EMAIL}>"
-        msg['To'] = ', '.join(recipients)
-
-        # Anexar conte�do HTML
-        html_part = MIMEText(html_content, 'html', 'utf-8')
-        msg.attach(html_part)
-
-        # Anexar ficheiros (se existirem)
-        if attachments:
-            for filepath in attachments:
-                attach_file(msg, filepath)
-
-        # Conectar ao servidor SMTP
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SMTP_USER, SMTP_PASSWORD)
-            server.send_message(msg)
-
-        print(f" Email enviado com sucesso para {len(recipients)} destinat�rios")
-        return True
-
-    except Exception as e:
-        print(f" Erro ao enviar email: {e}")
-        return False
-
-def attach_file(msg, filepath):
-    """Anexa um ficheiro � mensagem"""
-    from email.mime.base import MIMEBase
-    from email import encoders
-    import os
-
-    with open(filepath, 'rb') as f:
-        part = MIMEBase('application', 'octet-stream')
-        part.set_payload(f.read())
-        encoders.encode_base64(part)
-        part.add_header(
-            'Content-Disposition',
-            f'attachment; filename={os.path.basename(filepath)}'
-        )
-        msg.attach(part)
-```
-
----
-
-### C�lculo de KPIs
-
-**Ficheiro: `send-email/kpi_calculator.py`**
-
-```python
-def calculate_daily_kpis(data):
-    """
-    Calcula KPIs a partir dos dados de produ��o
-
-    Args:
-        data (list): Lista de registos de dados_acumulados
-
-    Returns:
-        dict: Dicion�rio com KPIs calculados
-    """
-    total_production = sum(row['producao_total'] for row in data)
-    total_defects = sum(row['defeitos_total'] for row in data)
-    total_downtime = sum(row['tempo_paragem_segundos'] for row in data)
-
-    # Taxa de defeitos
-    defect_rate = (total_defects / total_production * 100) if total_production > 0 else 0
-
-    # Disponibilidade (Availability)
-    total_time = 8 * 3600  # 8 horas em segundos
-    available_time = total_time - total_downtime
-    availability = (available_time / total_time * 100)
-
-    # Performance (assumindo capacidade m�xima de 100 pe�as/hora)
-    max_capacity = 100 * 8  # 800 pe�as em 8 horas
-    performance = (total_production / max_capacity * 100) if max_capacity > 0 else 0
-
-    # Qualidade (Quality)
-    quality = ((total_production - total_defects) / total_production * 100) if total_production > 0 else 0
-
-    # OEE (Overall Equipment Effectiveness)
-    oee = (availability * performance * quality) / 10000
-
-    return {
-        'total_production': total_production,
-        'total_defects': total_defects,
-        'defect_rate': round(defect_rate, 2),
-        'total_downtime_minutes': round(total_downtime / 60, 1),
-        'availability': round(availability, 2),
-        'performance': round(performance, 2),
-        'quality': round(quality, 2),
-        'oee': round(oee, 2),
-        'stations_data': aggregate_by_station(data)
-    }
-
-def aggregate_by_station(data):
-    """Agrega dados por esta��o"""
-    stations = {}
-    for row in data:
-        station_id = row['estacao_id']
-        if station_id not in stations:
-            stations[station_id] = {
-                'production': 0,
-                'defects': 0,
-                'downtime': 0
-            }
-        stations[station_id]['production'] += row['producao_total']
-        stations[station_id]['defects'] += row['defeitos_total']
-        stations[station_id]['downtime'] += row['tempo_paragem_segundos']
-
-    return stations
-```
-
----
+## Estrutura do Relatório
 
 ### Template HTML
-
-**Ficheiro: `send-email/templates/daily_report.html`**
 
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .header { background-color: #1976d2; color: white; padding: 20px; }
-        .kpi-card { background-color: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        body { font-family: Arial, sans-serif; }
+        .kpi { display: inline-block; padding: 20px; margin: 10px; background: #f0f0f0; border-radius: 8px; }
         .kpi-value { font-size: 32px; font-weight: bold; color: #1976d2; }
         .kpi-label { font-size: 14px; color: #666; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .alert { background: #ffebee; border-left: 4px solid #f44336; padding: 10px; margin: 10px 0; }
+        table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: #1976d2; color: white; }
-        .status-ok { color: green; }
-        .status-warning { color: orange; }
-        .status-critical { color: red; }
-        img.chart { max-width: 100%; height: auto; }
+        th { background: #1976d2; color: white; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Relatório Diário de Produção</h1>
-        <p>{{ date }}</p>
-    </div>
-
-    <h2>Resumo Geral</h2>
-
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
-        <div class="kpi-card">
-            <div class="kpi-label">Produção Total</div>
-            <div class="kpi-value">{{ total_production }}</div>
-            <div class="kpi-label">peças</div>
+    <h1>Relatório de Produção - {data}</h1>
+    
+    <div class="kpis">
+        <div class="kpi">
+            <div class="kpi-value">{producao_total}</div>
+            <div class="kpi-label">Peças Produzidas</div>
         </div>
-
-        <div class="kpi-card">
+        <div class="kpi">
+            <div class="kpi-value">{oee}%</div>
             <div class="kpi-label">OEE</div>
-            <div class="kpi-value {{ oee_class }}">{{ oee }}%</div>
         </div>
-
-        <div class="kpi-card">
+        <div class="kpi">
+            <div class="kpi-value">{defeitos}%</div>
             <div class="kpi-label">Taxa de Defeitos</div>
-            <div class="kpi-value {{ defects_class }}">{{ defect_rate }}%</div>
-        </div>
-
-        <div class="kpi-card">
-            <div class="kpi-label">Tempo de Paragem</div>
-            <div class="kpi-value">{{ downtime }}</div>
-            <div class="kpi-label">minutos</div>
         </div>
     </div>
 
-    <h2>Gráfico de Produção por Estação</h2>
-    {% if production_chart %}
-        <img class="chart" src="{{ production_chart }}" alt="Gráfico de produção por estação">
-    {% endif %}
+    {alertas_html}
 
-    <h2>Performance por Estação</h2>
-
+    <h2>Produção por Estação</h2>
     <table>
-        <thead>
-            <tr>
-                <th>Estação</th>
-                <th>Produção</th>
-                <th>Defeitos</th>
-                <th>Paragem (min)</th>
-                <th>OEE (%)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for s in stations %}
-            <tr>
-                <td>{{ s.name }}</td>
-                <td>{{ s.production }}</td>
-                <td>{{ s.defects }}</td>
-                <td>{{ s.downtime }}</td>
-                <td class="{{ s.oee_class }}">{{ s.oee }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+        <tr>
+            <th>Estação</th>
+            <th>Produção</th>
+            <th>Paragens (min)</th>
+            <th>Defeitos</th>
+            <th>Eficiência</th>
+        </tr>
+        {tabela_estacoes}
     </table>
-
-    <hr>
-    <p style="color: #666; font-size: 12px;">
-        Este relatório foi gerado automaticamente pelo Sistema de Monitorização Industrial.
-        <br>Data de geração: {{ generation_time }}
-    </p>
 </body>
 </html>
 ```
 
 ---
 
-## Configura��o no Node-RED
+## Implementação Python
 
-### N� de Agendamento
-
-1. Adicionar n� `inject` configurado para executar diariamente
-2. Conectar a n� `exec` que executa o script Python
-3. Adicionar n� `debug` para log
-
-**Configura��o do n� inject**:
-- Repeat: at a specific time
-- Time: 08:00
-- Days: Every day
-
-**Configura��o do n� exec**:
-- Command: `python3 /path/to/send-email/main.py`
-
-**Fluxo Node-RED**:
-
-```
-[inject: daily 08:00] � [exec: python script] � [debug: log result]
-                               �
-                       [sqlite: save report record]
-```
-
----
-
-## Configura��o Gmail
-
-### App Password
-
-Para utilizar Gmail como servidor SMTP, � necess�rio criar uma App Password:
-
-1. Acede a [https://myaccount.google.com/security](https://myaccount.google.com/security)
-2. Ativa "2-Step Verification"
-3. Vai a "App passwords"
-4. Seleciona "Mail" e "Other (Custom name)"
-5. Gera a password
-6. Usa esta password no ficheiro `.env`
-
-### Alternativas ao Gmail
-
-| Servi�o | Servidor SMTP | Porta |
-|---------|---------------|-------|
-| Gmail | smtp.gmail.com | 587 |
-| Outlook | smtp-mail.outlook.com | 587 |
-| Yahoo | smtp.mail.yahoo.com | 587 |
-| SendGrid | smtp.sendgrid.net | 587 |
-| Mailgun | smtp.mailgun.org | 587 |
-
----
-
-## Testes
-
-### Testar Envio de Email
-
-**Ficheiro: `send-email/test_email.py`**
+### Script Principal: `report_generator.py`
 
 ```python
-from email_sender import send_email
-from report_generator import generate_html_report
-from chart_generator import create_production_chart
-from datetime import datetime
+import sqlite3
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from datetime import datetime, timedelta
+import os
 
-# Dados de teste
-kpis = {
-    'total_production': 1200,
-    'total_defects': 24,
-    'defect_rate': 2.0,
-    'total_downtime_minutes': 30,
-    'availability': 99.5,
-    'performance': 95.0,
-    'quality': 98.0,
-    'oee': 92.1,
-    'stations_data': {
-        1: {'production': 400, 'defects': 8, 'downtime': 300},
-        2: {'production': 500, 'defects': 10, 'downtime': 200},
-        3: {'production': 300, 'defects': 6, 'downtime': 100},
-    }
-}
+class ReportGenerator:
+    def __init__(self, db_path='industrial_monitoring.db'):
+        self.db_path = db_path
+        self.smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
+        self.smtp_port = int(os.getenv('SMTP_PORT', '587'))
+        self.email_from = os.getenv('EMAIL_FROM')
+        self.email_password = os.getenv('EMAIL_PASSWORD')
+    
+    def get_daily_data(self):
+        """Busca dados das últimas 24h"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        query = """
+        SELECT 
+            e.nome,
+            SUM(d.producao_total) as total_producao,
+            SUM(d.tempo_paragem_segundos)/60 as paragens_min,
+            SUM(d.defeitos_total) as total_defeitos,
+            AVG(d.eficiencia_percentual) as eficiencia
+        FROM dados_acumulados d
+        JOIN estacoes e ON d.estacao_id = e.id
+        WHERE d.timestamp >= datetime('now', '-1 day')
+        GROUP BY e.nome
+        """
+        
+        cursor.execute(query)
+        results = cursor.fetchall()
+        conn.close()
+        
+        return results
+    
+    def calculate_kpis(self, data):
+        """Calcula KPIs agregados"""
+        total_producao = sum(row[1] for row in data)
+        total_defeitos = sum(row[3] for row in data)
+        avg_eficiencia = sum(row[4] for row in data) / len(data) if data else 0
+        taxa_defeitos = (total_defeitos / total_producao * 100) if total_producao > 0 else 0
+        
+        return {
+            'producao_total': total_producao,
+            'oee': round(avg_eficiencia, 1),
+            'defeitos': round(taxa_defeitos, 2)
+        }
+    
+    def generate_html_report(self, data, kpis):
+        """Gera relatório HTML"""
+        # Template HTML (simplificado para exemplo)
+        template = """
+        <html>
+        <body>
+            <h1>Relatório Diário - {data}</h1>
+            <p>Produção Total: {producao_total} peças</p>
+            <p>OEE: {oee}%</p>
+            <p>Taxa Defeitos: {defeitos}%</p>
+            
+            <h2>Detalhes por Estação</h2>
+            <table border="1">
+                <tr><th>Estação</th><th>Produção</th><th>Paragens</th><th>Defeitos</th></tr>
+                {rows}
+            </table>
+        </body>
+        </html>
+        """
+        
+        rows = ""
+        for row in data:
+            rows += f"<tr><td>{row[0]}</td><td>{row[1]}</td><td>{row[2]:.0f}min</td><td>{row[3]}</td></tr>"
+        
+        return template.format(
+            data=datetime.now().strftime('%Y-%m-%d'),
+            producao_total=kpis['producao_total'],
+            oee=kpis['oee'],
+            defeitos=kpis['defeitos'],
+            rows=rows
+        )
+    
+    def send_email(self, html_content, recipients):
+        """Envia email com relatório"""
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = f"Relatório de Produção - {datetime.now().strftime('%Y-%m-%d')}"
+        msg['From'] = self.email_from
+        msg['To'] = ', '.join(recipients)
+        
+        html_part = MIMEText(html_content, 'html')
+        msg.attach(html_part)
+        
+        with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
+            server.starttls()
+            server.login(self.email_from, self.email_password)
+            server.send_message(msg)
+    
+    def run_daily_report(self):
+        """Executa relatório diário completo"""
+        data = self.get_daily_data()
+        kpis = self.calculate_kpis(data)
+        html = self.generate_html_report(data, kpis)
+        
+        recipients = os.getenv('REPORT_RECIPIENTS', '').split(',')
+        self.send_email(html, recipients)
+        
+        print(f"Relatório enviado para {len(recipients)} destinatários")
 
-production_chart = create_production_chart(kpis['stations_data'])
-html_content = generate_html_report(kpis, datetime.now(), datetime.now(), production_chart=production_chart)
-
-result = send_email(
-    subject="Teste - Sistema de Monitorização",
-    html_content=html_content,
-    recipients=["teu_email@gmail.com"]
-)
-
-if result:
-    print("✓ Teste bem-sucedido!")
-else:
-    print("✗ Falha no envio")
+# Uso
+if __name__ == '__main__':
+    generator = ReportGenerator()
+    generator.run_daily_report()
 ```
 
-Executar:
+---
+
+## Configuração SMTP
+
+### Gmail (Recomendado)
+
+1. Criar App Password: [Google Account Security](https://myaccount.google.com/security)
+2. Configurar variáveis de ambiente:
 
 ```bash
-cd send-email
-python test_email.py
+export SMTP_SERVER="smtp.gmail.com"
+export SMTP_PORT="587"
+export EMAIL_FROM="producao@empresa.com"
+export EMAIL_PASSWORD="xxxx xxxx xxxx xxxx"  # App Password
+export REPORT_RECIPIENTS="supervisor@empresa.com,gestor@empresa.com"
+```
+
+### Outlook
+
+```bash
+export SMTP_SERVER="smtp-mail.outlook.com"
+export SMTP_PORT="587"
+```
+
+### Gmail Empresarial (Google Workspace)
+
+Mesmo que Gmail pessoal, mas usar email empresarial.
+
+---
+
+## Agendamento Automático
+
+### Cron (Linux/Mac)
+
+Editar crontab:
+```bash
+crontab -e
+```
+
+Adicionar:
+```cron
+# Relatório diário às 7h
+0 7 * * * cd /path/to/project && python report_generator.py
+
+# Relatório semanal às segundas 9h
+0 9 * * 1 cd /path/to/project && python weekly_report.py
+```
+
+### Windows Task Scheduler
+
+1. Abrir Task Scheduler
+2. Create Basic Task
+3. Trigger: Daily, 7:00 AM
+4. Action: Start a program
+5. Program: `python.exe`
+6. Arguments: `C:\path\to\report_generator.py`
+
+### Node-RED (Recomendado)
+
+Usar node `inject` com cron:
+
+```json
+{
+    "id": "schedule_daily_report",
+    "type": "inject",
+    "cron": "0 7 * * *",
+    "name": "Trigger Daily Report",
+    "wires": [["exec_python_report"]]
+}
 ```
 
 ---
 
-## Logs e Auditoria
+## Alertas em Tempo Real
 
-### Registar Envios na Base de Dados
+### Integração Node-RED
 
-```python
-def log_report_sent(report_type, recipients, success):
-    """Regista envio de relat�rio na base de dados"""
-    conn = sqlite3.connect('industrial_monitoring.db')
-    cursor = conn.cursor()
+Flow para detectar anomalias:
 
-    cursor.execute("""
-        INSERT INTO relatorios (tipo, destinatarios, enviado, data_geracao)
-        VALUES (?, ?, ?, datetime('now'))
-    """, (report_type, ','.join(recipients), success))
+```javascript
+// Node: function "Detect Anomalies"
+if (msg.payload.dados.paragem > 600) { // 10 min
+    msg.alert = {
+        tipo: "PARAGEM_LONGA",
+        estacao: msg.payload.estacao,
+        duracao: msg.payload.dados.paragem,
+        severidade: "alta"
+    };
+    return msg;
+}
 
-    conn.commit()
-    conn.close()
+if (msg.payload.dados.defeitos / msg.payload.dados.producao > 0.05) {
+    msg.alert = {
+        tipo: "DEFEITOS_ELEVADOS",
+        estacao: msg.payload.estacao,
+        taxa: (msg.payload.dados.defeitos / msg.payload.dados.producao * 100).toFixed(2),
+        severidade: "média"
+    };
+    return msg;
+}
+
+return null; // Sem alerta
 ```
 
-### Consultar Hist�rico
+Conectar a node `exec` que executa:
+```bash
+python send_alert_email.py --tipo "${alert.tipo}" --estacao "${alert.estacao}"
+```
 
-```sql
-SELECT
-    tipo,
-    data_geracao,
-    destinatarios,
-    enviado
-FROM relatorios
-ORDER BY data_geracao DESC
-LIMIT 10;
+---
+
+## Exemplo de Email Recebido
+
+```
+Assunto: Relatório de Produção - 2024-12-28
+
+Relatório Diário de Produção
+-----------------------------
+
+KPIs Gerais:
+✓ Produção Total: 1,358 peças
+✓ OEE: 94.5%
+⚠ Taxa de Defeitos: 1.2%
+
+Produção por Estação:
+┌─────────────┬──────────┬──────────┬──────────┬────────────┐
+│ Estação     │ Produção │ Paragens │ Defeitos │ Eficiência │
+├─────────────┼──────────┼──────────┼──────────┼────────────┤
+│ Estação A1  │ 458      │ 3 min    │ 5        │ 95.2%      │
+│ Estação B2  │ 420      │ 8 min    │ 8        │ 92.1%      │
+│ Estação C1  │ 480      │ 2 min    │ 3        │ 96.8%      │
+└─────────────┴──────────┴──────────┴──────────┴────────────┘
+
+Alertas:
+⚠ Estação B2: Tempo de paragem acima do normal
 ```
 
 ---
 
 ## Melhorias Futuras
 
-Ver [Fase 2](fase-2/roadmap-Iot-Simulator-Platform.md):
-
-- Templates mais ricos com gr�ficos incorporados
-- Gera��o de PDF anexo
-- Envio via Telegram/Slack
-- Personaliza��o por utilizador
-- Sistema de notifica��es push
-- Subscri��o/cancelamento de relat�rios
-- Relat�rios interativos com links
+- Gráficos embutidos (matplotlib → imagem inline)
+- Comparação com dia/semana anterior
+- Previsões baseadas em tendências
+- Anexar PDF do relatório
+- Integração Telegram/Slack para alertas
+- Dashboard web para histórico de relatórios
 
 ---
 
 ## Troubleshooting
 
-### Email N�o Enviado
+**Emails não enviados**:
+- Verificar App Password do Gmail
+- Testar SMTP manualmente: `telnet smtp.gmail.com 587`
+- Verificar firewall/antivírus
 
-**Sintoma**: Script executa mas email n�o chega
+**Dados vazios no relatório**:
+- Confirmar que há dados nas últimas 24h no SQLite
+- Verificar query SQL no script
 
-**Solu��es**:
-1. Verificar credenciais SMTP
-2. Confirmar App Password (Gmail)
-3. Verificar firewall/antiv�rus
-4. Testar com servi�o SMTP alternativo
-5. Verificar logs de erro
-
-### Formata��o HTML Incorreta
-
-**Sintoma**: Email aparece sem formata��o
-
-**Solu��es**:
-1. Validar HTML em [https://validator.w3.org/](https://validator.w3.org/)
-2. Usar CSS inline (alguns clientes n�o suportam `<style>`)
-3. Testar em m�ltiplos clientes de email
-
-### Rate Limiting
-
-**Sintoma**: Gmail bloqueia ap�s v�rios emails
-
-**Solucoes**:
-1. Usar servi�o profissional (SendGrid, Mailgun)
-2. Implementar delays entre envios
-3. Agrupar destinat�rios em BCC
+**Cron não executa**:
+- Verificar logs: `grep CRON /var/log/syslog`
+- Testar script manualmente primeiro
+- Usar caminhos absolutos no cron
 
 ---
 
-## Referencias
+## Referências
 
-- [Python smtplib Documentation](https://docs.python.org/3/library/smtplib.html)
-- [Email Best Practices](https://www.emailonacid.com/blog/article/email-development/)
-- [Jinja2 Templates](https://jinja.palletsprojects.com/)
-- [Gmail SMTP Guide](https://support.google.com/mail/answer/7126229)
-jinja2
-matplotlib
+- [Python smtplib](https://docs.python.org/3/library/smtplib.html)
+- [Gmail SMTP](https://support.google.com/mail/answer/7126229)
+- [Cron Syntax](https://crontab.guru/)

@@ -1,4 +1,3 @@
-<!-- filepath: d:\Escola_3ano\ISI\ProjetoISIv1\docs\base-de-dados.md -->
 # Base de Dados
 
 O **ProjetoISIv1** utiliza **SQLite3** como sistema de gestao de base de dados para armazenar dados de monitorizacao industrial processados pelo sistema ETL.
