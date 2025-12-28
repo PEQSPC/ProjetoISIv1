@@ -40,7 +40,7 @@ plugins:
       author: PEQSPC
       cover_title: ProjetoISIv1 - Documentação Completa
       cover_subtitle: Monitorização Industrial com ETL & IoT Simulator Platform
-      copywrite: © 2024-2025 PEQSPC
+      copyright: © 2024-2025 PEQSPC
 
 markdown_extensions:
   - pymdownx.highlight:

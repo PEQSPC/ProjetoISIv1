@@ -1,4 +1,4 @@
-name: Deploy MkDocs to GitHub Pages
+name: Deploy MkDocs (Material) to GitHub Pages
 
 on:
   push:
@@ -11,18 +11,34 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # REQUIRED for mike versioning
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - run: pip install mkdocs
+      - name: Install MkDocs and dependencies
+        run: |
+          pip install --upgrade pip
+          pip install \
+            mkdocs \
+            mkdocs-material \
+            mkdocs-to-pdf \
+            mike \
+            pymdown-extensions
 
-      - run: mkdocs build
+      - name: Configure Git user (for mike)
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
 
-      - uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+      - name: Deploy documentation with mike
+        run: |
+          mike deploy --push --update-aliases latest
+          mike set-default --push latest
