@@ -1,59 +1,54 @@
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
-import docker
+from kubernetes import client, config
 import json
 import uuid
-import tempfile
-import threading
-import time
 import os
 from typing import List, Optional
 from datetime import datetime, timedelta
-from database import get_db, Simulation, SessionLocal
+from database import get_db, Simulation, Base, engine
 from contextlib import asynccontextmanager
-import asyncio
 from sqlalchemy import text
+import logging
 
-# Background task para verificar expirados
-async def periodic_cleanup():
-    """Roda cleanup a cada 5 minutos."""
-    while True:
-        try:
-            cleanup_expired_simulations()
-        except Exception as e:
-            print(f"[PERIODIC-CLEANUP] Error: {e}")
-        
-        await asyncio.sleep(300)  # 5 minutos
+# Configure Logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Load Kubernetes Config
+try:
+    # Tries to load config from the cluster (when running in K8s)
+    config.load_incluster_config()
+    logger.info("Loaded in-cluster Kubernetes config.")
+except config.ConfigException:
+    try:
+        # Fallback for local testing (reading ~/.kube/config)
+        config.load_kube_config()
+        logger.info("Loaded local kube-config.")
+    except Exception as e:
+        logger.error(f"Failed to load Kubernetes config: {e}")
+
+# K8s Client
+v1 = client.CoreV1Api()
+NAMESPACE = os.getenv("K8s_NAMESPACE", "iot-sims") # Default namespace
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Executa ao startup e shutdown da API."""
-    # STARTUP
-    print("[STARTUP] Running initial cleanup...")
-    cleanup_expired_simulations()
-    
-    # Iniciar background task
-    task = asyncio.create_task(periodic_cleanup())
-    print("[STARTUP] Background cleanup task started")
-    
-    yield  # API roda aqui
-    
-    # SHUTDOWN
-    task.cancel()
-    print("[SHUTDOWN] Background cleanup task stopped")
-
+    # Startup logic (if any)
+    logger.info("[STARTUP] API Initialized. Connected to Kubernetes.")
+    yield
+    # Shutdown logic
+    logger.info("[SHUTDOWN] API Stopping.")
 
 app = FastAPI(
-    title="IoT Simulator API",
-    description="API para criar simulações IoT com persistência",
+    title="IoT Simulator API (K8s Edition)",
+    description="API for creating ephemeral IoT simulation pods in Kubernetes",
     version="2.0.0",
     lifespan=lifespan
 )
 
-docker_client = docker.from_env()
-
-# === Modelos Pydantic ===
+# === Pydantic Models ===
 class DataField(BaseModel):
     NAME: str
     TYPE: str = Field(default="float", pattern="^(int|float|bool|math_expression|raw_values)$")
@@ -84,188 +79,116 @@ class SimulationConfig(BaseModel):
 
 class SimulationResponse(BaseModel):
     simulation_id: str
-    container_id: str
+    pod_name: str
     status: str
     created_at: str
     expires_in_minutes: int
+    mqtt_topic_hint: str
     config: dict
 
 class SimulationListItem(BaseModel):
     simulation_id: str
     status: str
     created_at: str
-    stopped_at: Optional[str]
     duration_minutes: int
 
-def cleanup_expired_simulations():
-    """Verifica e para simulações que já expiraram."""
-    db = SessionLocal()
-    
-    try:
-        # Buscar simulações running que já expiraram
-        now = datetime.utcnow()
-        expired = db.query(Simulation).filter(
-            Simulation.status == "running",
-            Simulation.expires_at <= now
-        ).all()
-        
-        print(f"[CLEANUP] Found {len(expired)} expired simulations")
-        
-        for sim in expired:
-            print(f"[CLEANUP] Stopping expired simulation {sim.simulation_id}")
-            
-            # Tentar parar container
-            try:
-                container = docker_client.containers.get(sim.container_id)
-                container.stop(timeout=5)
-                print(f"[CLEANUP] Container stopped: {sim.simulation_id}")
-            except docker.errors.NotFound:
-                print(f"[CLEANUP] Container already gone: {sim.simulation_id}")
-            except Exception as e:
-                print(f"[CLEANUP] Error stopping {sim.simulation_id}: {e}")
-            
-            # Atualizar BD
-            sim.status = "expired"
-            sim.stopped_at = datetime.utcnow()
-            
-            # Limpar ficheiro config
-            if os.path.exists(sim.config_path):
-                os.remove(sim.config_path)
-        
-        db.commit()
-        print(f"[CLEANUP] Cleanup complete")
-        
-    except Exception as e:
-        print(f"[CLEANUP] Error: {e}")
-    finally:
-        db.close()
-
-# === Função Auto-Stop ===
-def auto_stop_container(container_id: str, config_path: str, sim_id: str, duration_seconds: int):
-    """Para container após duração."""
-    time.sleep(duration_seconds)
-    
-    # Obter sessão BD
-    db = SessionLocal()
-    
-    try:
-        # Parar container
-        try:
-            container = docker_client.containers.get(container_id)
-            print(f"[AUTO-STOP] Stopping simulation {sim_id}")
-            container.stop(timeout=5)
-        except docker.errors.NotFound:
-            print(f"[AUTO-STOP] Container {sim_id} already stopped")
-        except Exception as e:
-            print(f"[AUTO-STOP] Error stopping {sim_id}: {e}")
-        
-        # Atualizar BD
-        simulation = db.query(Simulation).filter(
-            Simulation.simulation_id == sim_id
-        ).first()
-        
-        if simulation:
-            simulation.status = "expired"
-            simulation.stopped_at = datetime.utcnow()
-            db.commit()
-            print(f"[AUTO-STOP] Updated DB for {sim_id}")
-        
-    finally:
-        # Cleanup ficheiro
-        if os.path.exists(config_path):
-            os.remove(config_path)
-            print(f"[AUTO-STOP] Cleaned config file for {sim_id}")
-        
-        db.close()
-
 # === Endpoints ===
-@app.post("/simulations", response_model=SimulationResponse, status_code=201,tags=["Create Simulation"])
+
+@app.post("/simulations", response_model=SimulationResponse, status_code=201, tags=["Create Simulation"])
 async def create_simulation(config: SimulationConfig, db: Session = Depends(get_db)):
-    """Cria nova simulação IoT"""
+    """Creates a new Kubernetes Pod running the simulator."""
     sim_id = str(uuid.uuid4())[:8]
+    pod_name = f"sim-{sim_id}"
     
-    # Preparar config para simulador
-    simulator_config = config.dict(exclude={'duration_minutes'})
-    
-    # Criar ficheiro temporário
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
-        json.dump(simulator_config, f, indent=2)
-        config_path = f.name
-    
+    # Prepare the config JSON string to inject into the pod
+    simulator_config_dict = config.dict(exclude={'duration_minutes'})
+    simulator_config_json = json.dumps(simulator_config_dict)
+
+    # Calculate timestamps
+    created_at = datetime.utcnow()
+    expires_at = created_at + timedelta(minutes=config.duration_minutes)
+
+    # === KUBERNETES POD DEFINITION ===
+    pod_manifest = {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+            "name": pod_name,
+            "labels": {
+                "app": "iot-simulator",
+                "simulation_id": sim_id
+            }
+        },
+        "spec": {
+            "restartPolicy": "Never",
+            "activeDeadlineSeconds": config.duration_minutes * 60, # AUTO-KILL Feature
+            "containers": [{
+                "name": "simulator",
+                # Use your public image or local dev image
+                "image": "ghcr.io/peqspc/mqtt-simulator:latest", 
+                "imagePullPolicy": "IfNotPresent", 
+                # We inject the config via an Environment Variable instead of a file volume
+                # This is much simpler for K8s than managing temporary PVCs or ConfigMaps
+                "env": [
+                    {"name": "SIMULATOR_CONFIG_JSON", "value": simulator_config_json}
+                    # NOTE: Your simulator python script needs to read os.environ['SIMULATOR_CONFIG_JSON']
+                    # OR we can use an init-container to write it to a file if strictly required.
+                ]
+                # If your container strictly requires a file at /config/settings.json, 
+                # let me know, and I will add the 'ConfigMap' logic here.
+            }]
+        }
+    }
+
     try:
-        # Iniciar container
-        container = docker_client.containers.run(
-            "ghcr.io/damascenorafael/mqtt-simulator:sha-a73a2e8",
-            command=["-f", "/config/settings.json"],
-            name=f"sim-{sim_id}",
-            volumes={config_path: {'bind': '/config/settings.json', 'mode': 'ro'}},
-            detach=True,
-            remove=True,
-            labels={"simulation_id": sim_id}
-        )
-        # Calcular quando expira
-        expires_at = datetime.utcnow() + timedelta(minutes=config.duration_minutes)
-        
-        # Guardar na BD
+        # 1. Create Pod in Kubernetes
+        v1.create_namespaced_pod(namespace=NAMESPACE, body=pod_manifest)
+        logger.info(f"Created Pod {pod_name} in namespace {NAMESPACE}")
+
+        # 2. Save to Database
         db_simulation = Simulation(
             simulation_id=sim_id,
-            container_id=container.id,
-            config_path=config_path,
-            config_json=json.dumps(config.dict()),
+            container_id=pod_name, # Storing Pod Name instead of Docker ID
+            config_json=simulator_config_json,
             status="running",
             duration_minutes=config.duration_minutes,
+            created_at=created_at,
             expires_at=expires_at
         )
         db.add(db_simulation)
         db.commit()
         db.refresh(db_simulation)
-        
-        # Agendar auto-stop
-        duration_seconds = config.duration_minutes * 60
-        threading.Thread(
-            target=auto_stop_container,
-            args=(container.id, config_path, sim_id, duration_seconds),
-            daemon=True
-        ).start()
-        
+
         return SimulationResponse(
             simulation_id=sim_id,
-            container_id=container.id[:12],
+            pod_name=pod_name,
             status="running",
-            created_at=db_simulation.created_at.isoformat(),
+            created_at=created_at.isoformat(),
             expires_in_minutes=config.duration_minutes,
-            config=simulator_config
+            mqtt_topic_hint=f"Check config for prefixes",
+            config=simulator_config_dict
         )
-        
-    except docker.errors.ImageNotFound:
-        if os.path.exists(config_path):
-            os.remove(config_path)
-        raise HTTPException(404, "Simulator image not found")
-    except Exception as e:
-        if os.path.exists(config_path):
-            os.remove(config_path)
-        raise HTTPException(500, f"Failed to start: {str(e)}")
 
-@app.get("/simulations", response_model=List[SimulationListItem],tags=["List Simulations"])
-async def list_simulations(
-    status: Optional[str] = None,
-    limit: int = 20,
-    db: Session = Depends(get_db)
-):
-    """Lista simulações (com filtro opcional por status)"""
-    query = db.query(Simulation)
+    except client.exceptions.ApiException as e:
+        logger.error(f"K8s API Error: {e}")
+        raise HTTPException(500, f"Kubernetes failed to start pod: {e.reason}")
+    except Exception as e:
+        logger.error(f"General Error: {e}")
+        raise HTTPException(500, f"Failed to start simulation: {str(e)}")
+
+@app.get("/simulations", response_model=List[SimulationListItem], tags=["List Simulations"])
+async def list_simulations(limit: int = 20, db: Session = Depends(get_db)):
+    """List simulations from DB"""
+    simulations = db.query(Simulation).order_by(Simulation.created_at.desc()).limit(limit).all()
     
-    if status:
-        query = query.filter(Simulation.status == status)
-    
-    simulations = query.order_by(Simulation.created_at.desc()).limit(limit).all()
+    # Optional: You could ping K8s here to check real status of pods, 
+    # but for speed we just return DB state.
     
     return [
         SimulationListItem(
             simulation_id=sim.simulation_id,
             status=sim.status,
             created_at=sim.created_at.isoformat(),
-            stopped_at=sim.stopped_at.isoformat() if sim.stopped_at else None,
             duration_minutes=sim.duration_minutes
         )
         for sim in simulations
@@ -273,129 +196,90 @@ async def list_simulations(
 
 @app.get("/simulations/{sim_id}", tags=["Get Simulation Details"])
 async def get_simulation(sim_id: str, db: Session = Depends(get_db)):
-    """Detalhes de simulação específica"""
-    simulation = db.query(Simulation).filter(
-        Simulation.simulation_id == sim_id
-    ).first()
-    
+    """Get details and logs from Kubernetes"""
+    simulation = db.query(Simulation).filter(Simulation.simulation_id == sim_id).first()
     if not simulation:
         raise HTTPException(404, "Simulation not found")
-    
-    # Tentar obter logs do container se ainda estiver ativo
-    logs = None
-    container_status = simulation.status
-    
-    if simulation.container_id and simulation.status == "running":
-        try:
-            container = docker_client.containers.get(simulation.container_id)
-            container_status = container.status
-            logs = container.logs(tail=50).decode('utf-8').split('\n')
-        except docker.errors.NotFound:
-            container_status = "stopped"
-            # Atualizar BD
-            simulation.status = "stopped"
-            simulation.stopped_at = datetime.utcnow()
-            db.commit()
-    
+
+    pod_name = simulation.container_id
+    pod_status = "unknown"
+    logs = []
+
+    # Query Kubernetes for real-time status
+    try:
+        pod = v1.read_namespaced_pod(name=pod_name, namespace=NAMESPACE)
+        pod_status = pod.status.phase # Running, Succeeded, Failed, Pending
+        
+        # Get Logs
+        log_response = v1.read_namespaced_pod_log(name=pod_name, namespace=NAMESPACE, tail_lines=50)
+        logs = log_response.split('\n')
+        
+    except client.exceptions.ApiException as e:
+        if e.status == 404:
+            pod_status = "Deleted/Expired"
+        else:
+            pod_status = "K8s Error"
+            logger.error(f"Error reading pod {pod_name}: {e}")
+
     return {
         "simulation_id": simulation.simulation_id,
-        "container_id": simulation.container_id[:12] if simulation.container_id else None,
-        "status": container_status,
+        "pod_name": pod_name,
+        "db_status": simulation.status,
+        "k8s_status": pod_status,
         "created_at": simulation.created_at.isoformat(),
-        "stopped_at": simulation.stopped_at.isoformat() if simulation.stopped_at else None,
-        "duration_minutes": simulation.duration_minutes,
-        "config": json.loads(simulation.config_json),
+        "config": json.loads(simulation.config_json or "{}"),
         "logs": logs
     }
 
-@app.delete("/simulations/{sim_id}",tags=["Stop Simulation"])
+@app.delete("/simulations/{sim_id}", tags=["Stop Simulation"])
 async def stop_simulation(sim_id: str, db: Session = Depends(get_db)):
-    """Para simulação manualmente"""
-    simulation = db.query(Simulation).filter(
-        Simulation.simulation_id == sim_id
-    ).first()
-    
+    """Manually stop the pod"""
+    simulation = db.query(Simulation).filter(Simulation.simulation_id == sim_id).first()
     if not simulation:
         raise HTTPException(404, "Simulation not found")
-    
-    if simulation.status in ["stopped", "expired", "failed"]:
-        raise HTTPException(400, f"Simulation already {simulation.status}")
-    
-    # Parar container
+
+    pod_name = simulation.container_id
+
     try:
-        container = docker_client.containers.get(simulation.container_id)
-        container.stop(timeout=5)
-    except docker.errors.NotFound:
-        pass  # Já parou
-    except Exception as e:
-        print(f"Error stopping container: {e}")
-    
-    # Atualizar BD
-    simulation.status = "stopped"
-    simulation.stopped_at = datetime.utcnow()
-    db.commit()
-    
-    # Cleanup ficheiro
-    if os.path.exists(simulation.config_path):
-        os.remove(simulation.config_path)
-    
-    return {
-        "status": "stopped",
-        "simulation_id": sim_id,
-        "stopped_at": simulation.stopped_at.isoformat()
-    }
-
-@app.get("/stats", tags=["Get Statistics"])
-async def get_stats(db: Session = Depends(get_db)):
-    """Estatísticas gerais"""
-    total = db.query(Simulation).count()
-    running = db.query(Simulation).filter(Simulation.status == "running").count()
-    stopped = db.query(Simulation).filter(Simulation.status == "stopped").count()
-    expired = db.query(Simulation).filter(Simulation.status == "expired").count()
-    
-    return {
-        "total_simulations": total,
-        "running": running,
-        "stopped": stopped,
-        "expired": expired
-    }
-
-@app.get("/", tags=["Root"])
-async def root(db: Session = Depends(get_db)):
-    running_count = db.query(Simulation).filter(Simulation.status == "running").count()
-    
-    return {
-        "service": "IoT Simulator API",
-        "version": "2.0.0",
-        "docs": "/docs",
-        "database": "sqlite",
-        "active_simulations": running_count
-    }
+        v1.delete_namespaced_pod(
+            name=pod_name, 
+            namespace=NAMESPACE, 
+            body=client.V1DeleteOptions(grace_period_seconds=0)
+        )
+        
+        simulation.status = "stopped"
+        simulation.stopped_at = datetime.utcnow()
+        db.commit()
+        
+        return {"status": "success", "message": f"Pod {pod_name} deleted."}
+        
+    except client.exceptions.ApiException as e:
+        if e.status == 404:
+            return {"status": "warning", "message": "Pod was already gone."}
+        raise HTTPException(500, f"Failed to delete pod: {e.reason}")
 
 @app.get("/health", tags=["Health Check"])
-async def health():
-    """Health check"""
+async def health(db: Session = Depends(get_db)):
+    """Check K8s connection and DB"""
+    k8s_status = "disconnected"
+    db_status = "disconnected"
+
+    # Check K8s
     try:
-        docker_client.ping()
-        docker_status = "connected"
-    except:
-        docker_status = "disconnected"
-    
-    # Verificar BD
+        v1.list_namespaced_pod(namespace=NAMESPACE, limit=1)
+        k8s_status = "connected"
+    except Exception as e:
+        logger.error(f"Health Check K8s failed: {e}")
+
+    # Check DB
     try:
-        
-        db = SessionLocal()
         db.execute(text("SELECT 1"))
-        db.close()
         db_status = "connected"
     except Exception as e:
-        print(f"Error connecting to database: {e}")
-        db_status = "disconnected"
-    
-    healthy = docker_status == "connected" and db_status == "connected"
-    
+        logger.error(f"Health Check DB failed: {e}")
+
     return {
-        "status": "healthy" if healthy else "unhealthy",
-        "docker": docker_status,
+        "status": "healthy" if k8s_status == "connected" and db_status == "connected" else "degraded",
+        "kubernetes": k8s_status,
         "database": db_status
     }

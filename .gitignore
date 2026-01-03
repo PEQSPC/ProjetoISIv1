@@ -27,7 +27,8 @@ wheels/
 venv/
 ENV/
 env/
-
+myenv/
+venv.bak/
 # Environment variables
 .env
 
@@ -38,3 +39,4 @@ env/
 *.swo
 *~
 api/src/simulations.db
+iot-simulator-api/src/simulations.db
