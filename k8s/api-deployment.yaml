@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: manager-api
+  namespace: iot-sims
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: manager-api
+  template:
+    metadata:
+      labels:
+        app: manager-api
+    spec:
+      serviceAccountName: sim-manager-sa  # <--- CRITICAL: Connects to RBAC
+      containers:
+      - name: api
+        image: peqspc/manager-api:dev     # <--- Matches the image you built
+        imagePullPolicy: Never            # <--- CRITICAL: Uses local image
+        ports:
+        - containerPort: 80
+        env:
+        # This tells the API which simulator image to use when creating pods
+        - name: SIMULATOR_IMAGE
+          value: "ghcr.io/damascenorafael/mqtt-simulator:sha-a73a2e8"

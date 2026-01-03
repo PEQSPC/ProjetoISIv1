@@ -1,9 +1,10 @@
+# ON TEST FILE
 name: Publish Docker image to ghcr.io
 
 on:
   push:
     branches:
-      - "master"
+      - main
 
 jobs:
   docker:

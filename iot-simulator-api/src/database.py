@@ -2,8 +2,13 @@ from sqlalchemy import create_engine, Column, String, Integer, DateTime, Text, B
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
+import os
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./simulations.db"
+# Ensure the 'db' folder exists, otherwise sqlite fails
+if not os.path.exists("./db"):
+    os.makedirs("./db")
+
+SQLALCHEMY_DATABASE_URL = "sqlite:///./db/simulations.db"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, 
@@ -17,10 +22,15 @@ class Simulation(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     simulation_id = Column(String, unique=True, index=True, nullable=False)
+    
+    # In K8s, this will store the Pod Name (e.g., "sim-abc-123")
     container_id = Column(String, nullable=True)
-    config_path = Column(String, nullable=False)
-    config_json = Column(Text, nullable=False)  # JSON como texto
-    status = Column(String, default="running")  # running, stopped, failed, expired
+    
+    
+    config_path = Column(String, nullable=True)
+    
+    config_json = Column(Text, nullable=False)  # JSON stored as text
+    status = Column(String, default="running")
     created_at = Column(DateTime, default=datetime.utcnow)
     stopped_at = Column(DateTime, nullable=True)
     expires_at = Column(DateTime, nullable=False)
@@ -29,10 +39,10 @@ class Simulation(Base):
     def __repr__(self):
         return f"<Simulation {self.simulation_id} - {self.status}>"
 
-# Criar tabelas
+# Create tables
 Base.metadata.create_all(bind=engine)
 
-# Dependency para obter sessão
+# Dependency to get session
 def get_db():
     db = SessionLocal()
     try:
