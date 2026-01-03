@@ -13,11 +13,11 @@ spec:
       labels:
         app: manager-api
     spec:
-      serviceAccountName: sim-manager-sa  # <--- CRITICAL: Connects to RBAC
+      serviceAccountName: sim-manager-sa
       containers:
       - name: api
-        image: peqspc/manager-api:dev     # <--- Matches the image you built
-        imagePullPolicy: Never            # <--- CRITICAL: Uses local image
+        image: peqspc/manager-api:latest
+        imagePullPolicy: Always            
         ports:
         - containerPort: 80
         env:
