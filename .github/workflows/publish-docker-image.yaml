@@ -1,5 +1,5 @@
 # ON TEST FILE
-name: Publish Docker image to ghcr.io
+name: Publish Docker images to ghcr.io
 
 on:
   push:

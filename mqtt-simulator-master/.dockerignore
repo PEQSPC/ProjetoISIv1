@@ -2,3 +2,14 @@ LICENSE
 *.md
 docs
 venv
+env
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.pyds
+.DS_Store
+.git
+.gitignore
+.vscode
+docker-compose.override.yml
