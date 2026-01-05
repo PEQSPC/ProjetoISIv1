@@ -38,5 +38,5 @@ venv.bak/
 *.swp
 *.swo
 *~
-api/src/simulations.db
-iot-simulator-api/src/simulations.db
+iot-simulator-api/src/db/*.db
+

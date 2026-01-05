@@ -16,13 +16,13 @@ spec:
       serviceAccountName: sim-manager-sa
       containers:
       - name: api
-        image: ghcr.io/peqspc/manager-api:sha-b168c30
+        image: ghcr.io/peqspc/manager-api:latest
         imagePullPolicy: Always            
         ports:
         - containerPort: 80
         env:
         # This tells the API which simulator image to use when creating pods
         - name: SIMULATOR_IMAGE
-          value: "ghcr.io/peqspc/mqtt-simulator:sha-b168c30"
+          value: "ghcr.io/peqspc/mqtt-simulator:latest"
         - name: K8s_NAMESPACE
           value: "iot-sims"
