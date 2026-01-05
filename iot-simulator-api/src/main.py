@@ -37,6 +37,8 @@ if SIMULATOR_IMAGE == "None":
     logger.warning("SIMULATOR_IMAGE environment variable is not set. Pods may fail to start.")
     raise ValueError("CRITICAL: SIMULATOR_IMAGE env var is missing!")
 logger.info(f"Using simulator image: {SIMULATOR_IMAGE}")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup logic (if any)

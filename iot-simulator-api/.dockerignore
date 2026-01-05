@@ -6,4 +6,4 @@ __pycache__
 *.pyc
 .vscode
 *.log
-db/
+db/*.db
