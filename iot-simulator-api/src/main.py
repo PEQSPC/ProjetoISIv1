@@ -32,7 +32,11 @@ except config.ConfigException:
 # K8s Client
 v1 = client.CoreV1Api()
 NAMESPACE = os.getenv("K8s_NAMESPACE", "iot-sims") # Default namespace
-
+SIMULATOR_IMAGE = os.getenv("SIMULATOR_IMAGE", "None") # Must be set in Deployment env
+if SIMULATOR_IMAGE == "None":
+    logger.warning("SIMULATOR_IMAGE environment variable is not set. Pods may fail to start.")
+    raise ValueError("CRITICAL: SIMULATOR_IMAGE env var is missing!")
+logger.info(f"Using simulator image: {SIMULATOR_IMAGE}")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup logic (if any)
@@ -124,8 +128,8 @@ async def create_simulation(config: SimulationConfig, db: Session = Depends(get_
             "activeDeadlineSeconds": config.duration_minutes * 60, # AUTO-KILL Feature
             "containers": [{
                 "name": "simulator",
-                # Use your public image or local dev image
-                "image": "ghcr.io/peqspc/mqtt-simulator:latest", 
+                # Use your public image
+                "image": f"{SIMULATOR_IMAGE}", 
                 "imagePullPolicy": "IfNotPresent", 
                 # We inject the config via an Environment Variable instead of a file volume
                 # This is much simpler for K8s than managing temporary PVCs or ConfigMaps
@@ -144,6 +148,8 @@ async def create_simulation(config: SimulationConfig, db: Session = Depends(get_
         # 1. Create Pod in Kubernetes
         v1.create_namespaced_pod(namespace=NAMESPACE, body=pod_manifest)
         logger.info(f"Created Pod {pod_name} in namespace {NAMESPACE}")
+        logger.info(f"Pod created with simulator image: {SIMULATOR_IMAGE}")
+        logger.debug(f"Pod Manifest: {pod_manifest}")
 
         # 2. Save to Database
         db_simulation = Simulation(
