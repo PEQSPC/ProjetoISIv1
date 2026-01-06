@@ -11,6 +11,7 @@ from database import get_db, Simulation, Base, engine
 from contextlib import asynccontextmanager
 from sqlalchemy import text
 import logging
+from fastapi.middleware.cors import CORSMiddleware
 
 # Configure Logging
 logging.basicConfig(level=logging.INFO)
@@ -53,6 +54,16 @@ app = FastAPI(
     version="2.0.0",
     lifespan=lifespan
 )
+
+# DANGEROUS: Allow all CORS (for demo/development purposes)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite tudo (apenas para desenvolvimento/demo)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # === Pydantic Models ===
 class DataField(BaseModel):
