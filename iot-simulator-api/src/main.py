@@ -11,6 +11,7 @@ from database import get_db, Simulation, Base, engine
 from contextlib import asynccontextmanager
 from sqlalchemy import text
 import logging
+from fastapi.middleware.cors import CORSMiddleware
 
 # Configure Logging
 logging.basicConfig(level=logging.INFO)
@@ -53,6 +54,16 @@ app = FastAPI(
     version="2.0.0",
     lifespan=lifespan
 )
+
+# DANGEROUS: Allow all CORS (for demo/development purposes)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite tudo (apenas para desenvolvimento/demo)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # === Pydantic Models ===
 class DataField(BaseModel):
@@ -192,16 +203,21 @@ async def list_simulations(limit: int = 20, db: Session = Depends(get_db)):
     # Optional: You could ping K8s here to check real status of pods, 
     # but for speed we just return DB state.
     
-    return [
-        SimulationListItem(
-            simulation_id=sim.simulation_id,
-            status=sim.status,
+    if not simulations:
+        logger.info("No simulations found in database.")
+        # return http status 204 No Content
+        return {"status": "no_content"}
+    else:
+        logger.info(f"Retrieved {len(simulations)} simulations from database.")
+        return [
+            SimulationListItem(
+                simulation_id=sim.simulation_id,
+                status=sim.status,
             created_at=sim.created_at.isoformat(),
-            duration_minutes=sim.duration_minutes
-        )
-        for sim in simulations
-    ]
-
+                duration_minutes=sim.duration_minutes
+            )
+            for sim in simulations
+        ]
 @app.get("/simulations/{sim_id}", tags=["Get Simulation Details"])
 async def get_simulation(sim_id: str, db: Session = Depends(get_db)):
     """Get details and logs from Kubernetes"""

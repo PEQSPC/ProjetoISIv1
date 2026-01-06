@@ -5,8 +5,8 @@
 # ==========================================
 CLUSTER_NAME="isi-dev-cluster"
 IMAGE_REGISTRY="peqspc"
-API_IMAGE="manager-api:dev"
-SIM_IMAGE="iot-simulator:dev"
+API_IMAGE="manager-api:latest"
+SIM_IMAGE="mqtt-simulator:latest"
 
 echo "Starting Onboarding for ISIv1 SaaS..."
 
