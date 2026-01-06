@@ -30,6 +30,12 @@ jobs:
           - context: ./mqtt-simulator-master
             image-name: mqtt-simulator
             dockerfile: ./mqtt-simulator-master/Dockerfile
+          
+          # Configuration for frontend
+          # (Assuming 'frontend' is the folder name)
+          - context: ./frontend
+            image-name: iot-simulator-frontend
+            dockerfile: ./frontend/Dockerfile
 
     steps:
       - name: Checkout repository

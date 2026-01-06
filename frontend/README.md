@@ -68,6 +68,50 @@ yarn preview
 npm run preview
 ```
 
+## Docker
+
+### Build da Imagem
+
+```bash
+cd frontend
+docker build -t iot-simulator-frontend .
+```
+
+### Executar Container
+
+```bash
+docker run -d -p 8080:80 --name iot-frontend iot-simulator-frontend
+```
+
+A aplicação estará disponível em `http://localhost:8080`
+
+### Com Variável de Ambiente
+
+Se precisares de configurar a URL da API:
+
+```bash
+docker build -t iot-simulator-frontend --build-arg VITE_API_URL=http://localhost:8000 .
+```
+
+Ou criar um ficheiro `.env.production` antes do build com:
+```
+VITE_API_URL=http://seu-api-url:8000
+```
+
+### Docker Compose
+
+Para executar com outros serviços, pode-se usar docker-compose:
+
+```yaml
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    environment:
+      - VITE_API_URL=http://api:8000
+```
+
 ## Estrutura
 
 ```
