@@ -37,4 +37,12 @@ env/
 *.swp
 *.swo
 *~
+
+# Database
 api/src/simulations.db
+iot-simulator-api/simulations.db
+
+# Test artifacts
+.coverage
+.pytest_cache/
+htmlcov/
