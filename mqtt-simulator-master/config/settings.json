@@ -5,7 +5,7 @@
   "TOPICS": [
     {
       "TYPE": "multiple",
-      "PREFIX": "fabrica/sensor",
+      "PREFIX": "default/sensor",
       "RANGE_START": 1,
       "RANGE_END": 3,
       "DATA": [
