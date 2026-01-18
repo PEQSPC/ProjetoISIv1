@@ -1,15 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: frontend-ingress
+  name: iot-sims-ingress
   namespace: iot-sims
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
-  - host: iot-simulator.local  # Alterar para o teu domínio
+  - host: iot-simulator.local
     http:
       paths:
       - path: /
@@ -19,6 +18,11 @@ spec:
             name: frontend-service
             port:
               number: 80
-  # Para desenvolvimento local com ingress-nginx
-  # Podes aceder via http://localhost usando port-forward ou ingress controller
 
+      - path: /api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: manager-api-service
+            port:
+              number: 80

@@ -9,7 +9,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
 
 // Configuração da API
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = "http://localhost:8000";
 
 interface Simulation {
   simulation_id: string;

@@ -142,7 +142,7 @@ async def create_simulation(config: SimulationConfig, db: Session = Depends(get_
             "containers": [{
                 "name": "simulator",
                 # Use your public image
-                "image": f"{SIMULATOR_IMAGE}", 
+                "image": "ghcr.io/damascenorafael/mqtt-simulator:sha-a73a2e8", 
                 "imagePullPolicy": "IfNotPresent", 
                 # We inject the config via an Environment Variable instead of a file volume
                 # This is much simpler for K8s than managing temporary PVCs or ConfigMaps

@@ -132,3 +132,4 @@ kubectl logs <pod-name> -n iot-sims
 - Verificar se o service da API está acessível
 - Verificar DNS do cluster (usar nome do service)
 
+
