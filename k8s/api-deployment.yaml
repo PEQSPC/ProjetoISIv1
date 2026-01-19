@@ -23,6 +23,6 @@ spec:
         env:
         # This tells the API which simulator image to use when creating pods
         - name: SIMULATOR_IMAGE
-          value: "ghcr.io/damascenorafael/mqtt-simulator:sha-a73a2e8"
+          value: "ghcr.io/peqspc/mqtt-simulator:latest"
         - name: K8s_NAMESPACE
           value: "iot-sims"

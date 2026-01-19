@@ -40,3 +40,6 @@ venv.bak/
 *~
 iot-simulator-api/src/db/*.db
 
+.cursor
+.claude
+tmpclaude-*
