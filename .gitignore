@@ -43,3 +43,4 @@ iot-simulator-api/src/db/*.db
 .cursor
 .claude
 tmpclaude-*
+iot-simulator-api/db/simulations.db

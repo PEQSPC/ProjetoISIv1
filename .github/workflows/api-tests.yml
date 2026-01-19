@@ -1,0 +1,54 @@
+name: API Tests
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'iot-simulator-api/**'
+      - '.github/workflows/api-tests.yml'
+  pull_request:
+    branches:
+      - develop
+      - main
+    paths:
+      - 'iot-simulator-api/**'
+      - '.github/workflows/api-tests.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: iot-simulator-api
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: iot-simulator-api/src/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: Run tests
+        run: pytest --tb=short -v
+        env:
+          SIMULATOR_IMAGE: "test-image:latest"
+          JWT_SECRET_KEY: "test-secret-key-for-ci"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-results
+          path: iot-simulator-api/tests/
+          retention-days: 7
