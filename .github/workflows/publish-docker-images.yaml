@@ -3,7 +3,6 @@ name: Publish Docker images to GitHub Container Registry
 on:
   push:
     branches:
-      - main
       - develop
 
 env:

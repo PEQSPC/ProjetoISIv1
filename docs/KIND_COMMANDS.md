@@ -146,6 +146,7 @@ kubectl exec -it <pod-name> -- /bin/sh
 ```
 
 ### Criar/Eliminar Pods
+
 ```bash
 # Criar pod a partir de YAML
 kubectl apply -f pod.yaml
@@ -210,6 +211,7 @@ kubectl port-forward pod/<pod-name> 8080:80
 ## ConfigMaps e Secrets
 
 ### ConfigMaps
+
 ```bash
 # Listar
 kubectl get configmaps
@@ -226,6 +228,7 @@ kubectl get configmap <name> -o yaml
 ```
 
 ### Secrets
+
 ```bash
 # Listar
 kubectl get secrets
@@ -286,6 +289,7 @@ kind load docker-image ghcr.io/user/repo:sha-abc123
 ## Debug e Troubleshooting
 
 ### Ver Eventos
+
 ```bash
 # Eventos do namespace atual
 kubectl get events
@@ -298,6 +302,7 @@ kubectl get events --field-selector involvedObject.name=<pod-name>
 ```
 
 ### Recursos do Cluster
+
 ```bash
 # Nodes
 kubectl get nodes
@@ -309,6 +314,7 @@ kubectl top pods
 ```
 
 ### Debug de Pod
+
 ```bash
 # Pod não inicia? Ver eventos e describe
 kubectl describe pod <pod-name>
@@ -323,6 +329,7 @@ kubectl logs <pod-name> --previous
 ## Ficheiros YAML Úteis
 
 ### Pod Simples
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -339,6 +346,7 @@ spec:
 ```
 
 ### Deployment
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -362,6 +370,7 @@ spec:
 ```
 
 ### Service
+
 ```yaml
 apiVersion: v1
 kind: Service

@@ -7,9 +7,11 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PeopleIcon from '@mui/icons-material/People';
 import api from '../api/axios';
 import { useAuth } from '../contexts/AuthContext';
 import {type Simulation } from '../types';
+import UserManagement from './UserManagement';
 
 // JSON Default para facilitar a vida ao utilizador
 const DEFAULT_JSON = JSON.stringify({
@@ -46,6 +48,7 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
   const [error, setError] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
   const [jsonError, setJsonError] = useState<string | null>(null);
+  const [userManagementOpen, setUserManagementOpen] = useState(false);
 
   // Carregar simulações
   const fetchSimulations = async () => {
@@ -154,6 +157,16 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
           </Typography>
           {user && (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              {user.role === 'admin' && (
+                <Button
+                  startIcon={<PeopleIcon />}
+                  onClick={() => setUserManagementOpen(true)}
+                  color="inherit"
+                  title="Gestão de Utilizadores"
+                >
+                  Utilizadores
+                </Button>
+              )}
               <Chip
                 label={`${user.username} (${user.role})`}
                 color="default"
@@ -282,6 +295,15 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Modal de Gestão de Utilizadores */}
+      {user && (
+        <UserManagement
+          open={userManagementOpen}
+          onClose={() => setUserManagementOpen(false)}
+          currentUserId={user.id}
+        />
+      )}
     </div>
   );
 }

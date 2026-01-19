@@ -59,9 +59,12 @@ async def get_current_user_info(current_user: User = Depends(get_current_user)):
 @router.post("/users", response_model=UserResponse, status_code=201)
 async def create_user(
     user_data: UserCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
-    """Create a new user."""
+    """Create a new user (admin only)."""
+    require_admin(current_user)
+
     # Check if username exists
     if db.query(User).filter(User.username == user_data.username).first():
         raise HTTPException(status_code=400, detail="Username already registered")
@@ -89,3 +92,24 @@ async def list_users(
     """List all users (admin only)."""
     require_admin(current_user)
     return db.query(User).all()
+
+
+@router.delete("/users/{user_id}", status_code=204)
+async def delete_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Delete a user (admin only). Cannot delete yourself."""
+    require_admin(current_user)
+
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if user.id == current_user.id:
+        raise HTTPException(status_code=400, detail="Cannot delete yourself")
+
+    db.delete(user)
+    db.commit()
+    return None
