@@ -1,0 +1,26 @@
+# API Configuration - Non-sensitive settings
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  namespace: iot-sims
+data:
+  # JWT token expiration in minutes
+  jwt-expire-minutes: "60"
+  # Log level (DEBUG, INFO, WARNING, ERROR)
+  log-level: "INFO"
+  # Max simulation duration in minutes
+  max-simulation-duration: "120"
+  # CORS allowed origins (comma-separated)
+  allowed-origins: "https://iot-simulator.local"
+---
+# Frontend Configuration (if needed for runtime config)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: iot-sims
+data:
+  # Note: VITE_API_URL is baked at build time
+  # This is for any nginx-level configuration if needed
+  api-base-path: "/api"

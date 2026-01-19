@@ -1,0 +1,26 @@
+# Kind cluster configuration for local development
+# Simulates production environment with ingress support
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: isi-dev-cluster
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      # HTTP - maps localhost:80 to ingress controller
+      - containerPort: 80
+        hostPort: 80
+        protocol: TCP
+      # HTTPS - maps localhost:443 to ingress controller
+      - containerPort: 443
+        hostPort: 443
+        protocol: TCP
+      # NodePort range for direct service access (optional)
+      - containerPort: 30000
+        hostPort: 30000
+        protocol: TCP

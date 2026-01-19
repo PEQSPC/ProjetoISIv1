@@ -5,7 +5,7 @@
 pip install -r requirements.txt
 
 ## Rodar (cria simulations.db automaticamente)
-
+(Adicionar env variables) -> SIMULATOR_IMAGE=ghcr.io/peqspc/mqtt-simulator:latest
 uvicorn main:app --reload --port 8000
 
 ## Testar
