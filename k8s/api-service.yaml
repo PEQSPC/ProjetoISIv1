@@ -9,5 +9,6 @@ spec:
     app: manager-api
   ports:
     - protocol: TCP
-      port: 80        # Port inside the cluster
-      targetPort: 80  # Port the container listens on
+      port: 80
+      targetPort: 8000  # API container listens on 8000
+      name: http

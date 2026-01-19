@@ -4,7 +4,7 @@ metadata:
   name: manager-api
   namespace: iot-sims
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: manager-api
@@ -14,15 +14,59 @@ spec:
         app: manager-api
     spec:
       serviceAccountName: sim-manager-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
       - name: api
         image: ghcr.io/peqspc/manager-api:latest
-        imagePullPolicy: Always            
+        imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 8000
+          name: http
         env:
-        # This tells the API which simulator image to use when creating pods
         - name: SIMULATOR_IMAGE
           value: "ghcr.io/peqspc/mqtt-simulator:latest"
         - name: K8s_NAMESPACE
           value: "iot-sims"
+        # JWT config from secret
+        - name: JWT_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api-secrets
+              key: jwt-secret-key
+        - name: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+          valueFrom:
+            configMapKeyRef:
+              name: api-config
+              key: jwt-expire-minutes
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop:
+              - ALL

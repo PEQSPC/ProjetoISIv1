@@ -44,3 +44,6 @@ iot-simulator-api/src/db/*.db
 .claude
 tmpclaude-*
 iot-simulator-api/db/simulations.db
+certs/*
+onboarding-k8s/certs/tls.crt
+onboarding-k8s/certs/tls.key

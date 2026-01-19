@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 import logging
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -8,6 +9,11 @@ from routes import auth_router, simulations_router, health_router
 # Configure Logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+# CORS Configuration
+# In production: ALLOWED_ORIGINS="https://iot-simulator.local,https://yourdomain.com"
+# In development: ALLOWED_ORIGINS="http://localhost:5173,http://localhost:3000"
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",")
 
 
 @asynccontextmanager
@@ -27,12 +33,13 @@ app = FastAPI(
 )
 
 # === Middleware ===
+logger.info(f"[CORS] Allowed origins: {ALLOWED_ORIGINS}")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # TODO: Restringir em produção
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # === Routers ===
