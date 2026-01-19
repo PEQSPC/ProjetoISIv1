@@ -1,22 +1,15 @@
 import { useEffect, useState } from 'react';
-import { 
-  Typography, Container, Button, Card, CardContent, 
-  TextField, Dialog, DialogTitle, DialogContent, DialogActions, 
+import {
+  Typography, Container, Button, Card, CardContent,
+  TextField, Dialog, DialogTitle, DialogContent, DialogActions,
   CircularProgress, Alert, Chip, Box, AppBar, Toolbar
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import axios from 'axios';
-
-// Configuração da API
-const API_URL = "http://localhost:8000";
-
-interface Simulation {
-  simulation_id: string;
-  status: string;
-  created_at: string;
-  duration_minutes: number;
-}
+import LogoutIcon from '@mui/icons-material/Logout';
+import api from '../api/axios';
+import { useAuth } from '../contexts/AuthContext';
+import {type Simulation } from '../types';
 
 // JSON Default para facilitar a vida ao utilizador
 const DEFAULT_JSON = JSON.stringify({
@@ -45,6 +38,7 @@ interface SimulatorManagerProps {
 }
 
 export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps) {
+  const { user, logout } = useAuth();
   const [simulations, setSimulations] = useState<Simulation[]>([]);
   const [open, setOpen] = useState(false);
   const [configJson, setConfigJson] = useState(DEFAULT_JSON);
@@ -57,7 +51,7 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
   const fetchSimulations = async () => {
     try {
       setError(null);
-      const res = await axios.get(`${API_URL}/simulations`);
+      const res = await api.get('/simulations');
       console.log("Simulações carregadas:", res.data);
       setSimulations(res.data || []);
     } catch (error) {
@@ -97,12 +91,16 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
 
     setCreating(true);
     try {
-      await axios.post(`${API_URL}/simulations`, JSON.parse(configJson));
+      await api.post('/simulations', JSON.parse(configJson));
       setOpen(false);
       setConfigJson(DEFAULT_JSON); // Reset para default
       fetchSimulations(); // Atualiza logo
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.detail || error.message || "Erro ao criar simulação";
+    } catch (error: unknown) {
+      let errorMessage = "Erro ao criar simulação";
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response?: { data?: { detail?: string } }; message?: string };
+        errorMessage = axiosError.response?.data?.detail || axiosError.message || errorMessage;
+      }
       setError(errorMessage);
       console.error("Erro ao criar:", error);
     } finally {
@@ -114,10 +112,14 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
   const handleDelete = async (simulationId: string) => {
     if(!confirm("Tens a certeza que queres parar esta simulação?")) return;
     try {
-      await axios.delete(`${API_URL}/simulations/${simulationId}`);
+      await api.delete(`/simulations/${simulationId}`);
       fetchSimulations();
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.detail || error.message || "Erro ao parar simulação";
+    } catch (error: unknown) {
+      let errorMessage = "Erro ao parar simulação";
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response?: { data?: { detail?: string } }; message?: string };
+        errorMessage = axiosError.response?.data?.detail || axiosError.message || errorMessage;
+      }
       setError(errorMessage);
       console.error("Erro ao apagar:", error);
     }
@@ -150,20 +152,37 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             IoT Manager
           </Typography>
+          {user && (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Chip
+                label={`${user.username} (${user.role})`}
+                color="default"
+                variant="outlined"
+                sx={{ color: 'white', borderColor: 'rgba(255,255,255,0.5)' }}
+              />
+              <Button
+                startIcon={<LogoutIcon />}
+                onClick={logout}
+                color="inherit"
+              >
+                Logout
+              </Button>
+            </Box>
+          )}
         </Toolbar>
       </AppBar>
       <Container sx={{ mt: 4, mb: 4 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, flexWrap: 'wrap', gap: 2 }}>
           <Typography variant="h4">Simulações Ativas</Typography>
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             onClick={() => setOpen(true)}
             sx={{ py: 1.5 }}
           >
             Nova Simulação
           </Button>
         </Box>
-        
+
         {error && (
           <Alert severity="error" onClose={() => setError(null)} sx={{ mb: 2 }}>
             {error}
@@ -187,8 +206,8 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
                     {sim.simulation_id}
                   </Typography>
                   <Box sx={{ mb: 2 }}>
-                    <Chip 
-                      label={sim.status} 
+                    <Chip
+                      label={sim.status}
                       color={sim.status === 'running' ? 'success' : 'default'}
                       size="small"
                       sx={{ mr: 1 }}
@@ -201,9 +220,9 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
                     <strong>Duração:</strong> {sim.duration_minutes} minutos
                   </Typography>
                   {sim.status !== 'stopped' && (
-                    <Button 
-                      startIcon={<DeleteIcon />} 
-                      color="error" 
+                    <Button
+                      startIcon={<DeleteIcon />}
+                      color="error"
                       variant="outlined"
                       onClick={() => handleDelete(sim.simulation_id)}
                       sx={{ mt: 2 }}
@@ -254,9 +273,9 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
           }}>
             Cancelar
           </Button>
-          <Button 
-            onClick={handleCreate} 
-            variant="contained" 
+          <Button
+            onClick={handleCreate}
+            variant="contained"
             disabled={creating || !!jsonError}
           >
             {creating ? <CircularProgress size={24} /> : 'Iniciar Simulação'}
@@ -266,4 +285,3 @@ export default function SimulatorManager({ onBackToHome }: SimulatorManagerProps
     </div>
   );
 }
-
